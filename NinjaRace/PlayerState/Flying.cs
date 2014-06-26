@@ -4,7 +4,7 @@ using System;
 
 class Flying : PlayerState
 {
-    double Gravity = 6000, Acc = 1200;
+    double Gravity = 5000, Acc = 1200;
     public Flying(Player player) : base(player) { }
     public override void Update(double dt)
     {
