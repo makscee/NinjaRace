@@ -17,6 +17,7 @@ class Player : IUpdateable, IRenderable
     public void Update(double dt)
     {
         State.Update(dt);
+        Position += Velocity * dt;
     }
 
     public void Render()

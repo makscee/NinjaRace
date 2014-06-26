@@ -31,14 +31,14 @@ class CollisionBox
             R = Math.Abs(Right - a.Left),
             D = Math.Abs(Down - a.Up),
             U = Math.Abs(Up - a.Down);
-        if (L <= R && L <= D && L <= U)
-            return Side.Left;
-        if (R <= L && R <= D && R <= U)
-            return Side.Right;
         if (D <= L && D <= R && D <= U)
             return Side.Down;
         if (U <= L && U <= R && U <= D)
             return Side.Up;
+        if (L <= R && L <= D && L <= U)
+            return Side.Left;
+        if (R <= L && R <= D && R <= U)
+            return Side.Right;
         return Side.None;
     }
 }
