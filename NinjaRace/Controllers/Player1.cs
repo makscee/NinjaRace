@@ -4,11 +4,26 @@ using System;
 
 class ControllerPlayer1 : IController
 {
-
+    //bool _NeedJump = false;
     public bool NeedJump()
     {
+        //bool t = _NeedJump;
+        //_NeedJump = false;
+        //return t;
         return Key.Space.Pressed();
     }
+
+    //public void KeyDown(Key key)
+    //{
+    //    if (key == Key.Space)
+    //        _NeedJump = true;
+    //}
+
+    //public void KeyUp(Key key)
+    //{
+    //    if (key == Key.Space)
+    //        _NeedJump = false;
+    //}
 
     public Vec2 NeedVel()
     {

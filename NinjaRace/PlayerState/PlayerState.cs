@@ -21,7 +21,7 @@ class PlayerState : IRenderable, IUpdateable
         if (Player.Controller.NeedJump())
         {
             Player.State = new Flying(Player);
-            Player.Velocity = new Vec2(Player.Velocity.X, 300);
+            Player.Velocity = new Vec2(Player.Velocity.X, Player.JumpForce);
         }
     }
     public virtual void CollideWith(Tile t)

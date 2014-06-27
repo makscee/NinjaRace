@@ -8,10 +8,11 @@ class Player : IUpdateable, IRenderable
     public PlayerState State;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
+    public double JumpForce = 300;
     public Player(IController controller)
     {
         Size = new Vec2(10, 20);
-        State = new PlayerState(this);
+        State = new Walking(this);
         Controller = controller;
     }
     public void Update(double dt)

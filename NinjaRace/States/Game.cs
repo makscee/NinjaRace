@@ -16,4 +16,13 @@ class Game : State
     {
         world.Update(dt);
     }
+    public override void KeyDown(Key key)
+    {
+        world.KeyDown(key);
+    }
+
+    public override void KeyUp(Key key)
+    {
+        world.KeyUp(key);
+    }
 }

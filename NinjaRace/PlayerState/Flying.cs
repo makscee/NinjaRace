@@ -4,7 +4,7 @@ using System;
 
 class Flying : PlayerState
 {
-    double Gravity = 5000, GAcc = 1200;
+    double Gravity = 500, GAcc = 400;
     public Flying(Player player) : base(player) { }
     public override void Update(double dt)
     {
@@ -14,5 +14,12 @@ class Flying : PlayerState
     public override void Render()
     {
         Draw.Rect(Player.Position + Player.Size, Player.Position - Player.Size, Color.Red);
+    }
+    public override void CollideWith(Tile t)
+    {
+        Side s = Player.Box.Collide(t.Box);
+        if (s == Side.Right || s == Side.Left)
+            Player.State = new WallGrab(Player, s);
+        base.CollideWith(t);
     }
 }
