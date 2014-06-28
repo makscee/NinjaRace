@@ -4,12 +4,11 @@ using System;
 
 class Flying : PlayerState
 {
-    double Gravity = 500, GAcc = 1600;
     public Flying(Player player) : base(player) { }
     public override void Update(double dt)
     {
-        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Speed, 0), Acc * dt);
-        Player.Velocity -= Vec2.Clamp(new Vec2(0, Player.Velocity.Y + Gravity), GAcc * dt);
+        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Player.Speed, 0), Player.Acc * dt);
+        Player.Velocity -= Vec2.Clamp(new Vec2(0, Player.Velocity.Y + Player.Gravity), Player.GAcc * dt);
     }
     public override void Render()
     {

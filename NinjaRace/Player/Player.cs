@@ -6,9 +6,9 @@ class Player : IUpdateable, IRenderable
 {
     public Vec2 Position, Velocity, Size;
     public PlayerState State;
+    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
-    public double JumpForce = 400;
 
     public Player(IController controller)
     {

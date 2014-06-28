@@ -5,7 +5,6 @@ using System;
 class PlayerState : IRenderable, IUpdateable
 {
     protected Player Player;
-    protected double Speed = 150, Acc = 900;
     public PlayerState(Player Player)
     {
         this.Player = Player;
@@ -17,7 +16,7 @@ class PlayerState : IRenderable, IUpdateable
 
     public virtual void Update(double dt)
     {
-        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Speed, 0), Acc * dt);
+        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Player.Speed, 0), Player.Acc * dt);
     }
     public virtual void Jump()
     {
