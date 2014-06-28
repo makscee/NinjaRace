@@ -19,6 +19,8 @@ class Game : State
     public override void KeyDown(Key key)
     {
         world.KeyDown(key);
+        if (key == Key.R)
+            world = new World();
     }
 
     public override void KeyUp(Key key)

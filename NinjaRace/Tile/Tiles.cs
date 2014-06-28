@@ -41,8 +41,39 @@ class Tiles : IRenderable
     }
     public void PlayerFlyCheck(Player p)
     {
-        Vec2 p1 = p.Position - p.Size - new Vec2(0, 1), p2 = p.Position - new Vec2(-p.Size.X, p.Size.Y + 1);
-        int j1 = (int)Math.Round(p1.X / Tile.Size.X / 2), j2 = (int)Math.Round(p2.X / Tile.Size.X / 2), i1 = (int)Math.Round(p1.Y / Tile.Size.Y / 2), i2 = (int)Math.Round(p2.Y / Tile.Size.Y / 2);
+        Vec2 p1, p2;
+        int j1, j2, i1, i2;
+        if (p.State is WallGrab)
+        {
+            p1 = p.Position + p.Size + new Vec2(1, 0);
+            p2 = p.Position + new Vec2(-p.Size.X - 1, p.Size.Y);
+            j1 = (int)Math.Round(p1.X / Tile.Size.X / 2);
+            j2 = (int)Math.Round(p2.X / Tile.Size.X / 2);
+            i1 = (int)Math.Round(p1.Y / Tile.Size.Y / 2);
+            i2 = (int)Math.Round(p2.Y / Tile.Size.Y / 2);
+            if (!(i1 >= 0 && j1 >= 0 && i1 < tiles.GetLength(0) && j1 <= tiles.GetLength(1) && tiles[i1, j1] != null
+                || i2 >= 0 && j2 >= 0 && i2 < tiles.GetLength(0) && j2 <= tiles.GetLength(1) && tiles[i2, j2] != null))
+            {
+                p1 = p.Position - p.Size + new Vec2(-1, 0);
+                p2 = p.Position - new Vec2(-p.Size.X - 1, p.Size.Y);
+                j1 = (int)Math.Round(p1.X / Tile.Size.X / 2);
+                j2 = (int)Math.Round(p2.X / Tile.Size.X / 2);
+                i1 = (int)Math.Round(p1.Y / Tile.Size.Y / 2);
+                i2 = (int)Math.Round(p2.Y / Tile.Size.Y / 2);
+                if (!(i1 >= 0 && j1 >= 0 && i1 < tiles.GetLength(0) && j1 <= tiles.GetLength(1) && tiles[i1, j1] != null
+                    || i2 >= 0 && j2 >= 0 && i2 < tiles.GetLength(0) && j2 <= tiles.GetLength(1) && tiles[i2, j2] != null))
+                {
+                    p.State = new Flying(p);
+                    return;
+                }
+            }
+        }
+        p1 = p.Position - p.Size - new Vec2(0, 1);
+        p2 = p.Position - new Vec2(-p.Size.X, p.Size.Y + 1);
+        j1 = (int)Math.Round(p1.X / Tile.Size.X / 2);
+        j2 = (int)Math.Round(p2.X / Tile.Size.X / 2);
+        i1 = (int)Math.Round(p1.Y / Tile.Size.Y / 2);
+        i2 = (int)Math.Round(p2.Y / Tile.Size.Y / 2);
         if (i1 >= 0 && j1 >= 0 && i1 < tiles.GetLength(0) && j1 <= tiles.GetLength(1) && tiles[i1, j1] != null
             || i2 >= 0 && j2 >= 0 && i2 < tiles.GetLength(0) && j2 <= tiles.GetLength(1) && tiles[i2, j2] != null)
         {
