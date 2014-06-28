@@ -5,13 +5,38 @@ using System;
 class World : IRenderable, IUpdateable
 {
 
-    Player player = new Player(new ControllerPlayer1());
+    Player player;
     Tiles tiles = new Tiles();
-    Camera cam = new Camera(240);
+    public Camera cam = new Camera(240);
+    public Vec2 camOffset = Vec2.Zero;
 
-    public World()
+    public World(int mode)
     {
-        player.Position = new Vec2(100, 100);
+        switch (mode)
+        {
+            case 1:
+                {
+                    player = new Player(new ControllerPlayer1());
+                    camOffset = new Vec2(0, 120);
+                    player.Position = new Vec2(100, 100);
+                    cam.FOV = 400;
+                    break;
+                }
+            case 2:
+                {
+                    player = new Player(new ControllerPlayer2());
+                    camOffset = new Vec2(0, -120);
+                    player.Position = new Vec2(100, 100);
+                    cam.FOV = 400;
+                    break;
+                }
+            default:
+                {
+                    player = new Player(new ControllerPlayer1());
+                    player.Position = new Vec2(100, 100);
+                    break;
+                }
+        }
         for (int i = 0; i < 20; i++)
             tiles.Add(1, i);
         for (int i = 1; i < 5; i++)
@@ -21,7 +46,9 @@ class World : IRenderable, IUpdateable
 
     public void Render()
     {
-        cam.Apply();
+        Camera camt = new Camera(cam.FOV);
+        camt.Position = cam.Position + camOffset;
+        camt.Apply();
         tiles.Render();
         player.Render();
     }

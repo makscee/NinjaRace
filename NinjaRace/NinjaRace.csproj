@@ -50,6 +50,7 @@
     <Compile Include="Collision\CollisionBox.cs" />
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Player1.cs" />
+    <Compile Include="Controllers\Player2.cs" />
     <Compile Include="PlayerState\Flying.cs" />
     <Compile Include="PlayerState\PlayerState.cs" />
     <Compile Include="PlayerState\Walking.cs" />
