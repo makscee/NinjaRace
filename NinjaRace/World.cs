@@ -35,10 +35,10 @@ class World : IRenderable, IUpdateable
     }
     public void KeyDown(Key key)
     {
-        //player.Controller.KeyDown(key);
+        player.Controller.KeyDown(key);
     }
     public void KeyUp(Key key)
     {
-        //player.Controller.KeyUp(key);
+        player.Controller.KeyUp(key);
     }
 }

@@ -30,12 +30,12 @@ class WallGrab : PlayerState
     public override void Update(double dt)
     {
         Player.Velocity -= Vec2.Clamp(Player.Velocity - new Vec2(0, -1) * DropSpeed, DropAcc * dt);
-        if (Player.Controller.NeedJump())
-        {
-            if (side == Side.Left)
-                Player.Velocity = Vec2.Rotate(new Vec2(0, Player.JumpForce), -Math.PI / 4);
-            else Player.Velocity = Vec2.Rotate(new Vec2(0, Player.JumpForce), Math.PI / 4);
-            Player.State = new Flying(Player);
-        }
+    }
+    public override void Jump()
+    {
+        if (side == Side.Left)
+            Player.Velocity = Vec2.Rotate(new Vec2(0, Player.JumpForce), -Math.PI / 4) * 1.5;
+        else Player.Velocity = Vec2.Rotate(new Vec2(0, Player.JumpForce), Math.PI / 4) * 1.5;
+        Player.State = new Flying(Player);
     }
 }

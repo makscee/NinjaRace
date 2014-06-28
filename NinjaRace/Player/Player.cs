@@ -8,7 +8,8 @@ class Player : IUpdateable, IRenderable
     public PlayerState State;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
-    public double JumpForce = 300;
+    public double JumpForce = 400;
+
     public Player(IController controller)
     {
         Size = new Vec2(10, 20);
@@ -17,6 +18,8 @@ class Player : IUpdateable, IRenderable
     }
     public void Update(double dt)
     {
+        if (Controller.NeedJump())
+            State.Jump();
         State.Update(dt);
         Position += Velocity * dt;
     }
