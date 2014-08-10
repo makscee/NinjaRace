@@ -12,15 +12,21 @@ class Game : State
         world2 = new World(2);
     }
 
+    Texture w1, w2;
+
     public override void Render()
     {
         //new Camera(240).Apply();
-        Draw.Clear(Color.Black);
-        Texture w1 = new Texture(Draw.Width, Draw.Height), w2 = new Texture(Draw.Width, Draw.Height);
+        if (w1 == null || w1.Width != Draw.Width || w1.Height != Draw.Height)
+            w1 = new Texture(Draw.Width, Draw.Height);
+        if (w2 == null || w2.Width != Draw.Width || w2.Height != Draw.Height)
+            w2 = new Texture(Draw.Width, Draw.Height);
         Draw.BeginTexture(w1);
+        Draw.Clear(Color.Black);
         world1.Render();
         Draw.EndTexture();
         Draw.BeginTexture(w2);
+        Draw.Clear(Color.Black);
         world2.Render();
         Draw.EndTexture();
 

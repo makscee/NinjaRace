@@ -14,13 +14,6 @@ class Flying : PlayerState
     {
         Draw.Rect(Player.Position + Player.Size, Player.Position - Player.Size, Color.Red);
     }
-    public override void CollideWith(Tile t)
-    {
-        Side s = Player.Box.Collide(t.Box);
-        if (s == Side.Right || s == Side.Left)
-            Player.State = new WallGrab(Player, s);
-        base.CollideWith(t);
-    }
     public override void Jump()
     {
     }

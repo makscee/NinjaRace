@@ -55,6 +55,7 @@
     <Compile Include="PlayerState\PlayerState.cs" />
     <Compile Include="PlayerState\Walking.cs" />
     <Compile Include="PlayerState\WallGrab.cs" />
+    <Compile Include="Player\CollisionCalculation.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StateManager.cs" />

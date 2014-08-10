@@ -23,35 +23,4 @@ class PlayerState : IRenderable, IUpdateable
         Player.State = new Flying(Player);
         Player.Velocity = new Vec2(Player.Velocity.X, Player.JumpForce);
     }
-    public virtual void CollideWith(Tile t)
-    {
-        Side s = Player.Box.Collide(t.Box);
-        switch (s)
-        {
-            case Side.Right:
-                {
-                    Player.Position = new Vec2(t.Position.X - Tile.Size.X - Player.Size.X, Player.Position.Y);
-                    Player.Velocity = new Vec2(0, Player.Velocity.Y);
-                    break;
-                }
-            case Side.Left:
-                {
-                    Player.Position = new Vec2(t.Position.X + Tile.Size.X + Player.Size.X, Player.Position.Y);
-                    Player.Velocity = new Vec2(0, Player.Velocity.Y);
-                    break;
-                }
-            case Side.Up:
-                {
-                    Player.Position = new Vec2(Player.Position.X, t.Position.Y - Tile.Size.Y - Player.Size.Y);
-                    Player.Velocity = new Vec2(Player.Velocity.X, 0);
-                    break;
-                }
-            case Side.Down:
-                {
-                    Player.Position = new Vec2(Player.Position.X, t.Position.Y + Tile.Size.Y + Player.Size.Y);
-                    Player.Velocity = new Vec2(Player.Velocity.X, 0);
-                    break;
-                }
-        }
-    }
 }

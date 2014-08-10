@@ -25,17 +25,10 @@ class WallGrab : PlayerState
         }
     }
 
-    double DropSpeed = 50, DropAcc = 150;
-
     public override void Update(double dt)
     {
-        Player.Velocity -= Vec2.Clamp(Player.Velocity - new Vec2(0, -1) * DropSpeed, DropAcc * dt);
-        if ((Player.Controller.NeedVel().X == 1 && side == Side.Left) || (Player.Controller.NeedVel().X == -1 && side == Side.Right))
-        {
-            Player.Position += Player.Controller.NeedVel();
-            Player.State = new Flying(Player);
-        }
-
+        Player.Velocity -= Vec2.Clamp(Player.Velocity - new Vec2(0, -1) * Player.DropSpeed, Player.DropAcc * dt);
+        base.Update(dt);
     }
     public override void Jump()
     {

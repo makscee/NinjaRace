@@ -1,8 +1,8 @@
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.exe.config
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.exe
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.pdb
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.dll
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.dll
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.csprojResolveAssemblyReference.cache
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.exe
-C:\Users\admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.pdb
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.exe.config
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.exe
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.pdb
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\obj\Debug\NinjaRace.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.exe
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.pdb
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.dll
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.dll

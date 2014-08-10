@@ -38,10 +38,10 @@ class World : IRenderable, IUpdateable
                 }
         }
         for (int i = 0; i < 20; i++)
-            tiles.Add(1, i);
+            tiles.AddTile(1, i);
         for (int i = 1; i < 5; i++)
-            tiles.Add(i, 1);
-        tiles.Add(2, 5);
+            tiles.AddTile(i, 1);
+        tiles.AddTile(2, 5);
     }
 
     public void Render()
@@ -55,9 +55,10 @@ class World : IRenderable, IUpdateable
 
     public void Update(double dt)
     {
+        player.CalculateCollisions(tiles);
+        player.CollisionHits();
+        player.StateChangeCheck();
         player.Update(dt);
-        tiles.PlayerCollision(player);
-        tiles.PlayerFlyCheck(player);
         cam.Position += (player.Position - cam.Position) * dt * 10;
     }
     public void KeyDown(Key key)

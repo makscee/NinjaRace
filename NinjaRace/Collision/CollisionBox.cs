@@ -18,6 +18,12 @@ class CollisionBox
     }
     public static bool Collide(CollisionBox a, CollisionBox b)
     {
+        if (b.Right + 1 < a.Left || b.Left - 1 > a.Right || b.Down - 1 > a.Up || b.Up + 1 < a.Down)
+            return false;
+        return true;
+    }
+    public static bool CollideThrough(CollisionBox a, CollisionBox b)
+    {
         if (b.Right < a.Left || b.Left > a.Right || b.Down > a.Up || b.Up < a.Down)
             return false;
         return true;
@@ -41,4 +47,5 @@ class CollisionBox
             return Side.Right;
         return Side.None;
     }
+    
 }
