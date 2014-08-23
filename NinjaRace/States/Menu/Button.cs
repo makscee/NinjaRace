@@ -58,10 +58,7 @@ class Button : IRenderable
 
     private bool Hit()
     {
-        Vec2 pos = Mouse.Position;
-        pos += new Vec2(0, -240);
-        pos -= new Vec2(320, 0);
-        pos /= 2;
+        Vec2 pos = Program.MousePosition();
         if (pos.X < position.X + size.X && pos.X > position.X - size.X && pos.Y < position.Y + size.Y && pos.Y > position.Y - size.Y)
             return true;
         return false;

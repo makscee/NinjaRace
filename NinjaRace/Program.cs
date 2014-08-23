@@ -18,4 +18,13 @@ class Program
         App.VSync = VSync;
         App.Run(Manager);
     }
+
+    public static Vec2 MousePosition()
+    {
+        Vec2 pos = Mouse.Position;
+        pos += new Vec2(0, -240);
+        pos -= new Vec2(320, 0);
+        pos /= 2;
+        return pos;
+    }
 }

@@ -3,12 +3,14 @@ using VitPro.Engine;
 using System;
 using System.Collections.Generic;
 
+[Serializable]
 class Tiles : IRenderable
 {
-    private Tile[,] tiles = new Tile[10, 50];
+    private Tile[,] tiles;
 
-    public Tiles()
+    public Tiles(int sizex, int sizey)
     {
+        tiles = new Tile[sizex, sizey];
     }
 
     public void AddTile(int i, int j)
@@ -22,6 +24,7 @@ class Tiles : IRenderable
 
     public void AddTileCustom(int i, int j, Tile tile)
     {
+        tile = (Tile)tile.Clone();
         if (i <= 0 || j <= 0)
             return;
         if (i >= tiles.GetLength(0) || j >= tiles.GetLength(1))

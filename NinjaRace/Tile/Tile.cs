@@ -2,7 +2,7 @@
 using VitPro.Engine;
 using System;
 
-class Tile :IRenderable
+class Tile : IRenderable, ICloneable
 {
     public static Vec2 Size = new Vec2(15, 15);
     private Vec2 _Position;
@@ -36,5 +36,10 @@ class Tile :IRenderable
 
     public virtual void Effect(Player player)
     {
+    }
+
+    public virtual object Clone()
+    {
+        return new Tile();
     }
 }

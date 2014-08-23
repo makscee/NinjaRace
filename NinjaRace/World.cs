@@ -6,7 +6,7 @@ class World : IRenderable, IUpdateable
 {
 
     Player player;
-    Tiles tiles = new Tiles();
+    Tiles tiles = new Tiles(10, 50);
     public Camera cam = new Camera(240);
     public Vec2 camOffset = Vec2.Zero;
 
