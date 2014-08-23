@@ -36,8 +36,7 @@ class EnterField : IRenderable
 
     public void Click()
     {
-        if (Hit())
-            focused = true;
+        focused = Hit();
     }
 
     public virtual void Enter(Key key)
