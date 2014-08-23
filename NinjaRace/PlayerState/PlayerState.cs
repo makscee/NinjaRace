@@ -4,23 +4,33 @@ using System;
 
 class PlayerState : IRenderable, IUpdateable
 {
-    protected Player Player;
+    protected Player player;
     public PlayerState(Player Player)
     {
-        this.Player = Player;
+        this.player = Player;
     }
     public virtual void Render()
     {
-        Draw.Rect(Player.Position + Player.Size, Player.Position - Player.Size, Color.White);
+        Draw.Rect(player.Position + player.Size, player.Position - player.Size, Color.White);
     }
 
     public virtual void Update(double dt)
     {
-        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Player.Speed, 0), Player.Acc * dt);
+        player.Velocity -= Vec2.Clamp(new Vec2(player.Velocity.X - player.Controller.NeedVel().X * player.Speed, 0), player.Acc * dt);
     }
     public virtual void Jump()
     {
-        Player.State = new Flying(Player);
-        Player.Velocity = new Vec2(Player.Velocity.X, Player.JumpForce);
+        player.State = new Flying(player);
+        player.Velocity = new Vec2(player.Velocity.X, player.JumpForce);
+    }
+
+    public virtual void SpeedUp(Vec2 dir)
+    {
+
+    }
+
+    public virtual void Die(Vec2 position)
+    {
+        player.State = new Dead(player, position);
     }
 }

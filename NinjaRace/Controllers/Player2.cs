@@ -29,6 +29,8 @@ class ControllerPlayer2 : IController
         Vec2 t = Vec2.Zero;
         t += Key.Left.Pressed() ? new Vec2(-1, 0) : Vec2.Zero;
         t += Key.Right.Pressed() ? new Vec2(1, 0) : Vec2.Zero;
+        t += Key.Down.Pressed() ? new Vec2(0, -1) : Vec2.Zero;
+        t += Key.Up.Pressed() ? new Vec2(0, 1) : Vec2.Zero;
         return t;
     }
 }

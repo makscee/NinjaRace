@@ -13,7 +13,7 @@ class Program
     static void Main()
     {
         Manager = new MyManager(new Game());
-        App.Fullscreen = false;
+        App.Fullscreen = true;
         App.VSync = VSync;
         //font.Smooth = false;
         App.Run(Manager);

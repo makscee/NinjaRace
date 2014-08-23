@@ -42,6 +42,9 @@ class World : IRenderable, IUpdateable
         for (int i = 1; i < 5; i++)
             tiles.AddTile(i, 1);
         tiles.AddTile(2, 5);
+        tiles.AddTileCustom(2, 7, new Spikes());
+        tiles.AddTile(2, 9);
+        tiles.AddTile(3, 9);
     }
 
     public void Render()
@@ -56,10 +59,18 @@ class World : IRenderable, IUpdateable
     public void Update(double dt)
     {
         player.CalculateCollisions(tiles);
-        player.CollisionHits();
-        player.StateChangeCheck();
         player.Update(dt);
         cam.Position += (player.Position - cam.Position) * dt * 10;
+        player.Position += player.Velocity * dt;
+
+        foreach (var a in player.collisions[Side.Left])
+            a.Effect(player);
+        foreach (var a in player.collisions[Side.Down])
+            a.Effect(player);
+        foreach (var a in player.collisions[Side.Right])
+            a.Effect(player);
+        foreach (var a in player.collisions[Side.Up])
+            a.Effect(player);
     }
     public void KeyDown(Key key)
     {

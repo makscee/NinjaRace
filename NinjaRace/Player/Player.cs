@@ -5,12 +5,23 @@ using System.Collections.Generic;
 
 partial class Player : IUpdateable, IRenderable
 {
-    public Vec2 Position, Velocity, Size;
+    public Vec2 Position, Size;
+    private Vec2 _Velocity, _SpeedUp;
     public PlayerState State;
-    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400, DropSpeed = 50, DropAcc = 150;
+    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400, DropSpeed = 50, DropAcc = 150, SpeedUpAcc = 100;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
+
+    public Vec2 Velocity
+    {
+        get { return _Velocity + _SpeedUp * SpeedUpAcc; }
+        set { _Velocity = value; }
+    }
+    public Vec2 SpeedUp
+    {
+        set { _SpeedUp = value; }
+    }
 
     public Player(IController controller)
     {
@@ -24,14 +35,17 @@ partial class Player : IUpdateable, IRenderable
     }
     public void Update(double dt)
     {
+        CollisionHits();
+        StateChangeCheck();
         if (Controller.NeedJump())
             State.Jump();
         State.Update(dt);
-        Position += Velocity * dt;
     }
 
     public void StateChangeCheck()
     {
+        if(State is Dead)
+            return;
         if (collisions[Side.Left].Count == 0 &&
            collisions[Side.Right].Count == 0 &&
            collisions[Side.Down].Count == 0)
@@ -62,5 +76,12 @@ partial class Player : IUpdateable, IRenderable
     public void Render()
     {
         State.Render();
+        foreach (var a in collisions)
+        {
+            foreach (var b in a.Value)
+            {
+                Draw.Rect(b.Position + Tile.Size, b.Position - Tile.Size, Color.Green);
+            }
+        }
     }
 }

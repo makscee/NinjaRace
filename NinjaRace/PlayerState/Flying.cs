@@ -7,12 +7,12 @@ class Flying : PlayerState
     public Flying(Player player) : base(player) { }
     public override void Update(double dt)
     {
-        Player.Velocity -= Vec2.Clamp(new Vec2(Player.Velocity.X - Player.Controller.NeedVel().X * Player.Speed, 0), Player.Acc * dt);
-        Player.Velocity -= Vec2.Clamp(new Vec2(0, Player.Velocity.Y + Player.Gravity), Player.GAcc * dt);
+        player.Velocity -= Vec2.Clamp(new Vec2(player.Velocity.X - player.Controller.NeedVel().X * player.Speed, 0), player.Acc * dt);
+        player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
     }
     public override void Render()
     {
-        Draw.Rect(Player.Position + Player.Size, Player.Position - Player.Size, Color.Red);
+        Draw.Rect(player.Position + player.Size, player.Position - player.Size, Color.Red);
     }
     public override void Jump()
     {

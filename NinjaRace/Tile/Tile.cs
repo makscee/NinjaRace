@@ -5,9 +5,17 @@ using System;
 class Tile :IRenderable
 {
     public static Vec2 Size = new Vec2(15, 15);
-    public Vec2 Position;
+    private Vec2 _Position;
+
+    public Vec2 Position 
+    {
+        get { return _Position; }
+        set { _Position = value; Box = new CollisionBox(Position, Size); }
+    }
 
     public CollisionBox Box;
+
+    public Tile() { }
 
     public Tile(Vec2 Position)
     {
@@ -21,8 +29,12 @@ class Tile :IRenderable
         Box = new CollisionBox(Position, Size);
     }
 
-    public void Render()
+    public virtual void Render()
     {
         Draw.Rect(Position + Size, Position - Size, Color.White);
+    }
+
+    public virtual void Effect(Player player)
+    {
     }
 }
