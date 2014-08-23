@@ -33,6 +33,9 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\font.TTF">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -51,6 +54,9 @@
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Controllers\Player1.cs" />
     <Compile Include="Controllers\Player2.cs" />
+    <Compile Include="Level Editor\LevelEditor.cs" />
+    <Compile Include="Menu\Button.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="PlayerState\Dead.cs" />
     <Compile Include="PlayerState\Flying.cs" />
     <Compile Include="PlayerState\PlayerState.cs" />
@@ -61,6 +67,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="States\Game.cs" />
+    <Compile Include="States\MainMenu.cs" />
     <Compile Include="Tile\Spikes.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="Tile\Tiles.cs" />

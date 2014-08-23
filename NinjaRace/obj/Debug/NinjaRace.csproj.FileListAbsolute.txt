@@ -6,3 +6,4 @@ C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.exe
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.pdb
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.dll
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.dll
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\font.TTF
