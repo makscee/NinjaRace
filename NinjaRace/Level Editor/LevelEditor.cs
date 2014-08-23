@@ -4,5 +4,5 @@ using System;
 
 class LevelEditor : State
 {
-
+    public LevelEditor(int sizex, int sizey) { }
 }

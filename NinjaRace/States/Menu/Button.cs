@@ -6,8 +6,8 @@ class Button : IRenderable
 {
     private Action action;
     private Vec2 position, size;
-    private Texture text;
-    private Color backGroundColor = Color.Gray, textColor = Color.Green;
+    private Texture name;
+    private Color backGroundColor = new Color(0.7, 0.7, 0.7), textColor = Color.Green;
 
     public Button(Vec2 position, Vec2 size)
     {
@@ -21,9 +21,9 @@ class Button : IRenderable
         return this;
     }
 
-    public Button SetText(string text)
+    public Button SetName(string name)
     {
-        this.text = Program.font.MakeTexture(text);
+        this.name = Program.font.MakeTexture(name);
         return this;
     }
 
@@ -36,22 +36,23 @@ class Button : IRenderable
 
     public void Click()
     {
-        if(action != null)
+        if(action != null && Hit())
             action();
     }
 
     public void Render()
     {
-        Color t = Hit() ? new Color(Math.Min(backGroundColor.R * 2, 1d), Math.Min(backGroundColor.G * 2, 1d), Math.Min(backGroundColor.B * 2, 1d)) :
-            backGroundColor;
+        Color t = Hit() ? 
+            new Color(Math.Min(backGroundColor.R * 1.5, 1d), Math.Min(backGroundColor.G * 1.5, 1d), Math.Min(backGroundColor.B * 1.5, 1d))
+            : backGroundColor;
         Draw.Rect(position - size, position + size, t);
         Draw.Save();
         Draw.Color(textColor);
         Draw.Translate(position);
-        Draw.Scale((double)text.Width / (double)text.Height, 1);
-        Draw.Scale(size.Y - 4);
+        Draw.Scale((double)name.Width / (double)name.Height, 1);
+        Draw.Scale(size.Y - 2);
         Draw.Align(0.5, 0.5);
-        text.Render();
+        name.Render();
         Draw.Load();
     }
 

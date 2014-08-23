@@ -12,10 +12,10 @@ class Program
 
     static void Main()
     {
+        font.Smooth = false;
         Manager = new MyManager(new MainMenu());
         App.Fullscreen = false;
         App.VSync = VSync;
-        font.Smooth = false;
         App.Run(Manager);
     }
 }

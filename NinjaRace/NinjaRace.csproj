@@ -51,17 +51,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collision\CollisionBox.cs" />
-    <Compile Include="Controllers\IController.cs" />
-    <Compile Include="Controllers\Player1.cs" />
-    <Compile Include="Controllers\Player2.cs" />
+    <Compile Include="Level Editor\LevelEditorMenu.cs" />
+    <Compile Include="Player\Controllers\IController.cs" />
+    <Compile Include="Player\Controllers\Player1.cs" />
+    <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level Editor\LevelEditor.cs" />
-    <Compile Include="Menu\Button.cs" />
-    <Compile Include="Menu\Menu.cs" />
-    <Compile Include="PlayerState\Dead.cs" />
-    <Compile Include="PlayerState\Flying.cs" />
-    <Compile Include="PlayerState\PlayerState.cs" />
-    <Compile Include="PlayerState\Walking.cs" />
-    <Compile Include="PlayerState\WallGrab.cs" />
+    <Compile Include="States\Menu\Button.cs" />
+    <Compile Include="States\Menu\EnterField.cs" />
+    <Compile Include="States\Menu\Menu.cs" />
+    <Compile Include="Player\PlayerState\Dead.cs" />
+    <Compile Include="Player\PlayerState\Flying.cs" />
+    <Compile Include="Player\PlayerState\PlayerState.cs" />
+    <Compile Include="Player\PlayerState\Walking.cs" />
+    <Compile Include="Player\PlayerState\WallGrab.cs" />
     <Compile Include="Player\CollisionCalculation.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
