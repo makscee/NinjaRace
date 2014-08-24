@@ -31,5 +31,7 @@ class Menu : State
     {
         foreach (var a in fields)
             a.Enter(key);
+        if (key == Key.Escape)
+            Close();
     }
 }

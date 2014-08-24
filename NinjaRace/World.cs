@@ -7,7 +7,7 @@ class World : IRenderable, IUpdateable
 
     Player player;
     Tiles tiles = new Tiles(10, 50);
-    public Camera cam = new Camera(240);
+    public Camera cam = new Camera(360);
     public Vec2 camOffset = Vec2.Zero;
 
     public World(int mode)
@@ -20,7 +20,7 @@ class World : IRenderable, IUpdateable
                     player = new Player(new ControllerPlayer1());
                     camOffset = new Vec2(0, 120);
                     player.Position = new Vec2(100, 100);
-                    cam.FOV = 400;
+                    cam.FOV *= 1.5;
                     break;
                 }
             case 2:
@@ -28,7 +28,7 @@ class World : IRenderable, IUpdateable
                     player = new Player(new ControllerPlayer2());
                     camOffset = new Vec2(0, -120);
                     player.Position = new Vec2(100, 100);
-                    cam.FOV = 400;
+                    cam.FOV *= 1.5;
                     break;
                 }
             default:

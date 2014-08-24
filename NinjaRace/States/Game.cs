@@ -5,18 +5,61 @@ using System;
 class Game : State
 {
     World world1, world2;
+    bool multiplayer;
 
-    public Game()
+    public Game(bool multiplayer)
     {
-        world1 = new World(1);
-        world2 = new World(2);
+        this.multiplayer = multiplayer;
+        if (multiplayer)
+        {
+            world1 = new World(1);
+            world2 = new World(2);
+        }
+        else world1 = new World(0);
     }
 
     Texture w1, w2;
 
     public override void Render()
     {
-        //new Camera(240).Apply();
+        if (multiplayer)
+            MultiRender();
+        else SingleRender();
+    }
+    public override void Update(double dt)
+    {
+        world1.Update(dt);
+        if(multiplayer)
+            world2.Update(dt);
+    }
+    public override void KeyDown(Key key)
+    {
+        world1.KeyDown(key);
+        if(multiplayer)
+            world2.KeyDown(key);
+        if (key == Key.R)
+        {
+            if (multiplayer)
+            {
+                world1 = new World(1);
+                world2 = new World(2);
+            }
+            else world1 = new World(0);
+        }
+        if (key == Key.Escape)
+            Close();
+            
+    }
+
+    public override void KeyUp(Key key)
+    {
+        world1.KeyUp(key);
+        if (multiplayer)
+            world2.KeyUp(key);
+    }
+
+    void MultiRender()
+    {
         if (w1 == null || w1.Width != Draw.Width || w1.Height != Draw.Height)
             w1 = new Texture(Draw.Width, Draw.Height);
         if (w2 == null || w2.Width != Draw.Width || w2.Height != Draw.Height)
@@ -44,26 +87,9 @@ class Game : State
         w2.Render();
         Draw.Load();
     }
-    public override void Update(double dt)
+    void SingleRender()
     {
-        world1.Update(dt);
-        world2.Update(dt);
-    }
-    public override void KeyDown(Key key)
-    {
-        world1.KeyDown(key);
-        world2.KeyDown(key);
-        if (key == Key.R)
-        {
-            world1 = new World(1);
-            world2 = new World(2);
-        }
-            
-    }
-
-    public override void KeyUp(Key key)
-    {
-        world2.KeyUp(key);
-        world1.KeyUp(key);
+        Draw.Clear(Color.Black);
+        world1.Render();
     }
 }
