@@ -71,6 +71,8 @@ class LevelEditor : State
             currentTile = new Ground();
         if (key == Key.Number3)
             currentTile = new Spikes();
+        if (key == Key.Number4)
+            currentTile = new JumpTile();
 
         if (key == Key.W)
             cam.FOV /= 1.2;
@@ -93,7 +95,7 @@ class LevelEditor : State
             for (int j = 1; j < tiles.GetLength(1); j++)
                 if (tiles.GetTile(i, j) == null)
                     Draw.Rect(new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) - Tile.Size * 0.9
-                        , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.2, 0.2, 0.2));
+                        , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
         tiles.Render();
     }
 
@@ -126,6 +128,11 @@ class LevelEditor : State
         if (currentTile is Spikes)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
         new Spikes().SetPosition(v).Render();
+
+        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 7);
+        if (currentTile is JumpTile)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+        new JumpTile().SetPosition(v).Render();
 
         Draw.Load();
     }

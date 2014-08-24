@@ -57,13 +57,13 @@ class World : IRenderable, IUpdateable
         player.Position += player.Velocity * dt;
 
         foreach (var a in player.collisions[Side.Left])
-            a.Effect(player);
+            a.Effect(player, Side.Left);
         foreach (var a in player.collisions[Side.Down])
-            a.Effect(player);
+            a.Effect(player, Side.Down);
         foreach (var a in player.collisions[Side.Right])
-            a.Effect(player);
+            a.Effect(player, Side.Right);
         foreach (var a in player.collisions[Side.Up])
-            a.Effect(player);
+            a.Effect(player, Side.Up);
     }
     public void KeyDown(Key key)
     {

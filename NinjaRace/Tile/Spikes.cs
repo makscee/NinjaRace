@@ -10,7 +10,7 @@ class Spikes : Tile
         Draw.Rect(Position + Size, Position - Size, Color.Gray);
     }
 
-    public override void Effect(Player player)
+    public override void Effect(Player player, Side side)
     {
         player.State.Die(Position);
     }

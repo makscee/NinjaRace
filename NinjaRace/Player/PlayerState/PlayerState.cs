@@ -29,6 +29,12 @@ class PlayerState : IRenderable, IUpdateable
 
     }
 
+    public virtual void TileJump()
+    {
+        player.State = new Flying(player);
+        player.Velocity = new Vec2(0, player.JumpForce * 2);
+    }
+
     public virtual void Die(Vec2 position)
     {
         player.State = new Dead(player, position);
