@@ -7,7 +7,7 @@ class WallGrab : PlayerState
     Side side;
     public WallGrab(Player player, Side side) : base(player) 
     {
-        player.Velocity = Vec2.Zero;
+        player.Velocity = new Vec2(0, player.Velocity.Y);
         this.side = side;
     }
 

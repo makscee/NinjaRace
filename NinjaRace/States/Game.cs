@@ -53,6 +53,12 @@ class Game : State
     {
         world1.KeyDown(key);
         world2.KeyDown(key);
+        if (key == Key.R)
+        {
+            world1 = new World(1);
+            world2 = new World(2);
+        }
+            
     }
 
     public override void KeyUp(Key key)

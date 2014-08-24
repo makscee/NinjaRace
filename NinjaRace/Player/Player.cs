@@ -8,7 +8,7 @@ partial class Player : IUpdateable, IRenderable
     public Vec2 Position, Size;
     private Vec2 _Velocity, _SpeedUp;
     public PlayerState State;
-    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400, DropSpeed = 50, DropAcc = 150, SpeedUpAcc = 100;
+    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400, DropSpeed = 50, DropAcc = 1200, SpeedUpAcc = 100;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
