@@ -37,14 +37,6 @@ class World : IRenderable, IUpdateable
                     break;
                 }
         }
-        for (int i = 0; i < 20; i++)
-            tiles.AddTile(1, i);
-        for (int i = 1; i < 5; i++)
-            tiles.AddTile(i, 1);
-        tiles.AddTile(2, 5);
-        tiles.AddTileCustom(2, 7, new Spikes());
-        tiles.AddTile(2, 9);
-        tiles.AddTile(3, 9);
     }
 
     public void Render()

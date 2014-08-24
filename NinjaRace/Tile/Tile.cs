@@ -13,6 +13,12 @@ class Tile : IRenderable, ICloneable
         set { _Position = value; Box = new CollisionBox(Position, Size); }
     }
 
+    public Tile SetPosition(Vec2 pos)
+    {
+        Position = pos;
+        return this;
+    }
+
     public CollisionBox Box;
 
     public Tile() { }

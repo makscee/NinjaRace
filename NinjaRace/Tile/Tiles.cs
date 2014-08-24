@@ -13,22 +13,18 @@ class Tiles : IRenderable
         tiles = new Tile[sizex, sizey];
     }
 
-    public void AddTile(int i, int j)
+    public void AddTile(int i, int j, Tile tile)
     {
         if (i <= 0 || j <= 0)
             return;
         if (i >= tiles.GetLength(0) || j >= tiles.GetLength(1))
             return;
-        tiles[i, j] = new Tile(Tile.Size.X * j * 2, Tile.Size.Y * i * 2);
-    }
-
-    public void AddTileCustom(int i, int j, Tile tile)
-    {
+        if (tile == null)
+        {
+            tiles[i, j] = null;
+            return;
+        }
         tile = (Tile)tile.Clone();
-        if (i <= 0 || j <= 0)
-            return;
-        if (i >= tiles.GetLength(0) || j >= tiles.GetLength(1))
-            return;
         tile.Position = new Vec2(Tile.Size.X * j * 2, Tile.Size.Y * i * 2);
         tiles[i, j] = tile;
     }

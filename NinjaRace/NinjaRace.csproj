@@ -70,6 +70,7 @@
     <Compile Include="StateManager.cs" />
     <Compile Include="States\Game.cs" />
     <Compile Include="States\MainMenu.cs" />
+    <Compile Include="Tile\Ground.cs" />
     <Compile Include="Tile\Spikes.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="Tile\Tiles.cs" />

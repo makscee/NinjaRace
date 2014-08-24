@@ -12,7 +12,8 @@ class LevelEditor : State
     public LevelEditor(int sizex, int sizey)
     {
         tiles = new Tiles(sizex, sizey);
-        currentTile = new Tile();
+        currentTile = new Ground();
+        cam.Position = new Vec2(100, 100);
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
@@ -24,7 +25,7 @@ class LevelEditor : State
         }
         if (button == MouseButton.Left)
         {
-            tiles.AddTileCustom(Geti(), Getj(), currentTile);
+            tiles.AddTile(Geti(), Getj(), currentTile);
         }
     }
 
@@ -45,6 +46,16 @@ class LevelEditor : State
 
         if (button == MouseButton.Right)
             dragging = false;
+    }
+
+    public override void KeyDown(Key key)
+    {
+        if (key == Key.Number1)
+            currentTile = null;
+        if (key == Key.Number2)
+            currentTile = new Ground();
+        if (key == Key.Number3)
+            currentTile = new Spikes();
     }
 
     public override void Update(double dt)
@@ -71,5 +82,30 @@ class LevelEditor : State
         cam.Apply();
         Draw.Clear(Color.Black);
         RenderTiles();
+        RenderTileMenu();
+    }
+
+    void RenderTileMenu()
+    {
+        Vec2 v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1);
+        Draw.Save();
+
+        new Camera(360).Apply();
+        Draw.Translate(new Vec2(240, 180));
+
+        if (currentTile == null)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+
+        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 3);
+        if (currentTile is Ground)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+        new Ground().SetPosition(v).Render();
+
+        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 5);
+        if (currentTile is Spikes)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+        new Spikes().SetPosition(v).Render();
+
+        Draw.Load();
     }
 }
