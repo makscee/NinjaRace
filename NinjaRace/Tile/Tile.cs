@@ -2,6 +2,7 @@
 using VitPro.Engine;
 using System;
 
+[Serializable]
 class Tile : IRenderable, ICloneable
 {
     public static Vec2 Size = new Vec2(15, 15);

@@ -12,6 +12,7 @@ class World : IRenderable, IUpdateable
 
     public World(int mode)
     {
+        tiles = GUtil.Load<Tiles>("./level.dat");
         switch (mode)
         {
             case 1:

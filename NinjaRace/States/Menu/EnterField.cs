@@ -4,11 +4,11 @@ using System;
 
 class EnterField : IRenderable
 {
-    private string text = "";
+    private string text = "", defaultText;
     private bool focused = false;
     private Vec2 position, size;
     private int lim;
-    private Color backGroundColor = new Color(0.7, 0.7, 0.7), textColor = Color.Green;
+    private Color backGroundColor = new Color(0.2, 0.2, 0.2), textColor = Color.White;
     private Texture textTex, nameTex;
 
     public EnterField(Vec2 position, Vec2 size, int lim)
@@ -16,12 +16,20 @@ class EnterField : IRenderable
         this.position = position;
         this.size = size;
         this.lim = lim;
-        textTex = new Texture(0, 0);
+        RefreshTexture();
     }
 
     public EnterField SetName(string name)
     {
         this.nameTex = Program.font.MakeTexture(name);
+        return this;
+    }
+
+    public EnterField SetDefault(string defaultText)
+    {
+        this.defaultText = defaultText;
+        text = defaultText;
+        RefreshTexture();
         return this;
     }
 
@@ -36,7 +44,25 @@ class EnterField : IRenderable
 
     public void Click()
     {
-        focused = Hit();
+        if (Hit())
+            GainFocus();
+        else LoseFocus();
+    }
+
+    private void GainFocus()
+    {
+        if (text == defaultText)
+            text = "";
+        focused = true;
+        RefreshTexture();
+    }
+
+    private void LoseFocus()
+    {
+        focused = false;
+        if (text == "")
+            text = defaultText;
+        RefreshTexture();
     }
 
     public virtual void Enter(Key key)
@@ -45,7 +71,7 @@ class EnterField : IRenderable
             return;
         if (key == Key.Enter)
         {
-            focused = false;
+            LoseFocus();
             return;
         }
         if (key == Key.BackSpace)
@@ -53,7 +79,7 @@ class EnterField : IRenderable
             if (text.Length == 0)
                 return;
             text = text.Substring(0, text.Length - 1);
-            textTex = (text.Length > 0) ? Program.font.MakeTexture(text) : new Texture(0, 0);
+            RefreshTexture();
             return;
         }
         if (text.Length == lim)
@@ -63,7 +89,7 @@ class EnterField : IRenderable
             t = key.ToString()[key.ToString().Length - 1].ToString();
         else t = key.ToString()[0].ToString();
         text += t;
-        textTex = Program.font.MakeTexture(text);
+        RefreshTexture();
     }
 
     public void Render()
@@ -99,5 +125,12 @@ class EnterField : IRenderable
         if (pos.X < position.X + size.X && pos.X > position.X - size.X && pos.Y < position.Y + size.Y && pos.Y > position.Y - size.Y)
             return true;
         return false;
+    }
+
+    private void RefreshTexture()
+    {
+        if (text.Length == 0)
+            textTex = new Texture(0, 0);
+        else textTex = Program.font.MakeTexture(text);
     }
 }

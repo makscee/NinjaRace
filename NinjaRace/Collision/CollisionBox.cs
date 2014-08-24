@@ -6,6 +6,7 @@ enum Side
     Left, Right, Down, Up, None
 }
 
+[Serializable]
 class CollisionBox
 {
     double Left, Right, Down, Up;

@@ -1,2 +1,5 @@
-﻿class Ground : Tile
+﻿using System;
+
+[Serializable]
+class Ground : Tile
 { }

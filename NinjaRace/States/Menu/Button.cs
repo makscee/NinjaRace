@@ -7,7 +7,7 @@ class Button : IRenderable
     private Action action;
     private Vec2 position, size;
     private Texture name;
-    private Color backGroundColor = new Color(0.7, 0.7, 0.7), textColor = Color.Green;
+    private Color backGroundColor = new Color(0.2, 0.2, 0.2), textColor = Color.White;
 
     public Button(Vec2 position, Vec2 size)
     {
@@ -50,7 +50,7 @@ class Button : IRenderable
         Draw.Color(textColor);
         Draw.Translate(position);
         Draw.Scale((double)name.Width / (double)name.Height, 1);
-        Draw.Scale(size.Y - 2);
+        Draw.Scale(size.Y);
         Draw.Align(0.5, 0.5);
         name.Render();
         Draw.Load();

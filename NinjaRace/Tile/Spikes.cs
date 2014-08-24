@@ -2,6 +2,7 @@
 using VitPro.Engine;
 using System;
 
+[Serializable]
 class Spikes : Tile
 {
     public override void Render()

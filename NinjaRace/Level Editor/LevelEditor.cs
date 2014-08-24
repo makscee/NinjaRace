@@ -9,11 +9,25 @@ class LevelEditor : State
     Camera cam = new Camera(240);
     bool dragging = false;
     Vec2 draggingVec;
+    Button done;
     public LevelEditor(int sizex, int sizey)
     {
         tiles = new Tiles(sizex, sizey);
         currentTile = new Ground();
         cam.Position = new Vec2(100, 100);
+        done = new Button(new Vec2(130, -110), new Vec2(25, 8))
+            .SetName("DONE")
+            .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
+    }
+
+    public LevelEditor()
+    {
+        tiles = GUtil.Load<Tiles>("./level.dat");
+        currentTile = new Ground();
+        cam.Position = new Vec2(100, 100);
+        done = new Button(new Vec2(130, -110), new Vec2(25, 8))
+            .SetName("DONE")
+            .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
@@ -21,23 +35,24 @@ class LevelEditor : State
         if (button == MouseButton.Right)
         {
             dragging = true;
-            draggingVec = Mouse.Position;
+            draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
         if (button == MouseButton.Left)
         {
             tiles.AddTile(Geti(), Getj(), currentTile);
+            done.Click();
         }
     }
 
     int Geti()
     {
-        double t = Program.MousePosition().Y + cam.Position.Y;
+        double t = Program.MousePosition().Y * cam.FOV / 240 + cam.Position.Y;
         return (int)Math.Round(t / Tile.Size.Y / 2);
     }
 
     int Getj()
     {
-        double t = Program.MousePosition().X + cam.Position.X;
+        double t = Program.MousePosition().X * cam.FOV / 240 + cam.Position.X;
         return (int)Math.Round(t / Tile.Size.X / 2);
     }
 
@@ -56,14 +71,19 @@ class LevelEditor : State
             currentTile = new Ground();
         if (key == Key.Number3)
             currentTile = new Spikes();
+
+        if (key == Key.W)
+            cam.FOV /= 1.2;
+        if (key == Key.S)
+            cam.FOV *= 1.2;
     }
 
     public override void Update(double dt)
     {
         if (dragging)
         {
-            cam.Position += (draggingVec - Mouse.Position) / 2;
-            draggingVec = Mouse.Position;
+            cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
+            draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
     }
 
@@ -82,6 +102,8 @@ class LevelEditor : State
         cam.Apply();
         Draw.Clear(Color.Black);
         RenderTiles();
+        new Camera(240).Apply();
+        done.Render();
         RenderTileMenu();
     }
 
@@ -89,7 +111,6 @@ class LevelEditor : State
     {
         Vec2 v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1);
         Draw.Save();
-
         new Camera(360).Apply();
         Draw.Translate(new Vec2(240, 180));
 
