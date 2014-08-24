@@ -7,19 +7,20 @@ class Dead : PlayerState
     public Dead(Player player, Vec2 position) : base(player)
     {
         this.player = player;
-        player.Velocity += (player.Position - position).Unit * player.JumpForce / 4;
+        player.Velocity += (player.Position - position).Unit * player.JumpForce;
     }
 
     private bool firstUp = false;
     public override void Update(double dt)
     {
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
-        if (!firstUp)
-        {
-            firstUp = true;
-            return;
-        }
-        if (player.collisions[Side.Left].Count + player.collisions[Side.Down].Count + player.collisions[Side.Up].Count + player.collisions[Side.Right].Count != 0)
+        bool touch = false;
+        foreach (var a in player.collisions.Values)
+            foreach (var b in a)
+                if (b is Spikes)
+                    return;
+                else touch = true;
+        if (touch)
             player.Velocity = Vec2.Zero;
     }
 
@@ -31,4 +32,8 @@ class Dead : PlayerState
     public override void Jump()
     {
     }
+
+    public override void TileJump() { }
+
+    public override void Die(Vec2 position) { }
 }
