@@ -5,18 +5,23 @@ using System.Collections.Generic;
 
 partial class Player : IUpdateable, IRenderable
 {
+    public int Dir = 1;
     public Vec2 Position, Size;
     private Vec2 _Velocity, _SpeedUp;
     public PlayerState State;
-    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1600, JumpForce = 400, DropSpeed = 50, DropAcc = 1200, SpeedUpAcc = 100;
+    public double Speed = 250, Acc = 2700, Gravity = 700, GAcc = 1200, JumpForce = 400, DropSpeed = 50, DropAcc = 1200, SpeedUpAcc = 100;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
+    public Ability Ability;
 
     public Vec2 Velocity
     {
         get { return _Velocity + _SpeedUp * SpeedUpAcc; }
-        set { _Velocity = value; }
+        set
+        {
+            _Velocity = value;
+        }
     }
     public Vec2 SpeedUp
     {
@@ -27,6 +32,7 @@ partial class Player : IUpdateable, IRenderable
     {
         Size = new Vec2(10, 20);
         State = new Walking(this);
+        Ability = new RocketJump(this);
         Controller = controller;
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
@@ -39,6 +45,10 @@ partial class Player : IUpdateable, IRenderable
         StateChangeCheck();
         if (Controller.NeedJump())
             State.Jump();
+        if (Controller.NeedAbility())
+            State.AbilityUse();
+        Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
+        Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
         State.Update(dt);
     }
 

@@ -23,6 +23,10 @@ class PlayerState : IRenderable, IUpdateable
         player.State = new Flying(player);
         player.Velocity = new Vec2(player.Velocity.X, player.JumpForce);
     }
+    public virtual void AbilityUse()
+    {
+        player.Ability.Use();
+    }
 
     public virtual void SpeedUp(Vec2 dir)
     {

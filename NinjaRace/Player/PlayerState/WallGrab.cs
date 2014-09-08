@@ -27,6 +27,7 @@ class WallGrab : PlayerState
 
     public override void Update(double dt)
     {
+        player.Dir = side == Side.Left ? 1 : -1;
         player.Velocity -= Vec2.Clamp(player.Velocity - new Vec2(0, -1) * player.DropSpeed, player.DropAcc * dt);
         base.Update(dt);
     }

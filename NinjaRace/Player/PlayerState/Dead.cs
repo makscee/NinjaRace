@@ -10,7 +10,6 @@ class Dead : PlayerState
         player.Velocity += (player.Position - position).Unit * player.JumpForce;
     }
 
-    private bool firstUp = false;
     public override void Update(double dt)
     {
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
@@ -30,6 +29,10 @@ class Dead : PlayerState
     }
 
     public override void Jump()
+    {
+    }
+
+    public override void AbilityUse()
     {
     }
 
