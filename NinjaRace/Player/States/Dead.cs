@@ -4,10 +4,9 @@ using System;
 
 class Dead : PlayerState
 {
-    public Dead(Player player, Vec2 position) : base(player)
+    public Dead(Player player) : base(player)
     {
         this.player = player;
-        player.Velocity += (player.Position - position).Unit * player.JumpForce;
     }
 
     public override void Update(double dt)
@@ -32,7 +31,7 @@ class Dead : PlayerState
     {
     }
 
-    public override void AbilityUse()
+    public override void AbilityUse(Ability ability)
     {
     }
 

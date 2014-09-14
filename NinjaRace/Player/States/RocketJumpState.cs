@@ -2,7 +2,7 @@
 using VitPro.Engine;
 using System;
 
-class RocketJumpState : Flying
+class RocketJumpState : PlayerState
 {
     public RocketJumpState(Player player) : base(player) { }
 
@@ -13,5 +13,8 @@ class RocketJumpState : Flying
     public override void Update(double dt)
     {
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
+    }
+    public override void Jump()
+    {
     }
 }

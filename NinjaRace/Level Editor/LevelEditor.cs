@@ -80,6 +80,12 @@ class LevelEditor : State
             cam.FOV *= 1.2;
     }
 
+    public override void MouseWheel(double delta)
+    {
+        base.MouseWheel(delta);
+        cam.FOV /= 1 + delta * 0.2;
+    }
+
     public override void Update(double dt)
     {
         if (dragging)

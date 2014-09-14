@@ -24,7 +24,7 @@ class ControllerPlayer1 : IController
     {
         if (key == Key.Space)
             _NeedJump = true;
-        if (key == Key.ControlLeft)
+        if (key == Key.ShiftLeft)
             _NeedAbility = true;
     }
 
@@ -32,7 +32,7 @@ class ControllerPlayer1 : IController
     {
         if (key == Key.Space)
             _NeedJump = false;
-        if (key == Key.ControlLeft)
+        if (key == Key.ShiftLeft)
             _NeedAbility = false;
     }
 

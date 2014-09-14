@@ -41,13 +41,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenTK">
-      <HintPath>.\OpenTK.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="VPE">
-      <HintPath>.\VPE.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collision\CollisionBox.cs" />
@@ -55,20 +49,23 @@
     <Compile Include="Player\Abilities\Ability.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Player\Abilities\Dash.cs" />
     <Compile Include="Player\Abilities\RocketJump.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level Editor\LevelEditor.cs" />
-    <Compile Include="Player\PlayerState\RocketJumpState.cs" />
+    <Compile Include="Player\States\DashState.cs" />
+    <Compile Include="Player\States\RocketJumpState.cs" />
+    <Compile Include="Player\States\States.cs" />
     <Compile Include="States\Menu\Button.cs" />
     <Compile Include="States\Menu\EnterField.cs" />
     <Compile Include="States\Menu\Menu.cs" />
-    <Compile Include="Player\PlayerState\Dead.cs" />
-    <Compile Include="Player\PlayerState\Flying.cs" />
-    <Compile Include="Player\PlayerState\PlayerState.cs" />
-    <Compile Include="Player\PlayerState\Walking.cs" />
-    <Compile Include="Player\PlayerState\WallGrab.cs" />
+    <Compile Include="Player\States\Dead.cs" />
+    <Compile Include="Player\States\Flying.cs" />
+    <Compile Include="Player\States\PlayerState.cs" />
+    <Compile Include="Player\States\Walking.cs" />
+    <Compile Include="Player\States\WallGrab.cs" />
     <Compile Include="Player\CollisionCalculation.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
@@ -82,7 +79,12 @@
     <Compile Include="Tile\Tiles.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\VPE\VPE\VPE.csproj">
+      <Project>{ca4698fe-400a-453d-8958-1feccb7fb881}</Project>
+      <Name>VPE</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

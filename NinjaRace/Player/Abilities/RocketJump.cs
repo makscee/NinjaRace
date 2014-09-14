@@ -12,7 +12,7 @@ class RocketJump : Ability
 
     public override void Use()
     {
-        player.State = state;
+        player.States.Set(state);
         player.Velocity = new Vec2(player.Dir * push.X, push.Y);
     }
 }

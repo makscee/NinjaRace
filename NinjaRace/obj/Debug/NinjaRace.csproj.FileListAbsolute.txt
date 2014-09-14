@@ -7,3 +7,7 @@ C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\NinjaRace.pdb
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.dll
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.dll
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\font.TTF
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.pdb
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.xml
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.pdb
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.xml

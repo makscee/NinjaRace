@@ -12,7 +12,7 @@ class Spikes : Tile
 
     public override void Effect(Player player, Side side)
     {
-        player.State.Die(Position);
+        player.States.current.Die(Position);
     }
 
     public override object Clone()

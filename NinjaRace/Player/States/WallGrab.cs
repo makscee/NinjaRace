@@ -5,10 +5,9 @@ using VitPro;
 class WallGrab : PlayerState
 {
     Side side;
-    public WallGrab(Player player, Side side) : base(player) 
+    public WallGrab(Player player) : base(player) 
     {
         player.Velocity = new Vec2(0, player.Velocity.Y);
-        this.side = side;
     }
 
     public override void Render()
@@ -27,6 +26,9 @@ class WallGrab : PlayerState
 
     public override void Update(double dt)
     {
+        if (player.collisions[Side.Left].Count != 0)
+            side = Side.Left;
+        else side = Side.Right;
         player.Dir = side == Side.Left ? 1 : -1;
         player.Velocity -= Vec2.Clamp(player.Velocity - new Vec2(0, -1) * player.DropSpeed, player.DropAcc * dt);
         base.Update(dt);
@@ -36,6 +38,6 @@ class WallGrab : PlayerState
         if (side == Side.Left)
             player.Velocity = Vec2.Rotate(new Vec2(0, player.JumpForce), -Math.PI / 4) * 1.5;
         else player.Velocity = Vec2.Rotate(new Vec2(0, player.JumpForce), Math.PI / 4) * 1.5;
-        player.State = new Flying(player);
+        player.States.SetFlying();
     }
 }

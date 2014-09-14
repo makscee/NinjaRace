@@ -20,12 +20,12 @@ class PlayerState : IRenderable, IUpdateable
     }
     public virtual void Jump()
     {
-        player.State = new Flying(player);
+        player.States.SetFlying();
         player.Velocity = new Vec2(player.Velocity.X, player.JumpForce);
     }
-    public virtual void AbilityUse()
+    public virtual void AbilityUse(Ability ability)
     {
-        player.Ability.Use();
+        ability.Use();
     }
 
     public virtual void SpeedUp(Vec2 dir)
@@ -35,12 +35,13 @@ class PlayerState : IRenderable, IUpdateable
 
     public virtual void TileJump()
     {
-        player.State = new Flying(player);
+        player.States.SetFlying();
         player.Velocity = new Vec2(0, player.JumpForce * 2);
     }
 
     public virtual void Die(Vec2 position)
     {
-        player.State = new Dead(player, position);
+        player.States.SetDead();
+        player.Velocity += (player.Position - position).Unit * player.JumpForce;
     }
 }

@@ -9,7 +9,7 @@ class JumpTile : Tile
     {
         if (side != Side.Down)
             return;
-        player.State.TileJump();
+        player.States.current.TileJump();
     }
 
     public override void Render()
