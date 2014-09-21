@@ -76,7 +76,7 @@ class States : IRenderable, IUpdateable
         if (player.Controller.NeedJump())
             current.Jump();
         if (player.Controller.NeedAbility())
-            ability.Use();
+            current.AbilityUse(ability);
         current.Update(dt);
     }
             

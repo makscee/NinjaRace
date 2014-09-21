@@ -7,15 +7,16 @@ class Game : State
     World world1, world2;
     bool multiplayer;
 
-    public Game(bool multiplayer)
+    public Game(Player player1, Player player2)
     {
-        this.multiplayer = multiplayer;
+        multiplayer = player2 != null;
+
         if (multiplayer)
         {
-            world1 = new World(1);
-            world2 = new World(2);
+            world1 = new World(1, player1);
+            world2 = new World(2, player2);
         }
-        else world1 = new World(0);
+        else world1 = new World(0, player1);
     }
 
     Texture w1, w2;
@@ -37,15 +38,6 @@ class Game : State
         world1.KeyDown(key);
         if(multiplayer)
             world2.KeyDown(key);
-        if (key == Key.R)
-        {
-            if (multiplayer)
-            {
-                world1 = new World(1);
-                world2 = new World(2);
-            }
-            else world1 = new World(0);
-        }
         if (key == Key.Escape)
             Close();
             

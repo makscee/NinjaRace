@@ -27,16 +27,21 @@ partial class Player : IUpdateable, IRenderable
         set { _SpeedUp = value; }
     }
 
-    public Player(IController controller)
+    public Player()
     {
         Size = new Vec2(10, 20);
-        States = new States(this, new Dash(this));
-        Controller = controller;
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
     }
+
+    public Player SetControls(IController controller)
+    {
+        Controller = controller;
+        return this;
+    }
+
     public void Update(double dt)
     {
         CollisionHits();

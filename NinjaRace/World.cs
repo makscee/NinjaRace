@@ -10,14 +10,14 @@ class World : IRenderable, IUpdateable
     public Camera cam = new Camera(360);
     public Vec2 camOffset = Vec2.Zero;
 
-    public World(int mode)
+    public World(int mode, Player player)
     {
+        this.player = player;
         tiles = GUtil.Load<Tiles>("./level.dat");
         switch (mode)
         {
             case 1:
                 {
-                    player = new Player(new ControllerPlayer1());
                     camOffset = new Vec2(0, 120);
                     player.Position = new Vec2(100, 100);
                     cam.FOV *= 1.5;
@@ -25,7 +25,6 @@ class World : IRenderable, IUpdateable
                 }
             case 2:
                 {
-                    player = new Player(new ControllerPlayer2());
                     camOffset = new Vec2(0, -120);
                     player.Position = new Vec2(100, 100);
                     cam.FOV *= 1.5;
@@ -33,7 +32,6 @@ class World : IRenderable, IUpdateable
                 }
             default:
                 {
-                    player = new Player(new ControllerPlayer1());
                     player.Position = new Vec2(100, 100);
                     break;
                 }

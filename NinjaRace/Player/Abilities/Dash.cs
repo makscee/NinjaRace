@@ -12,7 +12,8 @@ class Dash : Ability
 
     public override void Use()
     {
-        ((DashState)state).dir = player.States.current is Flying ? new Vec2(0, -1) : new Vec2(player.Dir, 0);
+        ((DashState)state).dir = (player.States.current is Flying || player.States.current is WallGrab)
+            ? new Vec2(0, -1) : new Vec2(player.Dir, 0);
         player.States.Set(state);
     }
 }

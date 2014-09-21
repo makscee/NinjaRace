@@ -6,6 +6,7 @@ class Menu : State
 {
     protected Group<Button> buttons = new Group<Button>();
     protected Group<EnterField> fields = new Group<EnterField>();
+    protected Group<DisplayField> dfields = new Group<DisplayField>();
     private Camera cam = new Camera(240);
 
     public override void Render()
@@ -14,6 +15,7 @@ class Menu : State
         Draw.Clear(Color.Black);
         buttons.Render();
         fields.Render();
+        dfields.Render();
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
