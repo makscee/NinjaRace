@@ -19,19 +19,23 @@ class CollisionBox
     }
     public static bool Collide(CollisionBox a, CollisionBox b)
     {
+        if (a == null || b == null)
+            return false;
         if (b.Right + 1 < a.Left || b.Left - 1 > a.Right || b.Down - 1 > a.Up || b.Up + 1 < a.Down)
             return false;
         return true;
     }
     public static bool CollideThrough(CollisionBox a, CollisionBox b)
     {
+        if (a == null || b == null)
+            return false;
         if (b.Right < a.Left || b.Left > a.Right || b.Down > a.Up || b.Up < a.Down)
             return false;
         return true;
     }
     public Side Collide(CollisionBox a)
     {
-        if (!Collide(this, a))
+        if (a == null || !Collide(this, a))
             return Side.None;
         double 
             L = Math.Abs(Left - a.Right),

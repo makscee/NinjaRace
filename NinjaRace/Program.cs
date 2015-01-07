@@ -22,9 +22,9 @@ class Program
     public static Vec2 MousePosition()
     {
         Vec2 pos = Mouse.Position;
-        pos += new Vec2(0, -240);
-        pos -= new Vec2(320, 0);
+        pos += new Vec2(-320, -240);
         pos /= 2;
+        pos = new Vec2(pos.X * 640 / App.Width, pos.Y * 480 / App.Height);
         return pos;
     }
 }

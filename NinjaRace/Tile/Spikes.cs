@@ -5,9 +5,9 @@ using System;
 [Serializable]
 class Spikes : Tile
 {
-    public override void Render()
+    protected override void LoadTexture()
     {
-        Draw.Rect(Position + Size, Position - Size, Color.Gray);
+        tex = new Texture("./Data/img/tiles/spikes.png");
     }
 
     public override void Effect(Player player, Side side)
@@ -17,6 +17,6 @@ class Spikes : Tile
 
     public override object Clone()
     {
-        return new Spikes();
+        return new Spikes().SetPosition(Position);
     }
 }

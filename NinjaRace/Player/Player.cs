@@ -57,7 +57,7 @@ partial class Player : IUpdateable, IRenderable
         {
             foreach (var b in a.Value)
             {
-                Draw.Rect(b.Position + Tile.Size, b.Position - Tile.Size, Color.Green);
+                Draw.Rect(b.Position + Tile.Size, b.Position - Tile.Size, Color.Magenta);
             }
         }
     }

@@ -73,6 +73,10 @@ class LevelEditor : State
             currentTile = new Spikes();
         if (key == Key.Number4)
             currentTile = new JumpTile();
+        if (key == Key.Number5)
+            currentTile = new StartTile();
+        if (key == Key.Number6)
+            currentTile = new FinishTile();
 
         if (key == Key.W)
             cam.FOV /= 1.2;
@@ -99,9 +103,14 @@ class LevelEditor : State
     {
         for (int i = 1; i < tiles.GetLength(0); i++)
             for (int j = 1; j < tiles.GetLength(1); j++)
+            {
                 if (tiles.GetTile(i, j) == null)
                     Draw.Rect(new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
+                else if (tiles.GetTile(i, j) is StartTile)
+                    Draw.Rect(new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) - Tile.Size * 0.9
+                        , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
+            }
         tiles.Render();
     }
 
@@ -139,6 +148,16 @@ class LevelEditor : State
         if (currentTile is JumpTile)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
         new JumpTile().SetPosition(v).Render();
+
+        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 9);
+        if (currentTile is StartTile)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+        Draw.Rect(v + Tile.Size, v - Tile.Size, new Color(0, 0.2, 0));
+
+        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 11);
+        if (currentTile is FinishTile)
+            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+        new FinishTile().SetPosition(v).Render();
 
         Draw.Load();
     }

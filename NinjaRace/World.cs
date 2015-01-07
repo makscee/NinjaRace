@@ -19,20 +19,20 @@ class World : IRenderable, IUpdateable
             case 1:
                 {
                     camOffset = new Vec2(0, 120);
-                    player.Position = new Vec2(100, 100);
+                    player.Position = tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             case 2:
                 {
                     camOffset = new Vec2(0, -120);
-                    player.Position = new Vec2(100, 100);
+                    player.Position = tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             default:
                 {
-                    player.Position = new Vec2(100, 100);
+                    player.Position = tiles.GetStartTile().Position;
                     break;
                 }
         }

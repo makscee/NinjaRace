@@ -60,11 +60,12 @@
     <Compile Include="Player\States\DashState.cs" />
     <Compile Include="Player\States\RocketJumpState.cs" />
     <Compile Include="Player\States\States.cs" />
+    <Compile Include="Player\States\Win.cs" />
     <Compile Include="States\ChoseClass.cs" />
-    <Compile Include="States\Menu\Button.cs" />
-    <Compile Include="States\Menu\DisplayField.cs" />
-    <Compile Include="States\Menu\EnterField.cs" />
-    <Compile Include="States\Menu\Menu.cs" />
+    <Compile Include="Menu\Button.cs" />
+    <Compile Include="Menu\DisplayField.cs" />
+    <Compile Include="Menu\EnterField.cs" />
+    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Player\States\Dead.cs" />
     <Compile Include="Player\States\Flying.cs" />
     <Compile Include="Player\States\PlayerState.cs" />
@@ -76,9 +77,11 @@
     <Compile Include="StateManager.cs" />
     <Compile Include="States\Game.cs" />
     <Compile Include="States\MainMenu.cs" />
+    <Compile Include="Tile\FinishTile.cs" />
     <Compile Include="Tile\Ground.cs" />
     <Compile Include="Tile\JumpTile.cs" />
     <Compile Include="Tile\Spikes.cs" />
+    <Compile Include="Tile\StartTile.cs" />
     <Compile Include="Tile\Tile.cs" />
     <Compile Include="Tile\Tiles.cs" />
     <Compile Include="World.cs" />
@@ -88,6 +91,17 @@
       <Project>{ca4698fe-400a-453d-8958-1feccb7fb881}</Project>
       <Name>VPE</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\img\tiles\FinishTile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\tiles\ground.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\tiles\spikes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
