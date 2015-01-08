@@ -5,10 +5,11 @@ using System;
 class World : IRenderable, IUpdateable
 {
 
-    Player player;
+    public Player player;
     Tiles tiles = new Tiles(10, 50);
-    public Camera cam = new Camera(360);
-    public Vec2 camOffset = Vec2.Zero;
+    Camera cam = new Camera(360);
+    Vec2 camOffset = Vec2.Zero;
+    double time = 0;
 
     public World(int mode, Player player)
     {
@@ -49,6 +50,7 @@ class World : IRenderable, IUpdateable
 
     public void Update(double dt)
     {
+        time += dt;
         player.CalculateCollisions(tiles);
         player.Update(dt);
         cam.Position += (player.Position - cam.Position) * dt * 10;
