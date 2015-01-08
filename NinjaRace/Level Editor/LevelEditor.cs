@@ -17,6 +17,7 @@ class LevelEditor : State
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
+            .SetTextScale(12)
             .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
     }
 
@@ -27,6 +28,7 @@ class LevelEditor : State
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
+            .SetTextScale(12)
             .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
     }
 

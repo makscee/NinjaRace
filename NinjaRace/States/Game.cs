@@ -24,6 +24,11 @@ class Game : State
     }
     public override void Update(double dt)
     {
+        if (world1.player.States.current is Win && (world2 == null || world2.player.States.current is Win))
+        {
+            Program.Manager.PushState(new AfterGame());
+            Close();
+        }
         world1.Update(dt);
         if(multiplayer)
             world2.Update(dt);

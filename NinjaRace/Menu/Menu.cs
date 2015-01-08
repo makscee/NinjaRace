@@ -5,7 +5,7 @@ using System;
 class Menu : State
 {
     protected Group<Button> buttons = new Group<Button>();
-    protected Group<EnterField> fields = new Group<EnterField>();
+    protected Group<EnterField> efields = new Group<EnterField>();
     protected Group<DisplayField> dfields = new Group<DisplayField>();
     private Camera cam = new Camera(240);
 
@@ -14,7 +14,7 @@ class Menu : State
         cam.Apply();
         Draw.Clear(Color.Black);
         buttons.Render();
-        fields.Render();
+        efields.Render();
         dfields.Render();
     }
 
@@ -24,14 +24,14 @@ class Menu : State
         {
             foreach (var a in buttons)
                 a.Click();
-            foreach (var a in fields)
+            foreach (var a in efields)
                 a.Click();
         }
     }
 
     public override void KeyDown(Key key)
     {
-        foreach (var a in fields)
+        foreach (var a in efields)
             a.Enter(key);
         if (key == Key.Escape)
             Close();

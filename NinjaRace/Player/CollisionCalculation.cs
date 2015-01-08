@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 partial class Player
 {
-    public void CalculateCollisions(Tiles tiles)
+    public void CalculateCollisions()
     {
+        Tiles tiles = GetWorld().Tiles;
         collisions.Clear();
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());

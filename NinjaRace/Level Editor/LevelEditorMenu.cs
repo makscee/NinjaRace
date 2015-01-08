@@ -19,11 +19,11 @@ class LevelEditorMenu : Menu
         xField = new EnterField(new Vec2(0, 20), new Vec2(100, 20), 5)
             .SetName("HEGHT")
             .SetDefault("0");
-        fields.Add(xField);
-        fields.Add(yField);
+        efields.Add(xField);
+        efields.Add(yField);
 
         buttons.Refresh();
-        fields.Refresh();
+        efields.Refresh();
     }
 
     State GetState()

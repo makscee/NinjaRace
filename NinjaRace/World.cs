@@ -6,34 +6,34 @@ class World : IRenderable, IUpdateable
 {
 
     public Player player;
-    Tiles tiles = new Tiles(10, 50);
+    public Tiles Tiles = new Tiles(10, 50);
     Camera cam = new Camera(360);
     Vec2 camOffset = Vec2.Zero;
-    double time = 0;
+    public double Time = 0;
 
     public World(int mode, Player player)
     {
         this.player = player;
-        tiles = GUtil.Load<Tiles>("./level.dat");
+        Tiles = GUtil.Load<Tiles>("./level.dat");
         switch (mode)
         {
             case 1:
                 {
                     camOffset = new Vec2(0, 120);
-                    player.Position = tiles.GetStartTile().Position;
+                    player.Position = Tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             case 2:
                 {
                     camOffset = new Vec2(0, -120);
-                    player.Position = tiles.GetStartTile().Position;
+                    player.Position = Tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             default:
                 {
-                    player.Position = tiles.GetStartTile().Position;
+                    player.Position = Tiles.GetStartTile().Position;
                     break;
                 }
         }
@@ -44,14 +44,15 @@ class World : IRenderable, IUpdateable
         Camera camt = new Camera(cam.FOV);
         camt.Position = cam.Position + camOffset;
         camt.Apply();
-        tiles.Render();
+        Tiles.Render();
         player.Render();
     }
 
     public void Update(double dt)
     {
-        time += dt;
-        player.CalculateCollisions(tiles);
+        if(!(player.States.current is Win))
+            Time += dt;
+        player.CalculateCollisions();
         player.Update(dt);
         cam.Position += (player.Position - cam.Position) * dt * 10;
         player.Position += player.Velocity * dt;

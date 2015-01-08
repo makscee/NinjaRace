@@ -4,15 +4,23 @@ using System;
 
 class Dead : PlayerState
 {
+    double DeathTime = 1;
     public Dead(Player player) : base(player)
     {
         this.player = player;
     }
 
+    double Time = 0;
     public override void Update(double dt)
     {
+        Time += dt;
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
         bool touch = false;
+        if (Time > DeathTime)
+        {
+            player.Respawn();
+            Time = 0;
+        }
         foreach (var a in player.collisions.Values)
             foreach (var b in a)
                 if (b is Spikes)

@@ -61,6 +61,7 @@
     <Compile Include="Player\States\RocketJumpState.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\Win.cs" />
+    <Compile Include="States\AfterGame.cs" />
     <Compile Include="States\ChoseClass.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Menu\DisplayField.cs" />

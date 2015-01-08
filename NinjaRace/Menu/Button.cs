@@ -34,10 +34,41 @@ class Button : IRenderable
         return this;
     }
 
+    double textScale = 20;
+    public Button SetTextScale(double s)
+    {
+        textScale = s;
+        return this;
+    }
+
+    Vec2 offset;
+    public Button SetTextOffset(Vec2 v)
+    {
+        offset = v;
+        return this;
+    }
+    public Button SetTextOffset(double horizontal, double vertical)
+    {
+        offset = new Vec2(size.X * horizontal, size.Y * vertical);
+        return this;
+    }
+
     public void Click()
     {
         if(action != null && Hit())
             action();
+    }
+
+    Vec2 align;
+    public Button SetTextAlign(Vec2 v)
+    {
+        align = v / 2 + new Vec2(0.5, 0.5);
+        return this;
+    }
+    public Button SetTextAlign(double horizontal, double vertical)
+    {
+        align = new Vec2(horizontal / 2 + 0.5, vertical / 2 + 0.5);
+        return this;
     }
 
     public void Render()
@@ -47,11 +78,12 @@ class Button : IRenderable
             : backGroundColor;
         Draw.Rect(position - size, position + size, t);
         Draw.Save();
+        Draw.Translate(offset);
         Draw.Color(textColor);
         Draw.Translate(position);
         Draw.Scale((double)name.Width / (double)name.Height, 1);
-        Draw.Scale(size.Y);
-        Draw.Align(0.5, 0.5);
+        Draw.Scale(textScale);
+        Draw.Align(0.5 + align.X, 0.5 + align.Y);
         name.Render();
         Draw.Load();
     }

@@ -61,4 +61,16 @@ partial class Player : IUpdateable, IRenderable
         //    }
         //}
     }
+
+    public World GetWorld()
+    {
+        return Program.GetWorld1().player == this ? Program.GetWorld1() : Program.GetWorld2();
+    }
+
+    public void Respawn()
+    {
+        Position = GetWorld().Tiles.GetStartTile().Position;
+        States.SetFlying();
+        CalculateCollisions();
+    }
 }
