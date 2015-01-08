@@ -22,11 +22,15 @@ class Program
 
     public static void InitWorld1(Player player)
     {
+        if (player == null)
+            return;
         world1 = new World(0, player);
     }
 
     public static void InitWorld2(Player player)
     {
+        if (player == null)
+            return;
         world1 = new World(1, world1.player);
         world2 = new World(2, player);
     }

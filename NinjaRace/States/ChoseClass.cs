@@ -48,7 +48,9 @@ class ChoseClass : Menu
         player1.SetControls(new ControllerPlayer1());
         if (player2 != null)
             player2.SetControls(new ControllerPlayer2());
-        return new Game(player1, player2);
+        Program.InitWorld1(player1);
+        Program.InitWorld2(player2);
+        return new Game();
     }
 
     List<Tuple<string, Color>> classes = new List<Tuple<string, Color>>() 

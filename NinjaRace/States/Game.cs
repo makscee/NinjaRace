@@ -7,16 +7,11 @@ class Game : State
     World world1, world2;
     bool multiplayer;
 
-    public Game(Player player1, Player player2)
+    public Game()
     {
-        multiplayer = player2 != null;
-
-        if (multiplayer)
-        {
-            world1 = new World(1, player1);
-            world2 = new World(2, player2);
-        }
-        else world1 = new World(0, player1);
+        world1 = Program.GetWorld1();
+        world2 = Program.GetWorld2();
+        multiplayer = Program.GetWorld2() != null;
     }
 
     Texture w1, w2;
