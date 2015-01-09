@@ -16,9 +16,4 @@ class JumpTile : Tile
     {
         Draw.Rect(Position + Size, Position - Size, Color.Green);
     }
-
-    public override object Clone()
-    {
-        return new JumpTile().SetPosition(Position);
-    }
 }

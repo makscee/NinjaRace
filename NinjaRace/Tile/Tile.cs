@@ -3,7 +3,7 @@ using VitPro.Engine;
 using System;
 
 [Serializable]
-abstract class Tile : IRenderable, ICloneable
+abstract class Tile : IRenderable
 {
     [field:NonSerialized]
     protected Texture tex;
@@ -41,6 +41,4 @@ abstract class Tile : IRenderable, ICloneable
     }
 
     public virtual void Effect(Player player, Side side) { }
-
-    public abstract object Clone();
 }

@@ -14,7 +14,8 @@ class Win : PlayerState
     public override void Update(double dt)
     {
         t += dt;
-        player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
+        player.Velocity = Vec2.Zero;
+        //player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
         if (t > 0.3)
         {
             t = 0;

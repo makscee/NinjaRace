@@ -34,7 +34,7 @@ class Tiles : IRenderable
         }
         if (tile is StartTile && GetStartTile() != null)
             return;
-        tile = (Tile)tile.Clone();
+        tile = (Tile)tile.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
         tile.Position = new Vec2(Tile.Size.X * j * 2, Tile.Size.Y * i * 2);
         tiles[i, j] = tile;
     }

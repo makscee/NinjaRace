@@ -1,6 +1,7 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
+using System.Collections.Generic;
 
 class LevelEditor : State
 {
@@ -10,10 +11,14 @@ class LevelEditor : State
     bool dragging = false;
     Vec2 draggingVec;
     Button done;
+
+    List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile", "FinishTile" };
+    List<string>.Enumerator TTenum;
+
     public LevelEditor(int sizex, int sizey)
     {
+        TTenum = TileTypes.GetEnumerator();
         tiles = new Tiles(sizex, sizey);
-        currentTile = new Ground();
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
@@ -23,8 +28,8 @@ class LevelEditor : State
 
     public LevelEditor()
     {
+        TTenum = TileTypes.GetEnumerator();
         tiles = GUtil.Load<Tiles>("./level.dat");
-        currentTile = new Ground();
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
@@ -67,19 +72,34 @@ class LevelEditor : State
 
     public override void KeyDown(Key key)
     {
-        if (key == Key.Number1)
-            currentTile = null;
-        if (key == Key.Number2)
-            currentTile = new Ground();
-        if (key == Key.Number3)
-            currentTile = new Spikes();
-        if (key == Key.Number4)
-            currentTile = new JumpTile();
-        if (key == Key.Number5)
-            currentTile = new StartTile();
-        if (key == Key.Number6)
-            currentTile = new FinishTile();
-
+        if (key == Key.E)
+        {
+            if (TTenum.MoveNext())
+            {
+                Type t = Type.GetType(TTenum.Current);
+                currentTile = (Tile)t.GetConstructor(new Type[] { }).Invoke(new object[] { });
+            }
+            else
+            {
+                currentTile = null;
+                TTenum = TileTypes.GetEnumerator();
+            }
+        }
+        if (key == Key.Q)
+        {
+            int t = TileTypes.IndexOf(TTenum.Current);
+            if (t == 0)
+            {
+                currentTile = null;
+                TTenum = TileTypes.GetEnumerator();
+                return;
+            }
+            t = t == -1 ? TileTypes.Count : t;
+            TTenum = TileTypes.GetEnumerator();
+            for (int i = 0; i < t; i++)
+                TTenum.MoveNext();
+            currentTile = (Tile)Type.GetType(TTenum.Current).GetConstructor(new Type[] { }).Invoke(new object[] { });
+        }
         if (key == Key.W)
             cam.FOV /= 1.2;
         if (key == Key.S)
@@ -133,34 +153,16 @@ class LevelEditor : State
         new Camera(360).Apply();
         Draw.Translate(new Vec2(240, 180));
 
+
         if (currentTile == null)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-
-        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 3);
-        if (currentTile is Ground)
-            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        new Ground().SetPosition(v).Render();
-
-        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 5);
-        if (currentTile is Spikes)
-            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        new Spikes().SetPosition(v).Render();
-
-        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 7);
-        if (currentTile is JumpTile)
-            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        new JumpTile().SetPosition(v).Render();
-
-        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 9);
-        if (currentTile is StartTile)
-            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        Draw.Rect(v + Tile.Size, v - Tile.Size, new Color(0, 0.2, 0));
-
-        v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1 * 11);
-        if (currentTile is FinishTile)
-            Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        new FinishTile().SetPosition(v).Render();
-
+        for (int i = 0; i < TileTypes.Count; i++)
+        {
+            v += new Vec2(0, -Tile.Size.Y * 1.1 * 2);
+            if (currentTile != null && currentTile.GetType() == Type.GetType(TileTypes[i]))
+                Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
+            ((Tile)Type.GetType(TileTypes[i]).GetConstructor(new Type[] { }).Invoke(new object[] { })).SetPosition(v).Render();
+        }
         Draw.Load();
     }
 }

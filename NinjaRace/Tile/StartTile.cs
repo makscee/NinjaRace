@@ -14,9 +14,4 @@ class StartTile : Tile
     public override void Render()
     {
     }
-
-    public override object Clone()
-    {
-        return new StartTile().SetPosition(Position);
-    }
 }

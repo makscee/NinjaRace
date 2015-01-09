@@ -9,9 +9,6 @@ class Flying : PlayerState
     {
         player.Velocity -= Vec2.Clamp(new Vec2(player.Velocity.X - player.Controller.NeedVel().X * player.Speed, 0), player.Acc * dt);
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
-
-        if (player.Position.Y < -50)
-            player.States.SetDead();
     }
     public override void Render()
     {

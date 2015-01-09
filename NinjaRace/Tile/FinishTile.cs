@@ -15,9 +15,4 @@ class FinishTile : Tile
         if(!(player.States.current is Win))
             player.States.Set(new Win(player));
     }
-
-    public override object Clone()
-    {
-        return new FinishTile().SetPosition(Position);
-    }
 }

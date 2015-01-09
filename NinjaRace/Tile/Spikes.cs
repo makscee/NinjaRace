@@ -14,9 +14,4 @@ class Spikes : Tile
     {
         player.States.current.Die(Position);
     }
-
-    public override object Clone()
-    {
-        return new Spikes().SetPosition(Position);
-    }
 }

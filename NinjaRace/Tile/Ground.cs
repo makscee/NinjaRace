@@ -9,9 +9,4 @@ class Ground : Tile
     {
         tex = new Texture("./Data/img/tiles/ground.png");
     }
-
-    public override object Clone()
-    {
-        return new Ground().SetPosition(Position);
-    }
 }

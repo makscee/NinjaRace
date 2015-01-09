@@ -48,6 +48,8 @@ partial class Player : IUpdateable, IRenderable
         Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
         Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
         States.Update(dt);
+        if (Position.Y < -50)
+            States.SetDead();
     }
 
     public void Render()
@@ -69,6 +71,7 @@ partial class Player : IUpdateable, IRenderable
 
     public void Respawn()
     {
+        Velocity = Vec2.Zero;
         Position = GetWorld().Tiles.GetStartTile().Position;
         States.SetFlying();
         CalculateCollisions();
