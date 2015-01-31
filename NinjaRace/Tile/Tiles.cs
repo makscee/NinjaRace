@@ -4,13 +4,15 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-class Tiles : IRenderable
+class Tiles : IRenderable, IUpdateable
 {
     private Tile[,] tiles;
+    private Group<Tile> customTiles;
 
     public Tiles(int sizex, int sizey)
     {
         tiles = new Tile[sizex, sizey];
+        customTiles = new Group<Tile>();
     }
 
     public StartTile GetStartTile()
@@ -19,6 +21,12 @@ class Tiles : IRenderable
             if (a is StartTile)
                 return (StartTile)a;
         return null;
+    }
+
+    public void AddCustomTile(Tile tile)
+    {
+        customTiles.Add(tile);
+        customTiles.Refresh();
     }
 
     public void AddTile(int i, int j, Tile tile)
@@ -56,5 +64,19 @@ class Tiles : IRenderable
         foreach (var a in tiles)
             if(a != null)
                 a.Render();
+        customTiles.Render();
+    }
+
+    public void Update(double dt)
+    {
+        foreach (var a in tiles)
+            if (a != null)
+                a.Update(dt);
+        customTiles.Update(dt);
+    }
+
+    public Group<Tile> GetCustomTiles()
+    {
+        return customTiles;
     }
 }

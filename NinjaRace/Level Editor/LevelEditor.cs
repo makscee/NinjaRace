@@ -11,8 +11,9 @@ class LevelEditor : State
     bool dragging = false;
     Vec2 draggingVec;
     Button done;
+    Vec2 vecForSaw1, vecForSaw2;
 
-    List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile", "FinishTile" };
+    List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile", "FinishTile", "Saw" };
     List<string>.Enumerator TTenum;
 
     public LevelEditor(int sizex, int sizey)
@@ -46,8 +47,11 @@ class LevelEditor : State
         }
         if (button == MouseButton.Left)
         {
-            tiles.AddTile(Geti(), Getj(), currentTile);
             done.Click();
+            if (currentTile is Saw)
+            {
+                vecForSaw1 = new Vec2(Tile.Size.X * Getj() * 2, Tile.Size.Y * Geti() * 2);
+            }
         }
     }
 
@@ -68,6 +72,15 @@ class LevelEditor : State
 
         if (button == MouseButton.Right)
             dragging = false;
+        if (button == MouseButton.Left)
+        {
+            if (currentTile is Saw)
+            {
+                vecForSaw2 = new Vec2(Tile.Size.X * Getj() * 2, Tile.Size.Y * Geti() * 2);
+                tiles.AddCustomTile(new Saw(vecForSaw1, vecForSaw2));
+                vecForSaw1 = vecForSaw2 = Vec2.Zero;
+            }
+        }
     }
 
     public override void KeyDown(Key key)
@@ -119,6 +132,8 @@ class LevelEditor : State
             cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
+        if(MouseButton.Left.Pressed() && !(currentTile is Saw))
+            tiles.AddTile(Geti(), Getj(), currentTile);
     }
 
     void RenderTiles()
@@ -141,6 +156,8 @@ class LevelEditor : State
         cam.Apply();
         Draw.Clear(Color.Black);
         RenderTiles();
+        if (!vecForSaw1.Equals(Vec2.Zero))
+            Draw.Rect(vecForSaw1 + Tile.Size, vecForSaw1 - Tile.Size, Color.Green);
         new Camera(240).Apply();
         done.Render();
         RenderTileMenu();

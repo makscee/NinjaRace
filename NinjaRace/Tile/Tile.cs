@@ -3,7 +3,7 @@ using VitPro.Engine;
 using System;
 
 [Serializable]
-abstract class Tile : IRenderable
+abstract class Tile : IRenderable, IUpdateable
 {
     [field:NonSerialized]
     protected Texture tex;
@@ -41,4 +41,6 @@ abstract class Tile : IRenderable
     }
 
     public virtual void Effect(Player player, Side side) { }
+
+    public virtual void Update(double dt) { }
 }

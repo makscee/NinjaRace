@@ -21,6 +21,9 @@ partial class Player
                 if (t != null && CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
                     collisions[Box.Collide(t.Box)].Add(t);
             }
+        foreach(Tile t in tiles.GetCustomTiles())
+            if(CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
+                collisions[Box.Collide(t.Box)].Add(t);
     }
 
     public void CollisionHits()
