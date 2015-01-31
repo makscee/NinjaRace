@@ -83,11 +83,13 @@ class World : IRenderable, IUpdateable
     private void DrawBackground()
     {
         Draw.Save();
-        Draw.Translate(cam.Position - new Vec2(player.Position.X / 4, 0));
+        new Camera(360).Apply();
+        Vec2 offset = new Vec2(player.Position.X / 3, 0);
+        offset = new Vec2(offset.X - App.Width * Math.Floor(offset.X / App.Width), 0);
+        Draw.Translate(-offset);
         Draw.Scale(App.Width / 2, App.Height / 3);
         Draw.Scale(2);
         Draw.Align(0.5, 0.5);
-        Draw.Translate(new Vec2(Math.Round(player.Position.X / App.Width / 5), 0));
         background.Render();
         Draw.Translate(new Vec2(1, 0));
         background.Render();

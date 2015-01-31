@@ -134,6 +134,7 @@ class LevelEditor : State
         }
         if(MouseButton.Left.Pressed() && !(currentTile is Saw))
             tiles.AddTile(Geti(), Getj(), currentTile);
+        tiles.Update(dt);
     }
 
     void RenderTiles()
