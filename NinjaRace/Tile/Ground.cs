@@ -7,6 +7,6 @@ class Ground : Tile
 {
     protected override void LoadTexture()
     {
-        tex = new Texture("./Data/img/tiles/ground.png");
+        tex = new AnimatedTexture(new Texture("./Data/img/tiles/ground.png"));
     }
 }

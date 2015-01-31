@@ -11,7 +11,9 @@ class Saw : Tile
 
     protected override void LoadTexture()
     {
-        tex = new Texture("./Data/img/tiles/saw.png");
+        tex = new AnimatedTexture()
+            .Add(new Texture("./Data/img/tiles/saw.png"), 0.2)
+            .Add(new Texture("./Data/img/tiles/saw2.png"), 0.2);
     }
 
     public Saw() { }
@@ -36,6 +38,7 @@ class Saw : Tile
 
     public override void Update(double dt)
     {
+        base.Update(dt);
         if (pos1.Equals(pos2))
             return;
 

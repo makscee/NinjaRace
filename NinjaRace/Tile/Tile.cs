@@ -6,7 +6,7 @@ using System;
 abstract class Tile : IRenderable, IUpdateable
 {
     [field:NonSerialized]
-    protected Texture tex;
+    protected AnimatedTexture tex;
     public static Vec2 Size = new Vec2(15, 15);
     private Vec2 _Position;
     protected bool Mark = false;
@@ -42,5 +42,9 @@ abstract class Tile : IRenderable, IUpdateable
 
     public virtual void Effect(Player player, Side side) { }
 
-    public virtual void Update(double dt) { }
+    public virtual void Update(double dt) 
+    {
+        if(tex != null)
+            tex.Update(dt);
+    }
 }
