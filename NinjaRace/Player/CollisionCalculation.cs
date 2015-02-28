@@ -64,4 +64,16 @@ partial class Player
                 }
             }
     }
+
+    public bool TouchWalls()
+    {
+        return collisions[Side.Left].Count > 0 ||
+            collisions[Side.Right].Count > 0 ||
+            collisions[Side.Down].Count > 0;
+    }
+
+    public bool OnGround()
+    {
+        return collisions[Side.Down].Count > 0;
+    }
 }

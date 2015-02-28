@@ -31,13 +31,7 @@ abstract class Tile : IRenderable, IUpdateable
     {
         if(tex == null)
             LoadTexture();
-        Draw.Save();
-        Draw.Translate(Position);
-        Draw.Scale(Tile.Size.X, Tile.Size.Y);
-        Draw.Scale(2);
-        Draw.Align(0.5, 0.5);
-        tex.Render();
-        Draw.Load();
+        tex.RenderToPosAndSize(Position, Tile.Size);
     }
 
     public virtual void Effect(Player player, Side side) { }

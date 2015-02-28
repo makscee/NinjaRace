@@ -25,22 +25,26 @@ class States : IRenderable, IUpdateable
             return;
         if(!(current == walking || current == flying || current == wallgrab) && current != null)
             return;
-        if (player.collisions[Side.Left].Count == 0 &&
-           player.collisions[Side.Right].Count == 0 &&
-           player.collisions[Side.Down].Count == 0)
+        if (!player.TouchWalls())
         {
-
+            if (current == flying)
+                return;
             current = flying;
+            current.Reset();
             return;
         }
-        if (player.collisions[Side.Down].Count != 0)
+        if (player.OnGround())
         {
+            if (current == walking)
+                return;
             current = walking;
+            current.Reset();
             return;
         }
-        if (player.collisions[Side.Down].Count == 0)
+        if (!player.OnGround() && !(current == wallgrab))
         {
             current = wallgrab;
+            current.Reset();
             return;
         }
     }
@@ -48,26 +52,31 @@ class States : IRenderable, IUpdateable
     public void Set(PlayerState state)
     {
         current = state;
+        current.Reset();
     }
 
     public void SetFlying()
     {
         current = flying;
+        current.Reset();
     }
 
     public void SetDead()
     {
         current = dead;
+        current.Reset();
     }
 
     public void Reset()
     {
         current = null;
         StateChangeCheck();
+        current.Reset();
     }
 
     public void Render()
-    {current.Render();
+    {
+        current.Render();
     }
 
     public void Update(double dt)
@@ -78,6 +87,7 @@ class States : IRenderable, IUpdateable
         if (player.Controller.NeedAbility())
             current.AbilityUse(ability);
         current.Update(dt);
+        current.AddTime(dt);
     }
             
 }

@@ -5,6 +5,7 @@ using System;
 class PlayerState : IRenderable, IUpdateable
 {
     protected Player player;
+    protected double time = 0;
     public PlayerState(Player Player)
     {
         this.player = Player;
@@ -43,5 +44,20 @@ class PlayerState : IRenderable, IUpdateable
     {
         player.States.SetDead();
         player.Velocity += (player.Position - position).Unit * player.JumpForce;
+    }
+
+    public void AddTime(double dt)
+    {
+        time += dt;
+    }
+
+    public double GetTime()
+    {
+        return time;
+    }
+
+    public void Reset()
+    {
+        time = 0;
     }
 }

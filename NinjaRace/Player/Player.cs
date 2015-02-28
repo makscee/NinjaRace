@@ -55,13 +55,6 @@ partial class Player : IUpdateable, IRenderable
     public void Render()
     {
         States.Render();
-        //foreach (var a in collisions)
-        //{
-        //    foreach (var b in a.Value)
-        //    {
-        //        Draw.Rect(b.Position + Tile.Size, b.Position - Tile.Size, Color.Magenta);
-        //    }
-        //}
     }
 
     public World GetWorld()

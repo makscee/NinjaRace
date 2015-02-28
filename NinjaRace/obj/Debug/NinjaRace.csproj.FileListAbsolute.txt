@@ -10,10 +10,10 @@ C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\font.TTF
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.pdb
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\VPE.xml
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.pdb
-C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.xml
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\ground.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\spikes.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\FinishTile.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\background.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\saw.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\saw2.png
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.xml
