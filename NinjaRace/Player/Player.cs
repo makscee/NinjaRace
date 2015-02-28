@@ -13,6 +13,7 @@ partial class Player : IUpdateable, IRenderable
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
+    public Face Face;
 
     public Vec2 Velocity
     {
@@ -29,11 +30,12 @@ partial class Player : IUpdateable, IRenderable
 
     public Player()
     {
-        Size = new Vec2(10, 20);
+        Size = new Vec2(10, 16);
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
+        Face = new Face(this);
     }
 
     public Player SetControls(IController controller)
@@ -44,6 +46,7 @@ partial class Player : IUpdateable, IRenderable
 
     public void Update(double dt)
     {
+        Face.Update(dt);
         CollisionHits();
         Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
         Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
@@ -54,7 +57,8 @@ partial class Player : IUpdateable, IRenderable
 
     public void Render()
     {
-        States.Render();
+        //States.Render();
+        Face.Render();
     }
 
     public World GetWorld()

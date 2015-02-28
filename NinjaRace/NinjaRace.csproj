@@ -57,7 +57,8 @@
     <Compile Include="Level Editor\LevelEditor.cs" />
     <Compile Include="Player\Classes\Dasher.cs" />
     <Compile Include="Player\Classes\Quaker.cs" />
-    <Compile Include="Player\Face.cs" />
+    <Compile Include="Player\Face\Face.cs" />
+    <Compile Include="Player\Face\Loads\DefaultLoad.cs" />
     <Compile Include="Player\States\DashState.cs" />
     <Compile Include="Player\States\RocketJumpState.cs" />
     <Compile Include="Player\States\States.cs" />
@@ -92,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\img\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\faces\default\smile1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\faces\default\smile2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\tiles\FinishTile.png">

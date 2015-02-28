@@ -17,3 +17,5 @@ C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\backgroun
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\saw.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\tiles\saw2.png
 C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\OpenTK.xml
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\faces\default\smile1.png
+C:\Users\Admin\Documents\GitHub\NinjaRace\NinjaRace\bin\Debug\Data\img\faces\default\smile2.png

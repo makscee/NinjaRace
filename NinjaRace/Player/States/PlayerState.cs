@@ -12,7 +12,7 @@ class PlayerState : IRenderable, IUpdateable
     }
     public virtual void Render()
     {
-        Draw.Rect(player.Position + player.Size, player.Position - player.Size, Color.White);
+        
     }
 
     public virtual void Update(double dt)
