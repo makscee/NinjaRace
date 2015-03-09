@@ -95,6 +95,15 @@
     <Content Include="Data\img\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\img\faces\defaultfillers\look1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\faces\defaultfillers\look2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\faces\defaultfillers\look3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\img\faces\default\smile1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

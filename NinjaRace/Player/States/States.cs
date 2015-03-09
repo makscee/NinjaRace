@@ -51,18 +51,24 @@ class States : IRenderable, IUpdateable
 
     public void Set(PlayerState state)
     {
+        if (current == state)
+            return;
         current = state;
         current.Reset();
     }
 
     public void SetFlying()
     {
+        if (current == flying)
+            return;
         current = flying;
         current.Reset();
     }
 
     public void SetDead()
     {
+        if (current == dead)
+            return;
         current = dead;
         current.Reset();
     }
