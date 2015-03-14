@@ -30,12 +30,13 @@ class LevelEditor : State
     public LevelEditor()
     {
         TTenum = TileTypes.GetEnumerator();
-        tiles = GUtil.Load<Tiles>("./level.dat");
+        //tiles = GUtil.Load<Tiles>("./level.dat");
+        tiles = DBUtils.GetTiles("default");
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
             .SetTextScale(12)
-            .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
+            .SetAction(() => { DBUtils.StoreTiles(tiles); this.Close(); });
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)

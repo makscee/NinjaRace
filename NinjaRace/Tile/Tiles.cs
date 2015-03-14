@@ -9,6 +9,8 @@ class Tiles : IRenderable, IUpdateable
     private Tile[,] tiles;
     private Group<Tile> customTiles;
 
+    public String level { get; set; }
+
     public Tiles(int sizex, int sizey)
     {
         tiles = new Tile[sizex, sizey];
