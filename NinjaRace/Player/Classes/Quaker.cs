@@ -8,5 +8,6 @@ class Quaker : Player
         : base()
     {
         States = new States(this, new RocketJump(this));
+        Face.SetFrontColor(Color.Orange);
     }
 }

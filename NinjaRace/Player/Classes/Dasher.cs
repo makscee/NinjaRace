@@ -7,5 +7,6 @@ class Dasher : Player
     public Dasher() : base()
     {
         States = new States(this, new Dash(this));
+        Face.SetFrontColor(Color.Magenta);
     }
 }
