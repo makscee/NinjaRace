@@ -14,6 +14,7 @@ class Face : IRenderable, IUpdateable
     double TimeToFiller = 4;
 
     Vec2 Size = new Vec2(10, 10);
+    int Dir = 1;
     Vec2 Position
     {
         get
@@ -63,15 +64,23 @@ class Face : IRenderable, IUpdateable
         Draw.Rect(Position - Size, Position + Size, Back);
         Draw.Save();
         Draw.Color(Front);
-        Current.RenderToPosAndSize(Position, Size);
+        if(Dir == 1)
+            Current.RenderToPosAndSize(Position, new Vec2(Size.X, Size.Y));
+        if(Dir == -1)
+            Current.RenderToPosAndSize(Position, new Vec2(-Size.X, Size.Y));
         Draw.Load();
     }
 
     public void Update(double dt)
     {
-        SinceLastFiller += dt;
+        if(Current == Default)
+            SinceLastFiller += dt;
         if(Current != null)
             Current.Update(dt);
+        if (player.Velocity.X > 0)
+            Dir = 1;
+        if (player.Velocity.X < 0)
+            Dir = -1;
     }
 
     void UpdateCurrent()
@@ -82,12 +91,12 @@ class Face : IRenderable, IUpdateable
         }
         if(Current != Default && Current.HasLooped)
         {
-            Current = Default;
+            Current = Default.Reset();
             return;
         }
         if (SinceLastFiller > TimeToFiller)
         {
-            Current = Fillers[Program.Random.Next(Fillers.Count)];
+            Current = Fillers[Program.Random.Next(Fillers.Count)].Reset();
             SinceLastFiller = 0;
         }
     }

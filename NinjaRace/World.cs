@@ -16,7 +16,7 @@ class World : IRenderable, IUpdateable
     {
         background = new Texture("./Data/img/background.png");
         this.player = player;
-        Tiles = GUtil.Load<Tiles>("./level.dat");
+        Tiles = DBUtils.GetTiles("default");
         switch (mode)
         {
             case 1:

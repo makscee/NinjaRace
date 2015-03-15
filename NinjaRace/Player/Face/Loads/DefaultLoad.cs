@@ -13,6 +13,6 @@ class DefaultLoad
             .Add(new Texture("./Data/img/faces/defaultfillers/look1.png"), 0.5)
             .Add(new Texture("./Data/img/faces/defaultfillers/look2.png"), 0.5)
             .Add(new Texture("./Data/img/faces/defaultfillers/look3.png"), 0.5)
-            .Add(new Texture("./Data/img/faces/defaultfillers/look1.png"), 0.5));
+            .Add(new Texture("./Data/img/faces/defaultfillers/look1.png"), 0.9));
     }
 }
