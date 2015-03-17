@@ -11,7 +11,7 @@ class LevelEditor : State
     bool dragging = false;
     Vec2 draggingVec;
     Button done;
-    Vec2 vecForSaw1, vecForSaw2;
+    int vecForSaw1 = -1, vecForSaw2 = -1;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile", "FinishTile", "Saw" };
     List<string>.Enumerator TTenum;
@@ -51,18 +51,18 @@ class LevelEditor : State
             done.Click();
             if (currentTile is Saw)
             {
-                vecForSaw1 = new Vec2(Tile.Size.X * Getj() * 2, Tile.Size.Y * Geti() * 2);
+                vecForSaw1 = Tiles.GetID(GetX(), GetY());
             }
         }
     }
 
-    int Geti()
+    int GetY()
     {
         double t = Program.MousePosition().Y * cam.FOV / 240 + cam.Position.Y;
         return (int)Math.Round(t / Tile.Size.Y / 2);
     }
 
-    int Getj()
+    int GetX()
     {
         double t = Program.MousePosition().X * cam.FOV / 240 + cam.Position.X;
         return (int)Math.Round(t / Tile.Size.X / 2);
@@ -77,9 +77,11 @@ class LevelEditor : State
         {
             if (currentTile is Saw)
             {
-                vecForSaw2 = new Vec2(Tile.Size.X * Getj() * 2, Tile.Size.Y * Geti() * 2);
-                tiles.AddCustomTile(new Saw(vecForSaw1, vecForSaw2));
-                vecForSaw1 = vecForSaw2 = Vec2.Zero;
+                vecForSaw2 = Tiles.GetID(GetX(), GetY());
+                Saw s = new Saw();
+                s.Link = vecForSaw2;
+                tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
+                vecForSaw1 = vecForSaw2 = -1;
             }
         }
     }
@@ -134,21 +136,21 @@ class LevelEditor : State
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
         if(MouseButton.Left.Pressed() && !(currentTile is Saw))
-            tiles.AddTile(Geti(), Getj(), currentTile);
+            tiles.AddTile(GetX(), GetY(), currentTile);
         tiles.Update(dt);
     }
 
     void RenderTiles()
     {
-        for (int i = 1; i < tiles.GetLength(0); i++)
-            for (int j = 1; j < tiles.GetLength(1); j++)
+        for (int y = 1; y < tiles.GetLength(0); y++)
+            for (int x = 1; x < tiles.GetLength(1); x++)
             {
-                if (tiles.GetTile(i, j) == null)
-                    Draw.Rect(new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) - Tile.Size * 0.9
-                        , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
-                else if (tiles.GetTile(i, j) is StartTile)
-                    Draw.Rect(new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) - Tile.Size * 0.9
-                        , new Vec2(j * Tile.Size.X * 2, i * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
+                if (tiles.GetTile(x, y) == null)
+                    Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
+                        , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
+                else if (tiles.GetTile(x, y) is StartTile)
+                    Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
+                        , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
             }
         tiles.Render();
     }
@@ -158,8 +160,9 @@ class LevelEditor : State
         cam.Apply();
         Draw.Clear(Color.Black);
         RenderTiles();
-        if (!vecForSaw1.Equals(Vec2.Zero))
-            Draw.Rect(vecForSaw1 + Tile.Size, vecForSaw1 - Tile.Size, Color.Green);
+        if (vecForSaw1 != -1)
+            Draw.Rect(Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) + Tile.Size,
+                Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) - Tile.Size, Color.Green);
         new Camera(240).Apply();
         done.Render();
         RenderTileMenu();

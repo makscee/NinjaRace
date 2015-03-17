@@ -14,10 +14,10 @@ partial class Player
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
         int xbound = (int)Math.Floor(Position.X / Tile.Size.X / 2), ybound = (int)Math.Floor(Position.Y / Tile.Size.Y / 2);
-        for (int i = ybound - 1; i <= ybound + 1; i++)
-            for (int j = xbound - 1; j <= xbound + 1; j++)
+        for (int y = ybound - 1; y <= ybound + 1; y++)
+            for (int x = xbound - 1; x <= xbound + 1; x++)
             {
-                Tile t = tiles.GetTile(i, j);
+                Tile t = tiles.GetTile(x, y);
                 if (t != null && CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
                     collisions[Box.Collide(t.Box)].Add(t);
             }

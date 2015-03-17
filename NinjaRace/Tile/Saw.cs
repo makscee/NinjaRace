@@ -5,7 +5,6 @@ using System;
 [Serializable]
 class Saw : Tile
 {
-    Vec2 pos1, pos2;
     bool forward = true;
     double speed = 100;
 
@@ -16,13 +15,9 @@ class Saw : Tile
             .Add(new Texture("./Data/img/tiles/saw2.png"), 0.2);
     }
 
-    public Saw() { }
-
-    public Saw(Vec2 p1, Vec2 p2)
+    public Saw() 
     {
-        Position = p1;
-        pos1 = p1;
-        pos2 = p2;
+        Moving = true;
     }
 
     public Saw SetSpeed(double s)
@@ -39,9 +34,10 @@ class Saw : Tile
     public override void Update(double dt)
     {
         base.Update(dt);
-        if (pos1.Equals(pos2))
+        if (Link == -1)
             return;
-
+        Vec2 pos1 = Tiles.GetPosition(Tiles.GetCoords(ID));
+        Vec2 pos2 = Tiles.GetPosition(Tiles.GetCoords(Link));
         Vec2 v = forward ? (pos2 - pos1).Unit : (pos1 - pos2).Unit;
         Position += v * speed * dt;
         if (forward && Vec2.Dot(pos2 - Position, v) < 0)
