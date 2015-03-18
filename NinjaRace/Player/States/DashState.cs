@@ -6,9 +6,21 @@ class DashState : PlayerState
 {
     public Vec2 dir = Vec2.Zero;
     double speed, t = 0, mt = 0.1;
+
+    AnimatedTexture down, right;
     public DashState(Player player) : base(player) 
     {
         speed = player.Speed * 6;
+        Animated = true;
+        down = new AnimatedTexture(new Texture("./Data/img/faces/states/dash/down.png"));
+        right = new AnimatedTexture(new Texture("./Data/img/faces/states/dash/right.png"));
+    }
+
+    public override AnimatedTexture GetTexture()
+    {
+        if (dir.Y != 0)
+            return down;
+        else return right;
     }
 
     public override void Render()

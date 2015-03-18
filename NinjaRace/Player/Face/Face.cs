@@ -85,6 +85,11 @@ class Face : IRenderable, IUpdateable
 
     void UpdateCurrent()
     {
+        if (player.States.current.Animated)
+        {
+            Current = player.States.current.GetTexture();
+            return;
+        }
         if (Current == null)
         {
             Current = Default;

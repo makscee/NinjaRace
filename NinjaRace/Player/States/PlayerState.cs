@@ -6,10 +6,17 @@ class PlayerState : IRenderable, IUpdateable
 {
     protected Player player;
     protected double time = 0;
+    public bool Animated = false;
     public PlayerState(Player Player)
     {
         this.player = Player;
     }
+
+    public virtual AnimatedTexture GetTexture()
+    {
+        return null;
+    }
+
     public virtual void Render()
     {
         

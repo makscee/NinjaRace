@@ -34,7 +34,7 @@ class Tiles : IRenderable, IUpdateable
     {
         if (x <= 0 || y <= 0)
             return;
-        if (x >= tiles.GetLength(0) || y >= tiles.GetLength(1))
+        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1))
             return;
         if (tile == null)
         {

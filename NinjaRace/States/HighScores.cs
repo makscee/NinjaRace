@@ -2,9 +2,9 @@
 using VitPro;
 using VitPro.Engine;
 
-class AfterGame : Menu
+class HighScores : Menu
 {
-    public AfterGame()
+    public HighScores()
     {
         dfields.Add(new DisplayField(new Vec2(0, 35), new Vec2(90, 80))
             .SetName("Game Over")
@@ -16,20 +16,26 @@ class AfterGame : Menu
             .SetTextFromTheLeft()
             .SetTextScale(12)
             .SetName("Player 1 Time: " + Math.Round(Program.GetWorld1().Time, 2).ToString()));
-        if(Program.GetWorld2() != null)
-            dfields.Add(new DisplayField(new Vec2(0, 30), new Vec2(80, 10))
-                .SetColors(new Color(0.1, 0.1, 0.1), Color.White)
-                .SetTextFromTheLeft()
-                .SetTextScale(12)
-                .SetName("Player 2 Time: " + Math.Round(Program.GetWorld2().Time, 2).ToString()));
         buttons.Add(new Button(new Vec2(0, -100), new Vec2(40, 15))
             .SetName("Done")
             .SetAction(() =>
             {
                 Close();
-                Program.Manager.PushState(new HighScores());
+                Program.Manager.PushState(new MainMenu());
             }
         ));
+
+        int i = 0;
+        foreach(var a in DBUtils.GetHighScores())
+        {
+            dfields.Add(new DisplayField(new Vec2(0, 55 - i), new Vec2(80, 10))
+                .SetColors(new Color(0.1, 0.1, 0.1), Color.White)
+                .SetTextFromTheLeft()
+                .SetTextScale(12)
+                .SetName(a.Item1 + ": " + a.Item2));
+            i += 25;
+        }
+
         dfields.Refresh();
         buttons.Refresh();
     }
