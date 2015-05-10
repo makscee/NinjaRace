@@ -85,7 +85,8 @@
       <DependentUpon>DatabaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DB\DBUtils.cs" />
-    <Compile Include="Level Editor\LevelEditorMenu.cs" />
+    <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
+    <Compile Include="Level\Level.cs" />
     <Compile Include="Player\Abilities\Ability.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,7 +95,7 @@
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
-    <Compile Include="Level Editor\LevelEditor.cs" />
+    <Compile Include="Level\Level Editor\LevelEditor.cs" />
     <Compile Include="Player\Classes\Dasher.cs" />
     <Compile Include="Player\Classes\Quaker.cs" />
     <Compile Include="Player\Face\Face.cs" />
@@ -131,15 +132,15 @@
     <Compile Include="States\Game.cs" />
     <Compile Include="States\HighScores.cs" />
     <Compile Include="States\MainMenu.cs" />
-    <Compile Include="Tile\FinishTile.cs" />
-    <Compile Include="Tile\Ground.cs" />
-    <Compile Include="Tile\JumpTile.cs" />
-    <Compile Include="Tile\MarkTile.cs" />
-    <Compile Include="Tile\Saw.cs" />
-    <Compile Include="Tile\Spikes.cs" />
-    <Compile Include="Tile\StartTile.cs" />
-    <Compile Include="Tile\Tile.cs" />
-    <Compile Include="Tile\Tiles.cs" />
+    <Compile Include="Level\Tile\FinishTile.cs" />
+    <Compile Include="Level\Tile\Ground.cs" />
+    <Compile Include="Level\Tile\JumpTile.cs" />
+    <Compile Include="Level\Tile\MarkTile.cs" />
+    <Compile Include="Level\Tile\Saw.cs" />
+    <Compile Include="Level\Tile\Spikes.cs" />
+    <Compile Include="Level\Tile\StartTile.cs" />
+    <Compile Include="Level\Tile\Tile.cs" />
+    <Compile Include="Level\Tiles.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

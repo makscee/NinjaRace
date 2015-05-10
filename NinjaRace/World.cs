@@ -6,7 +6,7 @@ class World : IRenderable, IUpdateable
 {
 
     public Player player;
-    public Tiles Tiles = new Tiles(10, 50);
+    public Level level;
     Camera cam = new Camera(360);
     Vec2 camOffset = Vec2.Zero;
     public double Time = 0;
@@ -16,26 +16,26 @@ class World : IRenderable, IUpdateable
     {
         background = new Texture("./Data/img/background.png");
         this.player = player;
-        Tiles = DBUtils.GetTiles("default");
+        level = DBUtils.GetLevel("default");
         switch (mode)
         {
             case 1:
                 {
                     camOffset = new Vec2(0, 120);
-                    player.Position = Tiles.GetStartTile().Position;
+                    player.Position = level.tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             case 2:
                 {
                     camOffset = new Vec2(0, -120);
-                    player.Position = Tiles.GetStartTile().Position;
+                    player.Position = level.tiles.GetStartTile().Position;
                     cam.FOV *= 1.5;
                     break;
                 }
             default:
                 {
-                    player.Position = Tiles.GetStartTile().Position;
+                    player.Position = level.tiles.GetStartTile().Position;
                     break;
                 }
         }
@@ -47,7 +47,7 @@ class World : IRenderable, IUpdateable
         camt.Position = cam.Position + camOffset;
         camt.Apply();
         DrawBackground();
-        Tiles.Render();
+        level.Render();
         player.Render();
     }
 
@@ -69,7 +69,7 @@ class World : IRenderable, IUpdateable
             a.Effect(player, Side.Right);
         foreach (var a in player.collisions[Side.Up])
             a.Effect(player, Side.Up);
-        Tiles.Update(dt);
+        level.Update(dt);
     }
     public void KeyDown(Key key)
     {

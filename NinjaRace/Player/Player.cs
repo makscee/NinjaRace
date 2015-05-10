@@ -69,7 +69,7 @@ partial class Player : IUpdateable, IRenderable
     public void Respawn()
     {
         Velocity = Vec2.Zero;
-        Position = GetWorld().Tiles.GetStartTile().Position;
+        Position = GetWorld().level.tiles.GetStartTile().Position;
         States.SetFlying();
         CalculateCollisions();
     }

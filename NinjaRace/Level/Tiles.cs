@@ -10,8 +10,6 @@ class Tiles : IRenderable, IUpdateable
     private Group<Tile> movingTiles;
     public static Vec2i MaxSize = new Vec2i(500, 150);
 
-    public String level { get; set; }
-
     public Tiles(int sizex, int sizey)
     {
         if (sizex > MaxSize.X || sizey > MaxSize.Y)

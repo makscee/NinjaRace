@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 class LevelEditor : State
 {
-    Tiles tiles;
+    Level level;
     Tile currentTile;
     Camera cam = new Camera(240);
     bool dragging = false;
@@ -19,24 +19,24 @@ class LevelEditor : State
     public LevelEditor(int sizex, int sizey)
     {
         TTenum = TileTypes.GetEnumerator();
-        tiles = new Tiles(sizex, sizey);
+        level = new Level(new Tiles(sizex, sizey), "temp");
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
             .SetTextScale(12)
-            .SetAction(() => { GUtil.Dump(tiles, "./level.dat"); this.Close(); });
+            .SetAction(() => { GUtil.Dump(level, "./level.dat"); this.Close(); });
     }
 
     public LevelEditor()
     {
         TTenum = TileTypes.GetEnumerator();
         //tiles = GUtil.Load<Tiles>("./level.dat");
-        tiles = DBUtils.GetTiles("default");
+        level = DBUtils.GetLevel("default");
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
             .SetTextScale(12)
-            .SetAction(() => { DBUtils.StoreTiles(tiles); this.Close(); });
+            .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
@@ -80,7 +80,7 @@ class LevelEditor : State
                 vecForSaw2 = Tiles.GetID(GetX(), GetY());
                 Saw s = new Saw();
                 s.Link = vecForSaw2;
-                tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
+                level.tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
                 vecForSaw1 = vecForSaw2 = -1;
             }
         }
@@ -136,23 +136,23 @@ class LevelEditor : State
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
         if(MouseButton.Left.Pressed() && !(currentTile is Saw))
-            tiles.AddTile(GetX(), GetY(), currentTile);
-        tiles.Update(dt);
+            level.tiles.AddTile(GetX(), GetY(), currentTile);
+        level.Update(dt);
     }
 
     void RenderTiles()
     {
-        for (int y = 1; y < tiles.GetLength(0); y++)
-            for (int x = 1; x < tiles.GetLength(1); x++)
+        for (int y = 1; y < level.tiles.GetLength(0); y++)
+            for (int x = 1; x < level.tiles.GetLength(1); x++)
             {
-                if (tiles.GetTile(x, y) == null)
+                if (level.tiles.GetTile(x, y) == null)
                     Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
-                else if (tiles.GetTile(x, y) is StartTile)
+                else if (level.tiles.GetTile(x, y) is StartTile)
                     Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
             }
-        tiles.Render();
+        level.Render();
     }
 
     public override void Render()

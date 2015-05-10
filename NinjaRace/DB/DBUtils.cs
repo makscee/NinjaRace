@@ -11,13 +11,13 @@ class DBUtils
     static string connectionString = 
         ConfigurationManager.ConnectionStrings["NinjaRace.Properties.Settings.DatabaseConnectionString"].ConnectionString;
 
-    public static Tiles GetTiles(String level)
+    public static Level GetLevel(String name)
     {
         int levelX = 0, levelY = 0;
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
-                "SELECT * FROM Levels where name='" + level + "';",
+                "SELECT * FROM Levels where name='" + name + "';",
                 connection);
             connection.Open();
 
@@ -38,8 +38,7 @@ class DBUtils
             reader.Close();
         }
 
-        Tiles tiles = new Tiles(levelX, levelY);
-        tiles.level = level;
+        Level level = new Level(new Tiles(levelX, levelY), name);
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
@@ -59,7 +58,7 @@ class DBUtils
                     t.ID = reader.GetInt32(0);
                     if(!reader.IsDBNull(1))
                         t.Link = reader.GetInt32(1);
-                    tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
+                    level.tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
                 }
             }
             else
@@ -68,19 +67,19 @@ class DBUtils
             }
             reader.Close();
         }
-        return tiles;
+        return level;
     }
 
-    public static void StoreTiles(Tiles tiles)
+    public static void StoreTiles(Level level)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
-            new SqlCommand("delete from Tiles where Level='" + tiles.level + "';", connection).ExecuteNonQuery();
-            for (int y = 1; y < tiles.GetLength(0); y++)
-                for (int x = 1; x < tiles.GetLength(1); x++)
+            new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
+            for (int y = 1; y < level.tiles.GetLength(0); y++)
+                for (int x = 1; x < level.tiles.GetLength(1); x++)
                 {
-                    Tile t = tiles.GetTile(x, y);
+                    Tile t = level.tiles.GetTile(x, y);
                     if(t == null)
                         continue;
 
@@ -91,12 +90,12 @@ class DBUtils
                     command.Parameters.AddWithValue("@id", Tiles.GetID(x, y));
                     command.Parameters.AddWithValue("@x_position", x);
                     command.Parameters.AddWithValue("@y_position", y);
-                    command.Parameters.AddWithValue("@level", tiles.level);
+                    command.Parameters.AddWithValue("@level", level.name);
                     command.Parameters.AddWithValue("@type", t.GetType().ToString());
                     command.ExecuteNonQuery();
                 }
             connection.Close();
-            UpdateLinks(tiles);
+            UpdateLinks(level.tiles);
         }
     }
 
