@@ -3,13 +3,13 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Sql;
+using System.Configuration;
 using VitPro;
 
 class DBUtils
 {
-    static string connectionString =
-        "Data Source=(LocalDB)\\v11.0;AttachDbFilename=C:\\Users\\Admin\\Documents" 
-        + "\\GitHub\\NinjaRace\\NinjaRace\\Database.mdf;Integrated Security=True";
+    static string connectionString = 
+        ConfigurationManager.ConnectionStrings["NinjaRace.Properties.Settings.DatabaseConnectionString"].ConnectionString;
 
     public static Tiles GetTiles(String level)
     {
