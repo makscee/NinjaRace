@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 class ChoseClass : Menu
 {
-    DisplayField Mode;
+    //DisplayField Mode;
     public ChoseClass()
     {
         //Mode = new DisplayField(new Vec2(0, 20), new Vec2(50, 20))

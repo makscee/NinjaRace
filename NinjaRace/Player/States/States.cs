@@ -91,5 +91,6 @@ class States : IRenderable, IUpdateable
         current.Update(dt);
         current.AddTime(dt);
     }
-            
+
+    public double GetTime() { return current.GetTime(); }
 }

@@ -31,8 +31,8 @@ class World : IRenderable, IUpdateable
         camt.Apply();
         DrawBackground(player1);
         level.Render();
-        player1.Render();
         player2.Render();
+        player1.Render();
         Draw.EndTexture();
 
         Draw.Save();
@@ -49,8 +49,8 @@ class World : IRenderable, IUpdateable
         camt.Apply();
         DrawBackground(player2);
         level.Render();
-        player2.Render();
         player1.Render();
+        player2.Render();
         Draw.EndTexture();
 
         Draw.Save();

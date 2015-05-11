@@ -58,7 +58,7 @@ class PlayerState : IRenderable, IUpdateable
         return time;
     }
 
-    public void Reset()
+    public virtual void Reset()
     {
         time = 0;
     }

@@ -4,6 +4,8 @@ using System;
 
 class Flying : PlayerState
 {
+    bool jumped = false;
+
     public Flying(Player player) : base(player) { }
     public override void Update(double dt)
     {
@@ -16,5 +18,16 @@ class Flying : PlayerState
     }
     public override void Jump()
     {
+        if (!jumped)
+        {
+            jumped = true;
+            base.Jump();
+        }
     }
+    public override void Reset()
+    {
+        base.Reset();
+        jumped = false;
+    }
+
 }
