@@ -84,7 +84,10 @@ class Button : IRenderable
         Draw.Scale((double)name.Width / (double)name.Height, 1);
         Draw.Scale(textScale);
         Draw.Align(0.5 + align.X, 0.5 + align.Y);
-        name.Render();
+        Shader s = new Shader(NinjaRace.Shaders.Test);
+        s.SetTexture("texture", name);
+        s.SetVec2("size", new Vec2(name.Width, name.Height));
+        s.Render();
         Draw.Load();
     }
 

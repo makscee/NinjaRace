@@ -125,33 +125,4 @@ class DBUtils
             connection.Close();
         }
     }
-
-    public static List<Tuple<String, String>> GetHighScores()
-    {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            SqlCommand command = new SqlCommand(
-                "SELECT * FROM High_Scores order by Score DESC;",
-                connection);
-            connection.Open();
-
-            SqlDataReader reader = command.ExecuteReader();
-
-            if (reader.HasRows)
-            {
-                List<Tuple<String, String>> list = new List<Tuple<string,string>>();
-                while (reader.Read())
-                {
-                    string s1, s2;
-                    s1 = reader.GetString(0);
-                    s2 = reader.GetInt32(1).ToString();
-                    Tuple<String, String> t = new Tuple<string,string>(s1, s2);
-                    list.Add(t);
-                }
-                return list;
-            }
-            reader.Close();
-        }
-        return null;
-    }
 }

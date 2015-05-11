@@ -16,6 +16,14 @@ class Menu : State
         buttons.Render();
         efields.Render();
         dfields.Render();
+        //new Camera(3).Apply();
+        //Draw.Align(0.5, 0.5);
+        //Shader s = new Shader(NinjaRace.Shaders.Test);
+        //Texture t = Program.font.MakeTexture("ASD");
+        //Draw.Scale((double)t.Width / (double)t.Height, 1);
+        //s.SetTexture("texture", t);
+        //s.SetVec2("size", new Vec2(t.Width, t.Height));
+        //s.Render();
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)

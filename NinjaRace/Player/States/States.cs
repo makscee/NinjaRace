@@ -6,15 +6,13 @@ class States : IRenderable, IUpdateable
 {
     Player player;
     public PlayerState current;
-    Ability ability;
-    public States(Player player, Ability ability) 
+    public States(Player player) 
     { 
         this.player = player;
         flying = new Flying(player);
         walking = new Walking(player);
         dead = new Dead(player);
         wallgrab = new WallGrab(player);
-        this.ability = ability;
     }
 
     PlayerState flying, walking, dead, wallgrab;
@@ -90,8 +88,6 @@ class States : IRenderable, IUpdateable
         StateChangeCheck();
         if (player.Controller.NeedJump())
             current.Jump();
-        if (player.Controller.NeedAbility())
-            current.AbilityUse(ability);
         current.Update(dt);
         current.AddTime(dt);
     }

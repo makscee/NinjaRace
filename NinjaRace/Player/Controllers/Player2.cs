@@ -5,7 +5,6 @@ using System;
 class ControllerPlayer2 : IController
 {
     bool _NeedJump = false;
-    bool _NeedAbility = false;
     public bool NeedJump()
     {
         bool t = _NeedJump;
@@ -13,28 +12,16 @@ class ControllerPlayer2 : IController
         return t;
     }
 
-    public bool NeedAbility()
-    {
-        bool t = _NeedAbility;
-        _NeedAbility = false;
-        return t;
-    }
-
-
     public void KeyDown(Key key)
     {
         if (key == Key.ControlRight)
             _NeedJump = true;
-        if (key == Key.ShiftRight)
-            _NeedAbility = true;
     }
 
     public void KeyUp(Key key)
     {
         if (key == Key.ControlRight)
             _NeedJump = false;
-        if (key == Key.ShiftRight)
-            _NeedAbility = false;
     }
 
     public Vec2 NeedVel()

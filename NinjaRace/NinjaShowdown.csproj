@@ -87,21 +87,10 @@
     <Compile Include="DB\DBUtils.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
-    <Compile Include="Player\Abilities\Ability.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Player\Abilities\Dash.cs" />
-    <Compile Include="Player\Abilities\RocketJump.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
-    <Compile Include="Player\Classes\Dasher.cs" />
-    <Compile Include="Player\Classes\Quaker.cs" />
-    <Compile Include="Player\Face\Face.cs" />
-    <Compile Include="Player\Face\Loads\DefaultLoad.cs" />
-    <Compile Include="Player\States\DashState.cs" />
-    <Compile Include="Player\States\RocketJumpState.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\Win.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -113,6 +102,11 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Shaders.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shaders.resx</DependentUpon>
     </Compile>
     <Compile Include="States\AfterGame.cs" />
     <Compile Include="States\ChoseClass.cs" />
@@ -130,7 +124,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="States\Game.cs" />
-    <Compile Include="States\HighScores.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="Level\Tile\FinishTile.cs" />
     <Compile Include="Level\Tile\Ground.cs" />
@@ -193,6 +186,7 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\csVPE\VPE\VPE.csproj">
@@ -201,6 +195,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Shaders.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

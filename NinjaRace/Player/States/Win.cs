@@ -31,10 +31,6 @@ class Win : PlayerState
     {
     }
 
-    public override void AbilityUse(Ability ability)
-    {
-    }
-
     public override void TileJump() { }
 
     public override void Die(Vec2 position) { }

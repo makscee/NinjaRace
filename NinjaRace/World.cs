@@ -5,59 +5,69 @@ using System;
 class World : IRenderable, IUpdateable
 {
 
-    public Player player;
+    public Player player1, player2;
     public Level level;
-    Camera cam = new Camera(360);
-    Vec2 camOffset = Vec2.Zero;
+    Camera cam1 = new Camera(540), cam2 = new Camera(540);
+    Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
 
-    public World(int mode, Player player)
+    public World()
     {
-        background = new Texture("./Data/img/background.png");
-        this.player = player;
         level = DBUtils.GetLevel("default");
-        switch (mode)
-        {
-            case 1:
-                {
-                    camOffset = new Vec2(0, 120);
-                    player.Position = level.tiles.GetStartTile().Position;
-                    cam.FOV *= 1.5;
-                    break;
-                }
-            case 2:
-                {
-                    camOffset = new Vec2(0, -120);
-                    player.Position = level.tiles.GetStartTile().Position;
-                    cam.FOV *= 1.5;
-                    break;
-                }
-            default:
-                {
-                    player.Position = level.tiles.GetStartTile().Position;
-                    break;
-                }
-        }
+        background = new Texture("./Data/img/background.png");
+        player1 = new Player().SetControls(new ControllerPlayer1());
+        player1.Position = level.tiles.GetStartTile().Position;
+        player2 = new Player().SetControls(new ControllerPlayer2());
+        player2.Position = level.tiles.GetStartTile().Position;
     }
 
     public void Render()
     {
-        Camera camt = new Camera(cam.FOV);
-        camt.Position = cam.Position + camOffset;
+        Texture tex = new Texture(Draw.Width, Draw.Height);
+        Draw.BeginTexture(tex);
+        Camera camt = new Camera(cam1.FOV);
+        camt.Position = cam1.Position + camOffset;
         camt.Apply();
-        DrawBackground();
+        DrawBackground(player1);
         level.Render();
-        player.Render();
+        player1.Render();
+        player2.Render();
+        Draw.EndTexture();
+
+        Draw.Save();
+        Draw.Scale(2);
+        Draw.Align(0.5, 0.5);
+        Draw.Translate(0, 0.5);
+        tex.Render();
+        Draw.Load();
+
+        tex = new Texture(Draw.Width, Draw.Height);
+        Draw.BeginTexture(tex);
+        camt = new Camera(cam2.FOV);
+        camt.Position = cam2.Position - camOffset;
+        camt.Apply();
+        DrawBackground(player2);
+        level.Render();
+        player2.Render();
+        player1.Render();
+        Draw.EndTexture();
+
+        Draw.Save();
+        Draw.Scale(2);
+        Draw.Align(0.5, 0.5);
+        Draw.Translate(0, -0.5);
+        tex.Render();
+        Draw.Load();
     }
 
-    public void Update(double dt)
+    private void UpdateForPlayer(double dt, Player player)
     {
-        
-        if(!(player.States.current is Win))
+        if (!(player.States.current is Win))
             Time += dt;
         player.CalculateCollisions();
         player.Update(dt);
+        Camera cam = (player == player1) ? cam1 : cam2;
         cam.Position += (player.Position - cam.Position) * dt * 10;
         player.Position += player.Velocity * dt;
 
@@ -71,16 +81,24 @@ class World : IRenderable, IUpdateable
             a.Effect(player, Side.Up);
         level.Update(dt);
     }
+
+    public void Update(double dt)
+    {
+        UpdateForPlayer(dt, player1);
+        UpdateForPlayer(dt, player2);
+    }
     public void KeyDown(Key key)
     {
-        player.Controller.KeyDown(key);
+        player1.Controller.KeyDown(key);
+        player2.Controller.KeyDown(key);
     }
     public void KeyUp(Key key)
     {
-        player.Controller.KeyUp(key);
+        player1.Controller.KeyUp(key);
+        player2.Controller.KeyUp(key);
     }
 
-    private void DrawBackground()
+    private void DrawBackground(Player player)
     {
         Draw.Save();
         new Camera(360).Apply();
