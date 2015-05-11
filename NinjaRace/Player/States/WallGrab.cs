@@ -30,7 +30,7 @@ class WallGrab : PlayerState
             side = Side.Left;
         else side = Side.Right;
         player.Dir = side == Side.Left ? 1 : -1;
-        player.Velocity -= Vec2.Clamp(player.Velocity - new Vec2(0, -1) * player.DropSpeed, player.DropAcc * dt);
+        player.Velocity -= Vec2.Clamp(player.Velocity - new Vec2(0, -1) * player.SlideSpeed, player.SlideAcc * dt);
         base.Update(dt);
     }
     public override void Jump()

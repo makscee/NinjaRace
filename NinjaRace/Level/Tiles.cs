@@ -18,12 +18,35 @@ class Tiles : IRenderable, IUpdateable
         movingTiles = new Group<Tile>();
     }
 
-    public StartTile GetStartTile()
+    public Tuple<StartTile, StartTile> GetStartTiles()
     {
+        StartTile left, right;
+        left = right = null;
         foreach (var a in tiles)
             if (a is StartTile)
-                return (StartTile)a;
-        return null;
+            {
+                StartTile t = (StartTile)a;
+                if (left == null)
+                {
+                    left = t;
+                    continue;
+                }
+                else
+                {
+                    if (left.Position.X < t.Position.X)
+                    {
+                        if (right == null || right.Position.X < t.Position.X)
+                            right = t;
+                        continue;
+                    }
+                    else
+                    {
+                        right = left;
+                        left = t;
+                    }
+                }
+            }
+        return new Tuple<StartTile,StartTile>(left, right);
     }
 
     public void AddTile(Vec2i v, Tile t) { AddTile(v.X, v.Y, t); }
@@ -39,8 +62,6 @@ class Tiles : IRenderable, IUpdateable
             tiles[y, x] = null;
             return;
         }
-        if (tile is StartTile && GetStartTile() != null)
-            return;
         int link = tile.Link;
         tile = (Tile)tile.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
         tile.Position = new Vec2(Tile.Size.X * x * 2, Tile.Size.Y * y * 2);

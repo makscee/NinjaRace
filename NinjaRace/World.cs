@@ -16,10 +16,8 @@ class World : IRenderable, IUpdateable
     {
         level = DBUtils.GetLevel("default");
         background = new Texture("./Data/img/background.png");
-        player1 = new Player().SetControls(new ControllerPlayer1());
-        player1.Position = level.tiles.GetStartTile().Position;
-        player2 = new Player().SetControls(new ControllerPlayer2());
-        player2.Position = level.tiles.GetStartTile().Position;
+        player1 = new Player(level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
+        player2 = new Player(level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
     }
 
     public void Render()

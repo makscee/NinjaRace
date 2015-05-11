@@ -7,15 +7,15 @@ partial class Player : IUpdateable, IRenderable
 {
     public int Dir = 1;
     public Vec2 Position, Size;
-    private Vec2 _Velocity, _SpeedUp;
+    private Vec2 _Velocity, _SpeedUp, _StartPosition;
     public States States;
     public double Speed = 250, 
         Acc = 2700, 
         Gravity = 700, 
         GAcc = 1200, 
         JumpForce = 350, 
-        DropSpeed = 50, 
-        DropAcc = 1200, 
+        SlideSpeed = 50, 
+        SlideAcc = 1200, 
         SpeedUpAcc = 100;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
@@ -34,8 +34,10 @@ partial class Player : IUpdateable, IRenderable
         set { _SpeedUp = value; }
     }
 
-    public Player()
+    public Player(Vec2 StartPosition)
     {
+        _StartPosition = StartPosition;
+        Position = StartPosition;
         States = new States(this);
         Size = new Vec2(10, 16);
         collisions.Add(Side.Left, new List<Tile>());
@@ -68,7 +70,7 @@ partial class Player : IUpdateable, IRenderable
     public void Respawn()
     {
         Velocity = Vec2.Zero;
-        Position = Game.World.level.tiles.GetStartTile().Position;
+        Position = _StartPosition;
         States.SetFlying();
         CalculateCollisions();
     }

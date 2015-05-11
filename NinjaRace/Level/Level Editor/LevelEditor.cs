@@ -24,13 +24,12 @@ class LevelEditor : State
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
             .SetTextScale(12)
-            .SetAction(() => { GUtil.Dump(level, "./level.dat"); this.Close(); });
+            .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
     }
 
     public LevelEditor()
     {
         TTenum = TileTypes.GetEnumerator();
-        //tiles = GUtil.Load<Tiles>("./level.dat");
         level = DBUtils.GetLevel("default");
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
