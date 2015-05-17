@@ -4,7 +4,7 @@ using System;
 
 class ControllerPlayer2 : IController
 {
-    bool _NeedJump = false;
+    bool _NeedJump = false, _NeedSwing = false;
     public bool NeedJump()
     {
         bool t = _NeedJump;
@@ -12,16 +12,27 @@ class ControllerPlayer2 : IController
         return t;
     }
 
+    public bool NeedSwing()
+    {
+        bool t = _NeedSwing;
+        _NeedSwing = false;
+        return t;
+    }
+
     public void KeyDown(Key key)
     {
         if (key == Key.ControlRight)
             _NeedJump = true;
+        if (key == Key.ShiftRight)
+            _NeedSwing = true;
     }
 
     public void KeyUp(Key key)
     {
         if (key == Key.ControlRight)
             _NeedJump = false;
+        if (key == Key.ShiftRight)
+            _NeedSwing = false;
     }
 
     public Vec2 NeedVel()

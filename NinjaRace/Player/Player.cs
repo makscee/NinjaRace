@@ -9,13 +9,13 @@ partial class Player : IUpdateable, IRenderable
     public Vec2 Position, Size;
     private Vec2 _Velocity, _StartPosition;
     public States States;
-    public double Speed = 250, 
-        Acc = 2700, 
-        Gravity = 700, 
-        GAcc = 1200, 
-        JumpForce = 350, 
-        SlideSpeed = 50, 
-        SlideAcc = 1200, 
+    public double Speed = 250,
+        Acc = 2700,
+        Gravity = 700,
+        GAcc = 1200,
+        JumpForce = 350,
+        SlideSpeed = 50,
+        SlideAcc = 1200,
         SpeedUp = 1;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
@@ -54,12 +54,15 @@ partial class Player : IUpdateable, IRenderable
         Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
         Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
         States.Update(dt);
+        UpdateSword(dt);
         if (Position.Y < -50)
             States.SetDead();
     }
 
     public void Render()
     {
+        Draw.Rect(Position + new Vec2(Size.X * 1.5, 0) * Dir + new Vec2(Size.X * 3, Size.Y / 2),
+            Position + new Vec2(Size.X * 1.5, 0) * Dir - new Vec2(Size.X * 3, Size.Y / 2), Color.Gray);
         States.Render();
     }
 

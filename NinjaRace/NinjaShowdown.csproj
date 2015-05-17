@@ -95,6 +95,7 @@
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\Win.cs" />
+    <Compile Include="Player\Sword.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
