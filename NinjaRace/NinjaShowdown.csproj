@@ -87,6 +87,8 @@
     <Compile Include="DB\DBUtils.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
+    <Compile Include="Level\Tile\Bonus\Bonus.cs" />
+    <Compile Include="Level\Tile\Bonus\SpeedUp.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />

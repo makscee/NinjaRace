@@ -18,10 +18,11 @@ abstract class Tile : IRenderable, IUpdateable
     public Vec2 Position 
     {
         get { return _Position; }
-        set { _Position = value; Box = Mark? null : new CollisionBox(Position, Size); }
+        set { _Position = value; Box = new CollisionBox(Position, Size); }
     }
 
     public bool IsMoving { get { return Moving; } }
+    public bool IsMark { get { return Mark; } }
 
     public int GetY()
     {

@@ -114,18 +114,25 @@ class Tiles : IRenderable, IUpdateable
         return (y - 1) * MaxSize.X + x;
     }
 
-    public static Vec2i GetCoords(int ID)
+    public static Vec2i GetCoords(int id)
     {
-        return new Vec2i(ID % MaxSize.X, ID / MaxSize.X + 1);
+        return new Vec2i(id % MaxSize.X, id / MaxSize.X + 1);
     }
 
-    public Tile GetByID(int ID)
+    public Tile GetByID(int id)
     {
-        return GetTile(GetCoords(ID).X, GetCoords(ID).Y);
+        Vec2i coords = GetCoords(id);
+        return GetTile(coords.X, coords.Y);
     }
 
     public static Vec2 GetPosition(Vec2i Coords)
     {
         return new Vec2(Coords.X * Tile.Size.X * 2, Coords.Y * Tile.Size.Y * 2);
+    }
+
+    public void DeleteTile(int id)
+    {
+        Vec2i coords = GetCoords(id);
+        tiles[coords.Y, coords.X] = null;
     }
 }

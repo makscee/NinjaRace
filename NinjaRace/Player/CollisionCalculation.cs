@@ -8,22 +8,37 @@ partial class Player
     public void CalculateCollisions()
     {
         Tiles tiles = Game.World.level.tiles;
-        collisions.Clear();
-        collisions.Add(Side.Left, new List<Tile>());
-        collisions.Add(Side.Right, new List<Tile>());
-        collisions.Add(Side.Up, new List<Tile>());
-        collisions.Add(Side.Down, new List<Tile>());
+        collisions[Side.Left].Clear();
+        collisions[Side.Right].Clear();
+        collisions[Side.Up].Clear();
+        collisions[Side.Down].Clear();
         int xbound = (int)Math.Floor(Position.X / Tile.Size.X / 2), ybound = (int)Math.Floor(Position.Y / Tile.Size.Y / 2);
         for (int y = ybound - 1; y <= ybound + 1; y++)
             for (int x = xbound - 1; x <= xbound + 1; x++)
             {
                 Tile t = tiles.GetTile(x, y);
                 if (t != null && CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
-                    collisions[Box.Collide(t.Box)].Add(t);
+                {
+                    Side s = Box.Collide(t.Box);
+                    if (t.IsMark)
+                    {
+                        t.Effect(this, s);
+                        continue;
+                    }
+                    collisions[s].Add(t);
+                }
             }
         foreach(Tile t in tiles.GetCustomTiles())
-            if(CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
-                collisions[Box.Collide(t.Box)].Add(t);
+            if (CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
+            {
+                Side s = Box.Collide(t.Box);
+                if (t.IsMark)
+                {
+                    t.Effect(this, s);
+                    continue;
+                }
+                collisions[s].Add(t);
+            }
     }
 
     public void CollisionHits()

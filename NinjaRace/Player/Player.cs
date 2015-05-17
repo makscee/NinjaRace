@@ -7,7 +7,7 @@ partial class Player : IUpdateable, IRenderable
 {
     public int Dir = 1;
     public Vec2 Position, Size;
-    private Vec2 _Velocity, _SpeedUp, _StartPosition;
+    private Vec2 _Velocity, _StartPosition;
     public States States;
     public double Speed = 250, 
         Acc = 2700, 
@@ -16,22 +16,18 @@ partial class Player : IUpdateable, IRenderable
         JumpForce = 350, 
         SlideSpeed = 50, 
         SlideAcc = 1200, 
-        SpeedUpAcc = 100;
+        SpeedUp = 1;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
 
     public Vec2 Velocity
     {
-        get { return _Velocity + _SpeedUp * SpeedUpAcc; }
+        get { return _Velocity; }
         set
         {
             _Velocity = value;
         }
-    }
-    public Vec2 SpeedUp
-    {
-        set { _SpeedUp = value; }
     }
 
     public Player(Vec2 StartPosition)
@@ -73,5 +69,6 @@ partial class Player : IUpdateable, IRenderable
         Position = _StartPosition;
         States.SetFlying();
         CalculateCollisions();
+        SpeedUp = 1;
     }
 }
