@@ -19,7 +19,7 @@ class LevelEditor : State
     public LevelEditor(int sizex, int sizey)
     {
         TTenum = TileTypes.GetEnumerator();
-        level = new Level(new Tiles(sizex, sizey), "temp");
+        level = new Level(new Tiles(sizex, sizey), "default");
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")

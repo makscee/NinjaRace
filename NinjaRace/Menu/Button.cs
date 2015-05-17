@@ -6,7 +6,7 @@ class Button : IRenderable
 {
     private Action action;
     private Vec2 position, size;
-    private Texture name;
+    private Texture name, temp;
     private Color backGroundColor = new Color(0.2, 0.2, 0.2), textColor = Color.White;
 
     public Button(Vec2 position, Vec2 size)
@@ -73,7 +73,29 @@ class Button : IRenderable
 
     public void Render()
     {
-        Color t = Hit() ? 
+        Shader s = new Shader(NinjaRace.Shaders.Test);
+        if (temp == null)
+            temp = name.Copy();
+        Draw.BeginTexture(temp);
+        Draw.Clear(Color.Transparent);
+        Draw.Translate(-1, -1);
+        Draw.Scale(2);
+        s.SetTexture("texture", name);
+        s.SetVec2("size", new Vec2(name.Width, name.Height));
+        s.SetInt("doX", 1);
+        s.Render();
+        Draw.EndTexture();
+        Texture temp2 = name.Copy();
+        Draw.BeginTexture(temp2);
+        Draw.Clear(Color.Transparent);
+        Draw.Translate(-1, -1);
+        Draw.Scale(2);
+        s.SetTexture("texture", temp);
+        s.SetVec2("size", new Vec2(name.Width, name.Height));
+        s.SetInt("doX", 0);
+        s.Render();
+        Draw.EndTexture();
+        Color t = Hit() ?
             new Color(Math.Min(backGroundColor.R * 1.5, 1d), Math.Min(backGroundColor.G * 1.5, 1d), Math.Min(backGroundColor.B * 1.5, 1d))
             : backGroundColor;
         Draw.Rect(position - size, position + size, t);
@@ -84,10 +106,7 @@ class Button : IRenderable
         Draw.Scale((double)name.Width / (double)name.Height, 1);
         Draw.Scale(textScale);
         Draw.Align(0.5 + align.X, 0.5 + align.Y);
-        Shader s = new Shader(NinjaRace.Shaders.Test);
-        s.SetTexture("texture", name);
-        s.SetVec2("size", new Vec2(name.Width, name.Height));
-        s.Render();
+        temp2.Render();
         Draw.Load();
     }
 
