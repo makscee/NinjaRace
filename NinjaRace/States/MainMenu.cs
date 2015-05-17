@@ -8,7 +8,7 @@ class MainMenu : Menu
     {
         buttons.Add(new Button(new Vec2(0, 80), new Vec2(80, 20))
             .SetName("PLAY")
-            .SetAction(() => Program.Manager.PushState(new ChoseClass())));
+            .SetAction(() => Program.Manager.PushState(new Showdown())));
         buttons.Add(new Button(new Vec2(0, -50), new Vec2(80, 20))
             .SetName("LEVEL EDITOR")
             .SetAction(() => Program.Manager.PushState(new LevelEditorMenu())));

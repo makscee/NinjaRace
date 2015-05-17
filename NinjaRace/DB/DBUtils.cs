@@ -42,7 +42,7 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
-                "SELECT * FROM Tiles;",
+                "SELECT * FROM Tiles where level='" + level.name + "';",
                 connection);
             connection.Open();
 
@@ -75,6 +75,13 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
+            new SqlCommand("delete from Levels where Name='" + level.name + "';", connection).ExecuteNonQuery();
+            SqlCommand command = new SqlCommand("insert into Levels ([Name], [WIDTH], [HEIGHT])"
+                + "values (@name, @width, @height);", connection);
+            command.Parameters.AddWithValue("@name", level.name);
+            command.Parameters.AddWithValue("@width", level.tiles.GetLength(1));
+            command.Parameters.AddWithValue("@height", level.tiles.GetLength(0));
+            command.ExecuteNonQuery();
             new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
             for (int y = 1; y < level.tiles.GetLength(0); y++)
                 for (int x = 1; x < level.tiles.GetLength(1); x++)
@@ -83,7 +90,7 @@ class DBUtils
                     if(t == null)
                         continue;
 
-                    SqlCommand command = new SqlCommand(
+                    command = new SqlCommand(
                           "INSERT INTO [dbo].[Tiles] ([ID], [X_POSITION], [Y_POSITION], [LEVEL], [TYPE]) "
                           + "VALUES (@id, @x_position, @y_position, @level, @type);",
                           connection);

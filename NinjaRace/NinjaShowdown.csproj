@@ -137,6 +137,7 @@
     <Compile Include="Level\Tile\StartTile.cs" />
     <Compile Include="Level\Tile\Tile.cs" />
     <Compile Include="Level\Tiles.cs" />
+    <Compile Include="States\Showdown.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

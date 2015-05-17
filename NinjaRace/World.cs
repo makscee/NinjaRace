@@ -14,10 +14,19 @@ class World : IRenderable, IUpdateable
 
     public World()
     {
+        Program.World = this;
         level = DBUtils.GetLevel("default");
         background = new Texture("./Data/img/background.png");
         player1 = new Player(level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
         player2 = new Player(level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
+    }
+
+    public World(string level)
+    {
+        Program.World = this;
+        this.level = DBUtils.GetLevel(level);
+        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
+        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
     }
 
     public void Render()
@@ -98,6 +107,8 @@ class World : IRenderable, IUpdateable
 
     private void DrawBackground(Player player)
     {
+        if (background == null)
+            return;
         Draw.Save();
         new Camera(360).Apply();
         Vec2 offset = new Vec2(player.Position.X / 3, 0);

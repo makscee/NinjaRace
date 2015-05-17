@@ -9,7 +9,7 @@ partial class Player
 
     Player GetOpponent()
     {
-        return (Game.World.player1 == this) ? Game.World.player2 : Game.World.player1;
+        return (Program.World.player1 == this) ? Program.World.player2 : Program.World.player1;
     }
 
     void DoSwing()

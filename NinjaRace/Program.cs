@@ -10,6 +10,8 @@ class Program
     public static Font font = new Font("./Data/font.TTF", 30, FontStyle.Bold);
     public static bool VSync = false;
 
+    public static World World;
+
     static void Main()
     {
         font.Smooth = false;

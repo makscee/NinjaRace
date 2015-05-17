@@ -17,6 +17,6 @@ class Bonus : Tile
     public override void Effect(Player player, Side side)
     {
         player.SpeedUp = 2;
-        Game.World.level.tiles.DeleteTile(ID);
+        Program.World.level.tiles.DeleteTile(ID);
     }
 }

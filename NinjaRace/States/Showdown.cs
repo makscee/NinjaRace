@@ -2,13 +2,13 @@
 using VitPro.Engine;
 using System;
 
-class Game : State
+class Showdown : State
 {
     World World;
 
-    public Game()
+    public Showdown()
     {
-        World = new World();
+        World = new World("showdown");
     }
 
     public override void Render()
@@ -19,11 +19,6 @@ class Game : State
     public override void Update(double dt)
     {
         dt = Math.Min(dt, 1.0 / 60);
-        if (World.player1.States.current is Win && World.player2.States.current is Win)
-        {
-            Program.Manager.PushState(new AfterGame());
-            Close();
-        }
         World.Update(dt);
     }
     public override void KeyDown(Key key)
@@ -37,4 +32,5 @@ class Game : State
     {
         World.KeyUp(key);
     }
+
 }
