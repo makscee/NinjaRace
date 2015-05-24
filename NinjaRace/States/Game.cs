@@ -19,9 +19,9 @@ class Game : State
     public override void Update(double dt)
     {
         dt = Math.Min(dt, 1.0 / 60);
-        if (World.player1.States.current is Win && World.player2.States.current is Win)
+        if (World.player1.States.current is Win || World.player2.States.current is Win)
         {
-            Program.Manager.PushState(new AfterGame());
+            Program.Manager.PushState(new Showdown());
             Close();
         }
         World.Update(dt);
