@@ -10,6 +10,7 @@ class EnterField : IRenderable
     private int lim;
     private Color backGroundColor = new Color(0.2, 0.2, 0.2), textColor = Color.White;
     private Texture textTex, nameTex;
+    private Shader s = new Shader(NinjaRace.Shaders.Test);
 
     public EnterField(Vec2 position, Vec2 size, int lim)
     {
@@ -21,7 +22,12 @@ class EnterField : IRenderable
 
     public EnterField SetName(string name)
     {
-        this.nameTex = Program.font.MakeTexture(name);
+        nameTex = Program.font.MakeTexture(name);
+        s.SetVec2("size", new Vec2(nameTex.Width, nameTex.Height));
+        s.SetInt("doX", 0);
+        nameTex.ApplyShader(s);
+        s.SetInt("doX", 1);
+        nameTex.ApplyShader(s);
         return this;
     }
 
@@ -131,6 +137,14 @@ class EnterField : IRenderable
     {
         if (text.Length == 0)
             textTex = new Texture(0, 0);
-        else textTex = Program.font.MakeTexture(text);
+        else
+        {
+            textTex = Program.font.MakeTexture(text);
+            s.SetVec2("size", new Vec2(textTex.Width, textTex.Height));
+            s.SetInt("doX", 0);
+            textTex.ApplyShader(s);
+            s.SetInt("doX", 1);
+            textTex.ApplyShader(s);
+        }
     }
 }

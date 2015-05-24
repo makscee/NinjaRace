@@ -24,6 +24,12 @@ class Button : IRenderable
     public Button SetName(string name)
     {
         this.name = Program.font.MakeTexture(name);
+        Shader s = new Shader(NinjaRace.Shaders.Test);
+        s.SetVec2("size", new Vec2(this.name.Width, this.name.Height));
+        s.SetInt("doX", 0);
+        this.name.ApplyShader(s);
+        s.SetInt("doX", 1);
+        this.name.ApplyShader(s);
         return this;
     }
 
@@ -73,28 +79,6 @@ class Button : IRenderable
 
     public void Render()
     {
-        Shader s = new Shader(NinjaRace.Shaders.Test);
-        if (temp == null)
-            temp = name.Copy();
-        Draw.BeginTexture(temp);
-        Draw.Clear(Color.Transparent);
-        Draw.Translate(-1, -1);
-        Draw.Scale(2);
-        s.SetTexture("texture", name);
-        s.SetVec2("size", new Vec2(name.Width, name.Height));
-        s.SetInt("doX", 1);
-        s.Render();
-        Draw.EndTexture();
-        Texture temp2 = name.Copy();
-        Draw.BeginTexture(temp2);
-        Draw.Clear(Color.Transparent);
-        Draw.Translate(-1, -1);
-        Draw.Scale(2);
-        s.SetTexture("texture", temp);
-        s.SetVec2("size", new Vec2(name.Width, name.Height));
-        s.SetInt("doX", 0);
-        s.Render();
-        Draw.EndTexture();
         Color t = Hit() ?
             new Color(Math.Min(backGroundColor.R * 1.5, 1d), Math.Min(backGroundColor.G * 1.5, 1d), Math.Min(backGroundColor.B * 1.5, 1d))
             : backGroundColor;
@@ -106,7 +90,7 @@ class Button : IRenderable
         Draw.Scale((double)name.Width / (double)name.Height, 1);
         Draw.Scale(textScale);
         Draw.Align(0.5 + align.X, 0.5 + align.Y);
-        temp2.Render();
+        name.Render();
         Draw.Load();
     }
 
