@@ -16,7 +16,13 @@ class DisplayField : IRenderable
     
     public DisplayField SetName(string name)
     {
+        Shader s = new Shader(NinjaRace.Shaders.Test);
         this.name = Program.font.MakeTexture(name);
+        s.SetVec2("size", new Vec2(this.name.Width, this.name.Height));
+        s.SetInt("doX", 0);
+        this.name.ApplyShader(s);
+        s.SetInt("doX", 1);
+        this.name.ApplyShader(s);
         return this;
     }
 
