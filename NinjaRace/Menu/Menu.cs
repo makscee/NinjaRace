@@ -40,6 +40,12 @@ class Menu : State
         EffectsTop.Render();
     }
 
+    public override void Update(double dt)
+    {
+        EffectsBot.Update(dt);
+        EffectsTop.Update(dt);
+    }
+
     public override void MouseDown(MouseButton button, Vec2 pos)
     {
         if (button == MouseButton.Left)

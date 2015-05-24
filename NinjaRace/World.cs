@@ -109,6 +109,9 @@ class World : IRenderable, IUpdateable
     {
         UpdateForPlayer(dt, player1);
         UpdateForPlayer(dt, player2);
+        EffectsTop.Update(dt);
+        EffectsMid.Update(dt);
+        EffectsBot.Update(dt);
     }
     public void KeyDown(Key key)
     {
