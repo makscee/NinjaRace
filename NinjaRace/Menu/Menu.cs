@@ -7,6 +7,8 @@ class Menu : State
     protected Group<Button> buttons = new Group<Button>();
     protected Group<EnterField> efields = new Group<EnterField>();
     protected Group<DisplayField> dfields = new Group<DisplayField>();
+    public Group<Effect> EffectsTop = new Group<Effect>();
+    public Group<Effect> EffectsBot = new Group<Effect>();
     private Camera cam = new Camera(240);
 
     public void AddDField(DisplayField f)
@@ -31,9 +33,11 @@ class Menu : State
     {
         cam.Apply();
         Draw.Clear(Color.Black);
+        EffectsBot.Render();
         buttons.Render();
         efields.Render();
         dfields.Render();
+        EffectsTop.Render();
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)

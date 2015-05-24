@@ -6,7 +6,7 @@ class Button : IRenderable
 {
     private Action action;
     private Vec2 position, size;
-    private Texture name, temp;
+    private Texture name;
     private Color backGroundColor = new Color(0.2, 0.2, 0.2), textColor = Color.White;
 
     public Button(Vec2 position, Vec2 size)

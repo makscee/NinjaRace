@@ -4,7 +4,9 @@ using System;
 
 class World : IRenderable, IUpdateable
 {
-
+    public Group<Effect> EffectsTop = new Group<Effect>();
+    public Group<Effect> EffectsMid = new Group<Effect>();
+    public Group<Effect> EffectsBot = new Group<Effect>();
     public Player player1, player2;
     public Level level;
     Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360);
@@ -32,9 +34,12 @@ class World : IRenderable, IUpdateable
 
     public void Render()
     {
+        EffectsBot.Render();
         level.Render();
+        EffectsMid.Render();
         player2.Render();
         player1.Render();
+        EffectsTop.Render();
     }
 
     public void RenderSingle()
