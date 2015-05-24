@@ -7,7 +7,7 @@ class World : IRenderable, IUpdateable
 
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(540), cam2 = new Camera(540);
+    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
@@ -16,7 +16,6 @@ class World : IRenderable, IUpdateable
     {
         Program.World = this;
         level = DBUtils.GetLevel("default");
-        background = new Texture("./Data/img/background.png");
         player1 = new Player(level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
         player2 = new Player(level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
     }
@@ -25,11 +24,28 @@ class World : IRenderable, IUpdateable
     {
         Program.World = this;
         this.level = DBUtils.GetLevel(level);
+        background = new Texture("./Data/img/background.png");
         player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
         player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
+        cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 
     public void Render()
+    {
+        level.Render();
+        player2.Render();
+        player1.Render();
+    }
+
+    public void RenderSingle()
+    {
+        cam.FOV = Math.Max(360, Math.Abs(player1.Position.X - player2.Position.X) + 15);
+        cam.Position = (player2.Position - player1.Position) / 2 + player1.Position;
+        cam.Apply();
+        Render();
+    }
+
+    public void RenderSplit()
     {
         Texture tex = new Texture(Draw.Width, Draw.Height);
         Draw.BeginTexture(tex);
@@ -37,9 +53,7 @@ class World : IRenderable, IUpdateable
         camt.Position = cam1.Position + camOffset;
         camt.Apply();
         DrawBackground(player1);
-        level.Render();
-        player2.Render();
-        player1.Render();
+        Render();
         Draw.EndTexture();
 
         Draw.Save();
@@ -51,13 +65,10 @@ class World : IRenderable, IUpdateable
 
         tex = new Texture(Draw.Width, Draw.Height);
         Draw.BeginTexture(tex);
-        camt = new Camera(cam2.FOV);
         camt.Position = cam2.Position - camOffset;
         camt.Apply();
         DrawBackground(player2);
-        level.Render();
-        player1.Render();
-        player2.Render();
+        Render();
         Draw.EndTexture();
 
         Draw.Save();

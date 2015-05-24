@@ -9,6 +9,24 @@ class Menu : State
     protected Group<DisplayField> dfields = new Group<DisplayField>();
     private Camera cam = new Camera(240);
 
+    public void AddDField(DisplayField f)
+    {
+        dfields.Add(f);
+        dfields.Refresh();
+    }
+
+    public void AddButton(Button b)
+    {
+        buttons.Add(b);
+        buttons.Refresh();
+    }
+
+    public void AddEField(EnterField f)
+    {
+        efields.Add(f);
+        efields.Refresh();
+    }
+
     public override void Render()
     {
         cam.Apply();

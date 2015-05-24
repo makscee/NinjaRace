@@ -14,7 +14,7 @@ class Game : State
     public override void Render()
     {
         Draw.Clear(Color.Black);
-        World.Render();
+        World.RenderSplit();
     }
     public override void Update(double dt)
     {

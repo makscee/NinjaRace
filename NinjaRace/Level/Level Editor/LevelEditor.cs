@@ -17,10 +17,10 @@ class LevelEditor : State
         "FinishTile", "Saw", "SpeedUp" };
     List<string>.Enumerator TTenum;
 
-    public LevelEditor(int sizex, int sizey)
+    public LevelEditor(int sizex, int sizey, string name)
     {
         TTenum = TileTypes.GetEnumerator();
-        level = new Level(new Tiles(sizex, sizey), "showdown");
+        level = new Level(new Tiles(sizex, sizey), name);
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")
@@ -28,10 +28,10 @@ class LevelEditor : State
             .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
     }
 
-    public LevelEditor()
+    public LevelEditor(string name)
     {
         TTenum = TileTypes.GetEnumerator();
-        level = DBUtils.GetLevel("default");
+        level = DBUtils.GetLevel(name);
         cam.Position = new Vec2(100, 100);
         done = new Button(new Vec2(130, -110), new Vec2(25, 8))
             .SetName("DONE")

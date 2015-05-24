@@ -75,6 +75,7 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
+            new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
             new SqlCommand("delete from Levels where Name='" + level.name + "';", connection).ExecuteNonQuery();
             SqlCommand command = new SqlCommand("insert into Levels ([Name], [WIDTH], [HEIGHT])"
                 + "values (@name, @width, @height);", connection);
@@ -82,7 +83,6 @@ class DBUtils
             command.Parameters.AddWithValue("@width", level.tiles.GetLength(1));
             command.Parameters.AddWithValue("@height", level.tiles.GetLength(0));
             command.ExecuteNonQuery();
-            new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
             for (int y = 1; y < level.tiles.GetLength(0); y++)
                 for (int x = 1; x < level.tiles.GetLength(1); x++)
                 {

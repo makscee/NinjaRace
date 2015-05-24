@@ -14,7 +14,7 @@ class Showdown : State
     public override void Render()
     {
         Draw.Clear(Color.Black);
-        World.Render();
+        World.RenderSingle();
     }
     public override void Update(double dt)
     {
