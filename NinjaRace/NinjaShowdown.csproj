@@ -90,6 +90,7 @@
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\Tile\Bonus\Bonus.cs" />
     <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
+    <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />

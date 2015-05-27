@@ -50,7 +50,5 @@ class Saw : Tile
             forward = true;
             return;
         }
-
-
     }
 }
