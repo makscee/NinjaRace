@@ -4,8 +4,8 @@ using VitPro.Engine;
 
 class Effect : IRenderable, IUpdateable, IDisposable
 {
-    Vec2 Position;
-    double Duration;
+    public Vec2 Position;
+    protected double Duration;
 
     public Effect(Vec2 pos, double duration)
     {

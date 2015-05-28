@@ -14,21 +14,28 @@ class World : IRenderable, IUpdateable
     public double Time = 0;
     public Texture background;
 
+    private void Init()
+    {
+        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
+        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
+        EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
+        EffectsTop.Refresh();
+    }
+
     public World()
     {
         Program.World = this;
         level = DBUtils.GetLevel("default");
-        player1 = new Player(level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
-        player2 = new Player(level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
+        Init();
     }
 
     public World(string level)
     {
+        Init();
         Program.World = this;
         this.level = DBUtils.GetLevel(level);
+        Init();
         background = new Texture("./Data/img/background.png");
-        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
-        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
         cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 

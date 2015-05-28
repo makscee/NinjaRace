@@ -86,6 +86,8 @@
     </Compile>
     <Compile Include="DB\DBUtils.cs" />
     <Compile Include="Effects\Effect.cs" />
+    <Compile Include="Effects\impl\GlowingParticle.cs" />
+    <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\Tile\Bonus\Bonus.cs" />
@@ -115,7 +117,6 @@
       <DependentUpon>Shaders.resx</DependentUpon>
     </Compile>
     <Compile Include="States\AfterGame.cs" />
-    <Compile Include="States\ChoseClass.cs" />
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Menu\DisplayField.cs" />
     <Compile Include="Menu\EnterField.cs" />
@@ -193,6 +194,7 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\GlowingParticle.txt" />
     <None Include="Resources\Test.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +230,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Effects\impl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
