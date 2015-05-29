@@ -19,9 +19,9 @@ class World : IRenderable, IUpdateable
         player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
         player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
-        EffectsTop.Add(new GlowingParticle(player1.Position, new Vec2(40, 40), Color.White).SetVelocity(Vec2.Zero));
+        EffectsTop.Add(new GlowingParticle(player1.Position, new Vec2(40, 40), Color.White).SetNeedVelocity(Vec2.Zero));
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player2));
-        EffectsTop.Add(new GlowingParticle(player2.Position, new Vec2(40, 40), Color.White).SetVelocity(Vec2.Zero));
+        EffectsTop.Add(new GlowingParticle(player2.Position, new Vec2(40, 40), Color.White).SetNeedVelocity(Vec2.Zero));
         EffectsTop.Refresh();
     }
 
@@ -119,8 +119,11 @@ class World : IRenderable, IUpdateable
         UpdateForPlayer(dt, player1);
         UpdateForPlayer(dt, player2);
         EffectsTop.Update(dt);
+        EffectsTop.Refresh();
         EffectsMid.Update(dt);
+        EffectsMid.Refresh();
         EffectsBot.Update(dt);
+        EffectsBot.Refresh();
     }
     public void KeyDown(Key key)
     {

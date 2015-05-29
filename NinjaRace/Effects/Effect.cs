@@ -5,15 +5,13 @@ using VitPro.Engine;
 class Effect : IRenderable, IUpdateable, IDisposable
 {
     public Vec2 Position;
-    protected double Duration;
+    protected double Duration = -1;
 
-    public Effect(Vec2 pos, double duration)
+    public Effect(Vec2 pos)
     {
         Position = pos;
-        Duration = duration;
     }
 
-    public Effect(Vec2 pos) : this(pos, -1) { }
     public virtual void Render() { }
     public virtual void Update(double dt) 
     {
@@ -24,7 +22,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
             Dispose();
     }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         IState current = ((MyManager)App.MainState).CurrentState;
         if (current is Menu)
@@ -38,11 +36,8 @@ class Effect : IRenderable, IUpdateable, IDisposable
         if (current is Game || current is Showdown)
         {
             Program.World.EffectsBot.Remove(this);
-            Program.World.EffectsBot.Refresh();
             Program.World.EffectsMid.Remove(this);
-            Program.World.EffectsMid.Refresh();
             Program.World.EffectsTop.Remove(this);
-            Program.World.EffectsTop.Refresh();
         }
     }
 }

@@ -12,12 +12,12 @@ class ParticlesAroundPlayer : Effect
     Player player;
 
     public ParticlesAroundPlayer(double duration, Color color, Player player)
-        : base(player.Position, duration)
+        : base(player.Position)
     {
         this.player = player;
         for (int i = 0; i < 12; i++)
         {
-            particles.Add(new GlowingParticle(player.Position, new Vec2(10, 10), duration, color));
+            particles.Add(new GlowingParticle(player.Position, new Vec2(10, 10), color));
             radiuses.Add(20 + 30 / 12 * i);
             angles.Add(Program.Random.NextDouble(0, Math.PI * 2));
         }
@@ -29,7 +29,7 @@ class ParticlesAroundPlayer : Effect
         {
             angles[i] += dt * 3.5 * (radiuses[i]) / 50;
             Vec2 v = player.Position + Vec2.Rotate(new Vec2(1, 0), angles[i]) * radiuses[i] - particles[i].Position;
-            particles[i].SetVelocity(player.Position + Vec2.Rotate(new Vec2(1, 0), angles[i]) * radiuses[i] - particles[i].Position);
+            particles[i].SetNeedVelocity(player.Position + Vec2.Rotate(new Vec2(1, 0), angles[i]) * radiuses[i] - particles[i].Position);
             if (v.Length < particles[i].Speed * dt)
                 particles[i].SetPosition(particles[i].Position + v);
             else particles[i].Update(dt);

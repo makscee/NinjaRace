@@ -18,5 +18,6 @@ class Bonus : Tile
     {
         player.SpeedUp = 2;
         Program.World.level.tiles.DeleteTile(ID);
+        Program.World.EffectsTop.Add(new BonusGet(Position, player));
     }
 }
