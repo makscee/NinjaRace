@@ -27,10 +27,13 @@ class ParticlesAroundPlayer : Effect
     {
         for (int i = 0; i < particles.Count; i++)
         {
-            angles[i] += dt * 8 * (radiuses[i]) / 50;
+            angles[i] += dt * 3.5 * (radiuses[i]) / 50;
+            Vec2 v = player.Position + Vec2.Rotate(new Vec2(1, 0), angles[i]) * radiuses[i] - particles[i].Position;
             particles[i].SetVelocity(player.Position + Vec2.Rotate(new Vec2(1, 0), angles[i]) * radiuses[i] - particles[i].Position);
+            if (v.Length < particles[i].Speed * dt)
+                particles[i].SetPosition(particles[i].Position + v);
+            else particles[i].Update(dt);
         }
-        particles.Update(dt);
     }
 
     public override void Render()
