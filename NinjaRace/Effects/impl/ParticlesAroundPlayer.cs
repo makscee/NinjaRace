@@ -17,7 +17,7 @@ class ParticlesAroundPlayer : Effect
         this.player = player;
         for (int i = 0; i < 12; i++)
         {
-            particles.Add(new GlowingParticle(player.Position, new Vec2(20, 20), duration, color));
+            particles.Add(new GlowingParticle(player.Position, new Vec2(10, 10), duration, color));
             radiuses.Add(20 + 30 / 12 * i);
             angles.Add(Program.Random.NextDouble(0, Math.PI * 2));
         }

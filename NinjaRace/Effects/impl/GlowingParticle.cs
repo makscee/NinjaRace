@@ -44,8 +44,7 @@ class GlowingParticle : Effect
 
     public GlowingParticle SetVelocity(Vec2 vel)
     {
-        vel = vel.Unit;
-        Vel = vel;
+        Vel = vel.Unit;
         return this;
     }
 

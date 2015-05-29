@@ -19,6 +19,9 @@ class World : IRenderable, IUpdateable
         player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
         player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
+        EffectsTop.Add(new GlowingParticle(player1.Position, new Vec2(40, 40), Color.White).SetVelocity(Vec2.Zero));
+        EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player2));
+        EffectsTop.Add(new GlowingParticle(player2.Position, new Vec2(40, 40), Color.White).SetVelocity(Vec2.Zero));
         EffectsTop.Refresh();
     }
 
@@ -31,11 +34,9 @@ class World : IRenderable, IUpdateable
 
     public World(string level)
     {
-        Init();
         Program.World = this;
         this.level = DBUtils.GetLevel(level);
         Init();
-        background = new Texture("./Data/img/background.png");
         cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 
@@ -67,6 +68,7 @@ class World : IRenderable, IUpdateable
         DrawBackground(player1);
         Render();
         Draw.EndTexture();
+        tex.RemoveAlpha();
 
         Draw.Save();
         Draw.Scale(2);
@@ -82,7 +84,7 @@ class World : IRenderable, IUpdateable
         DrawBackground(player2);
         Render();
         Draw.EndTexture();
-
+        tex.RemoveAlpha();
         Draw.Save();
         Draw.Scale(2);
         Draw.Align(0.5, 0.5);
