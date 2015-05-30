@@ -2,16 +2,10 @@
 using VitPro.Engine;
 using VitPro;
 
-class SpeedUp : BonusTile
+class SpeedUp : Bonus
 {
-    public override void Render()
+    public void Get(Player player)
     {
-        Draw.Rect(Position + Size, Position - Size, Color.Orange);
-    }
-
-    public override void Effect(Player player, Side side)
-    {
-        base.Effect(player, side);
-        player.SpeedUp = 2;
+        player.SpeedUp = 1.5;
     }
 }

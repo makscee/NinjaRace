@@ -10,7 +10,7 @@ class BonusTile : Tile
         Mark = true;
     }
 
-    List<Bonus> bonuses = new List<Bonus>() { new FreezeBonus() };
+    List<Bonus> bonuses = new List<Bonus>() { new FreezeBonus(), new SpeedUp() };
 
     public override void Render()
     {

@@ -88,7 +88,6 @@
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\impl\BonusGet.cs" />
     <Compile Include="Effects\impl\BonusOnScreen.cs" />
-    <Compile Include="Effects\impl\Freeze.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
@@ -103,7 +102,6 @@
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
-    <Compile Include="Player\States\impl\Frozen.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\impl\Win.cs" />
     <Compile Include="Player\Sword.cs" />

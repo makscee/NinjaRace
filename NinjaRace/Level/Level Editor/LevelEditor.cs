@@ -14,7 +14,7 @@ class LevelEditor : State
     int vecForSaw1 = -1, vecForSaw2 = -1;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
-        "FinishTile", "Saw", "SpeedUp", "DropTile", "LiftTile" };
+        "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile" };
     List<string>.Enumerator TTenum;
 
     public LevelEditor(int sizex, int sizey, string name)
