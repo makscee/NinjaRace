@@ -4,7 +4,10 @@ using System;
 
 class Frozen : PlayerState
 {
-    public Frozen(Player player) : base(player) { }
+    public Frozen(Player player) : base(player) 
+    {
+        player.Velocity = Vec2.Zero;
+    }
 
     public override void Update(double dt) { }
 

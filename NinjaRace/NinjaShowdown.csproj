@@ -87,6 +87,7 @@
     <Compile Include="DB\DBUtils.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\impl\BonusGet.cs" />
+    <Compile Include="Effects\impl\BonusOnScreen.cs" />
     <Compile Include="Effects\impl\Freeze.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />

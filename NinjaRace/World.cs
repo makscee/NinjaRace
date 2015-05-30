@@ -10,7 +10,7 @@ class World : IRenderable, IUpdateable
     public Group<Effect> EffctsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360), screenCam = new Camera(360);
+    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360), screenCam = new Camera(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
@@ -48,10 +48,6 @@ class World : IRenderable, IUpdateable
         player2.Render();
         player1.Render();
         EffectsTop.Render();
-        Draw.Save();
-        screenCam.Apply();
-        EffctsScreen.Render();
-        Draw.Load();
     }
 
     public void RenderSingle()
@@ -60,6 +56,10 @@ class World : IRenderable, IUpdateable
         cam.Position = (player2.Position - player1.Position) / 2 + player1.Position;
         cam.Apply();
         Render();
+        Draw.Save();
+        screenCam.Apply();
+        EffctsScreen.Render();
+        Draw.Load();
     }
 
     public void RenderSplit()
@@ -94,6 +94,10 @@ class World : IRenderable, IUpdateable
         Draw.Align(0.5, 0.5);
         Draw.Translate(0, -0.5);
         tex.Render();
+        Draw.Load();
+        Draw.Save();
+        screenCam.Apply();
+        EffctsScreen.Render();
         Draw.Load();
     }
 

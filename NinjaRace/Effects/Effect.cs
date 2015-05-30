@@ -38,6 +38,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
             Program.World.EffectsBot.Remove(this);
             Program.World.EffectsMid.Remove(this);
             Program.World.EffectsTop.Remove(this);
+            Program.World.EffctsScreen.Remove(this);
         }
     }
 }
