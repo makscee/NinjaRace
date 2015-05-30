@@ -12,11 +12,12 @@ class BonusGet : Effect
         : base(pos)
     {
         this.player = player;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 15; i++)
         {
             particles.Add(new GlowingParticle(pos, new Vec2(15, 15), Color.Green)
-                .SetVelocity(Vec2.Rotate(Vec2.OrtX * 750 * Program.Random.NextDouble(1, 2), Math.PI / 8 * i))
-                .SetSpeed(400));
+                .SetVelocity(Vec2.Rotate(Vec2.OrtX * 500 * Program.Random.NextDouble(1, 2), Math.PI / 15 * i))
+                .SetSpeed(2000)
+                .SetAcc(30));
         }
     }
 
@@ -26,7 +27,7 @@ class BonusGet : Effect
         {
             a.SetNeedVelocity(player.Position - a.Position);
             a.Update(dt);
-            if ((a.Position - player.Position).Length < 3)
+            if ((a.Position - player.Position).Length < 20)
             {
                 a.Dispose();
                 particles.Remove(a);

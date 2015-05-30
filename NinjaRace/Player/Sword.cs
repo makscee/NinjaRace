@@ -7,7 +7,7 @@ partial class Player
     double Delay = 0.5, Timer = 0;
     bool NeedSwing = false;
 
-    Player GetOpponent()
+    public Player GetOpponent()
     {
         return (Program.World.player1 == this) ? Program.World.player2 : Program.World.player1;
     }

@@ -1,23 +1,8 @@
-﻿using System;
-using VitPro;
+﻿using VitPro;
 using VitPro.Engine;
+using System;
 
-class Bonus : Tile
+interface Bonus
 {
-    public Bonus()
-    {
-        Mark = true;
-    }
-
-    public override void Render()
-    {
-        Draw.Rect(Position + Size, Position - Size, Color.Orange);
-    }
-
-    public override void Effect(Player player, Side side)
-    {
-        player.SpeedUp = 2;
-        Program.World.level.tiles.DeleteTile(ID);
-        Program.World.EffectsTop.Add(new BonusGet(Position, player));
-    }
+    void Get(Player player);
 }

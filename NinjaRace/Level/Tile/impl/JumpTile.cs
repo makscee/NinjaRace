@@ -9,7 +9,11 @@ class JumpTile : Tile
     {
         if (side != Side.Down)
             return;
-        player.States.current.TileJump();
+        if (player.States.current is Walking || player.States.current is Flying)
+        {
+            player.States.SetFlying();
+            player.Velocity = new Vec2(0, player.JumpForce * 2);
+        }
     }
 
     public override void Render()

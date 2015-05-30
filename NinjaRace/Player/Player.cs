@@ -9,6 +9,7 @@ partial class Player : IUpdateable, IRenderable
     public Vec2 Position, Size;
     private Vec2 _Velocity, _StartPosition;
     public States States;
+    public Action bonus = () => { };
     public double Speed = 250,
         Acc = 2700,
         Gravity = 700,
@@ -57,6 +58,8 @@ partial class Player : IUpdateable, IRenderable
         UpdateSword(dt);
         if (Position.Y < -50)
             States.SetDead();
+        if (Controller.NeedBonus())
+            bonus.Apply();
     }
 
     public void Render()

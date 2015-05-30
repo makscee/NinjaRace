@@ -7,9 +7,10 @@ class World : IRenderable, IUpdateable
     public Group<Effect> EffectsTop = new Group<Effect>();
     public Group<Effect> EffectsMid = new Group<Effect>();
     public Group<Effect> EffectsBot = new Group<Effect>();
+    public Group<Effect> EffctsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360);
+    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360), screenCam = new Camera(360);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
@@ -22,7 +23,6 @@ class World : IRenderable, IUpdateable
         EffectsTop.Add(new GlowingParticle(player1.Position, new Vec2(40, 40), Color.White).SetNeedVelocity(Vec2.Zero));
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player2));
         EffectsTop.Add(new GlowingParticle(player2.Position, new Vec2(40, 40), Color.White).SetNeedVelocity(Vec2.Zero));
-        EffectsTop.Refresh();
     }
 
     public World()
@@ -48,6 +48,10 @@ class World : IRenderable, IUpdateable
         player2.Render();
         player1.Render();
         EffectsTop.Render();
+        Draw.Save();
+        screenCam.Apply();
+        EffctsScreen.Render();
+        Draw.Load();
     }
 
     public void RenderSingle()
@@ -124,6 +128,8 @@ class World : IRenderable, IUpdateable
         EffectsMid.Refresh();
         EffectsBot.Update(dt);
         EffectsBot.Refresh();
+        EffctsScreen.Update(dt);
+        EffctsScreen.Refresh();
     }
     public void KeyDown(Key key)
     {

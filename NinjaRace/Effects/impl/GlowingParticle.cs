@@ -52,6 +52,12 @@ class GlowingParticle : Effect
         return this;
     }
 
+    public GlowingParticle SetAcc(double acc)
+    {
+        Acc = acc;
+        return this;
+    }
+
     public override void Render()
     {
         tex.RenderToPosAndSize(Position, Size);

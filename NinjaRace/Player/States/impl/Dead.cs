@@ -42,7 +42,5 @@ class Dead : PlayerState
     {
     }
 
-    public override void TileJump() { }
-
     public override void Die(Vec2 position) { }
 }

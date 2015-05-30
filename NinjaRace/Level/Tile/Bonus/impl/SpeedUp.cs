@@ -2,7 +2,7 @@
 using VitPro.Engine;
 using VitPro;
 
-class SpeedUp : Bonus
+class SpeedUp : BonusTile
 {
     public override void Render()
     {

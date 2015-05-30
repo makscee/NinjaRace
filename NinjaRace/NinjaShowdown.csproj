@@ -87,11 +87,14 @@
     <Compile Include="DB\DBUtils.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\impl\BonusGet.cs" />
+    <Compile Include="Effects\impl\Freeze.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\Tile\Bonus\Bonus.cs" />
+    <Compile Include="Level\Tile\Bonus\BonusTile.cs" />
+    <Compile Include="Level\Tile\Bonus\impl\FreezeBonus.cs" />
     <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
     <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Level\Tile\impl\LiftTile.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
+    <Compile Include="Player\States\impl\Frozen.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\impl\Win.cs" />
     <Compile Include="Player\Sword.cs" />
