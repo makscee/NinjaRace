@@ -26,7 +26,7 @@ class Freeze : Effect
     {
         this.player = player;
         player.States.Set(new Frozen(player));
-        Duration = 2;
+        SetDuration(2);
     }
 
     public override void Dispose()
