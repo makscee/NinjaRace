@@ -1,17 +1,24 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
+using System.Diagnostics;
 
 class MyManager : StateManager
 {
     public MyManager(State a, params IState[] states)
         : base(a, states)
     {
+        sw.Start();
     }
     double t = 1;
 
     public override void Update(double dt)
     {
+        if (sw.Elapsed.Milliseconds > 500)
+        {
+            fps = 1 / dt;
+            sw.Restart();
+        }
         if (t == 0)
             base.Update(dt);
         t -= 5 * dt;
@@ -53,6 +60,8 @@ class MyManager : StateManager
         Draw.Load();
     }
 
+    double fps = 0;
+    Stopwatch sw = new Stopwatch();
 
     public override void Render()
     {
@@ -63,5 +72,11 @@ class MyManager : StateManager
         Draw.EndTexture();
         tex.RemoveAlpha();
         DefaultRender();
+        Draw.Save();
+        Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
+        Draw.Color(Color.Yellow);
+        t.RenderToPosAndSize(new Vec2(0.85, 0.85), new Vec2(0.1 * t.Width / t.Height / 2, 0.1));
+        t.Dispose();
+        Draw.Load();
     }
 }
