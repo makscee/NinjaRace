@@ -2,6 +2,7 @@
 using VitPro.Engine;
 using System;
 
+
 class GlowingParticle : Effect
 {
     Texture tex;
@@ -60,6 +61,7 @@ class GlowingParticle : Effect
 
     public override void Render()
     {
+        
         tex.RenderToPosAndSize(Position, Size);
     }
 
