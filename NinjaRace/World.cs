@@ -7,7 +7,7 @@ class World : IRenderable, IUpdateable
     public Group<Effect> EffectsTop = new Group<Effect>();
     public Group<Effect> EffectsMid = new Group<Effect>();
     public Group<Effect> EffectsBot = new Group<Effect>();
-    public Group<Effect> EffctsScreen = new Group<Effect>();
+    public Group<Effect> EffectsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
     Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360), screenCam = new Camera(120);
@@ -58,7 +58,7 @@ class World : IRenderable, IUpdateable
         Render();
         Draw.Save();
         screenCam.Apply();
-        EffctsScreen.Render();
+        EffectsScreen.Render();
         Draw.Load();
     }
 
@@ -97,7 +97,7 @@ class World : IRenderable, IUpdateable
         Draw.Load();
         Draw.Save();
         screenCam.Apply();
-        EffctsScreen.Render();
+        EffectsScreen.Render();
         Draw.Load();
     }
 
@@ -132,8 +132,8 @@ class World : IRenderable, IUpdateable
         EffectsMid.Refresh();
         EffectsBot.Update(dt);
         EffectsBot.Refresh();
-        EffctsScreen.Update(dt);
-        EffctsScreen.Refresh();
+        EffectsScreen.Update(dt);
+        EffectsScreen.Refresh();
     }
     public void KeyDown(Key key)
     {

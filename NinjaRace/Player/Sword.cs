@@ -6,7 +6,6 @@ using System.Threading;
 partial class Player
 {
     long Delay = 500;
-    bool NeedSwing = false;
     Timer t;
 
     public Player GetOpponent()

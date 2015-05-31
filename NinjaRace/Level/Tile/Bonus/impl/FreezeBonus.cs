@@ -7,7 +7,10 @@ class FreezeBonus : Bonus
     public void Get(Player player)
     {
         Effect e = new BonusOnScreen(null);
-        Program.World.EffctsScreen.Add(e);
+        foreach (var a in Program.World.EffectsScreen)
+            if (a is BonusOnScreen)
+                a.Dispose();
+        Program.World.EffectsScreen.Add(e);
         player.bonus = () => 
         {
             Program.World.EffectsTop.Add(new Freeze(player.GetOpponent()));
