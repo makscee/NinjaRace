@@ -9,6 +9,8 @@ class Showdown : State
     public Showdown()
     {
         World = new World("showdown");
+        World.player1.EnableSword();
+        World.player2.EnableSword();
     }
 
     public override void Render()

@@ -64,9 +64,8 @@ partial class Player : IUpdateable, IRenderable
 
     public void Render()
     {
-        Draw.Rect(Position + new Vec2(Size.X * 1.5, 0) * Dir + new Vec2(Size.X * 3, Size.Y / 2),
-            Position + new Vec2(Size.X * 1.5, 0) * Dir - new Vec2(Size.X * 3, Size.Y / 2), Color.Gray);
         States.Render();
+        RenderSword();
     }
 
     public void Respawn()
