@@ -10,7 +10,6 @@ class Dead : PlayerState
     {
         this.player = player;
         Animated = true;
-        tex = new AnimatedTexture(new Texture("./Data/img/faces/states/dead/dead.png"));
     }
     public override AnimatedTexture GetTexture()
     {
