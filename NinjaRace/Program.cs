@@ -7,7 +7,7 @@ class Program
 {
     public static Random Random = new Random();
     public static MyManager Manager;
-    public static Font font = new Font("./Data/font.TTF", 30, FontStyle.Bold);
+	public static Font font = new Font("./Data/font.TTF", 30, Font.Style.Bold);
     public static bool VSync = false;
 
     public static World World;

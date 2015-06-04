@@ -1,7 +1,8 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
-using System.Threading;
+using Timer = System.Threading.Timer;
+using Timeout = System.Threading.Timeout;
 
 partial class Player
 {
