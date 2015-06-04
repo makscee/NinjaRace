@@ -38,7 +38,8 @@ partial class Player
     {
         if (Controller.NeedSwing() && _EnableSword)
         {
-            t.Dispose();
+            if(t != null)
+                t.Dispose();
             t = new Timer(DoSwing, null, Delay, Timeout.Infinite);
         }
     }
