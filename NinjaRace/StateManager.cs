@@ -3,10 +3,10 @@ using VitPro.Engine;
 using System;
 using System.Diagnostics;
 
-class MyManager : StateManager
+class MyManager : State.Manager
 {
-    public MyManager(State a, params IState[] states)
-        : base(a, states)
+    public MyManager(params State[] states)
+        : base(states)
     {
         sw.Start();
     }
@@ -40,24 +40,24 @@ class MyManager : StateManager
 
     Texture tex = null, back = null;
 
-    IState Previous, Current;
+    State Previous, Current;
 
     void DefaultRender()
     {
-        Draw.Save();
-        Draw.Save();
-        Draw.Scale(2 + t);
-        Draw.Align(0.5, 0.5);
+		RenderState.Push();
+		RenderState.Push();
+		RenderState.Scale(2 + t);
+		RenderState.Origin(0.5, 0.5);
         tex.Render();
-        Draw.Load();
-        Draw.Scale(3 - t);
-        Draw.Align(0.5, 0.5);
+		RenderState.Pop();
+		RenderState.Scale(3 - t);
+		RenderState.Origin(0.5, 0.5);
         if (back != null)
         {
-            Draw.Color(1, 1, 1, t);
+			RenderState.Color = new Color(1, 1, 1, t);
             back.Render();
         }
-        Draw.Load();
+		RenderState.Pop();
     }
 
     double fps = 0;
@@ -65,18 +65,18 @@ class MyManager : StateManager
 
     public override void Render()
     {
-        if (tex == null || tex.Width != Draw.Width || tex.Height != Draw.Height)
-            tex = new Texture(Draw.Width, Draw.Height);
-        Draw.BeginTexture(tex);
+		if (tex == null || tex.Width != RenderState.Width || tex.Height != RenderState.Height)
+			tex = new Texture(RenderState.Width, RenderState.Height);
+		RenderState.BeginTexture(tex);
         base.Render();
-        Draw.EndTexture();
+		RenderState.EndTexture();
         tex.RemoveAlpha();
         DefaultRender();
-        Draw.Save();
+		RenderState.Push();
         Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
-        Draw.Color(Color.Yellow);
-        t.RenderToPosAndSize(new Vec2(0.85, 0.85), new Vec2(0.1 * t.Width / t.Height / 2, 0.1));
+		RenderState.Color = (Color.Yellow);
+		Draw.Texture(t, new Vec2(0.85, 0.85), new Vec2(0.85, 0.85) + new Vec2(0.1 * t.Width / t.Height / 2, 0.1));
         t.Dispose();
-        Draw.Load();
+		RenderState.Pop();
     }
 }

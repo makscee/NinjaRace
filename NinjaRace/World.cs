@@ -56,49 +56,51 @@ class World : IRenderable, IUpdateable
         cam.Position = (player2.Position - player1.Position) / 2 + player1.Position;
         cam.Apply();
         Render();
-        Draw.Save();
+		RenderState.Push();
         screenCam.Apply();
         EffectsScreen.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 
     public void RenderSplit()
     {
-        Texture tex = new Texture(Draw.Width, Draw.Height);
-        Draw.BeginTexture(tex);
+		Texture tex = new Texture(RenderState.Width, RenderState.Height);
+		RenderState.BeginTexture(tex);
+        Draw.Clear(Color.Black);
         Camera camt = new Camera(cam1.FOV);
         camt.Position = cam1.Position + camOffset;
         camt.Apply();
         DrawBackground(player1);
         Render();
-        Draw.EndTexture();
+		RenderState.EndTexture();
         tex.RemoveAlpha();
 
-        Draw.Save();
-        Draw.Scale(2);
-        Draw.Align(0.5, 0.5);
-        Draw.Translate(0, 0.5);
+		RenderState.Push();
+		RenderState.Scale(2);
+		RenderState.Origin(0.5, 0.5);
+		RenderState.Translate(0, 0.5);
         tex.Render();
-        Draw.Load();
+		RenderState.Pop();
 
-        tex = new Texture(Draw.Width, Draw.Height);
-        Draw.BeginTexture(tex);
+		tex = new Texture(RenderState.Width, RenderState.Height);
+		RenderState.BeginTexture(tex);
+        Draw.Clear(Color.Black);
         camt.Position = cam2.Position - camOffset;
         camt.Apply();
         DrawBackground(player2);
         Render();
-        Draw.EndTexture();
+		RenderState.EndTexture();
         tex.RemoveAlpha();
-        Draw.Save();
-        Draw.Scale(2);
-        Draw.Align(0.5, 0.5);
-        Draw.Translate(0, -0.5);
+		RenderState.Push();
+		RenderState.Scale(2);
+		RenderState.Origin(0.5, 0.5);
+		RenderState.Translate(0, -0.5);
         tex.Render();
-        Draw.Load();
-        Draw.Save();
+		RenderState.Pop();
+		RenderState.Push();
         screenCam.Apply();
         EffectsScreen.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 
     private void UpdateForPlayer(double dt, Player player)
@@ -150,17 +152,17 @@ class World : IRenderable, IUpdateable
     {
         if (background == null)
             return;
-        Draw.Save();
+		RenderState.Push();
         new Camera(360).Apply();
         Vec2 offset = new Vec2(player.Position.X / 3, 0);
         offset = new Vec2(offset.X - App.Width * Math.Floor(offset.X / App.Width), 0);
-        Draw.Translate(-offset);
-        Draw.Scale(App.Width / 2, App.Height / 3);
-        Draw.Scale(2);
-        Draw.Align(0.5, 0.5);
+		RenderState.Translate(-offset);
+		RenderState.Scale(App.Width / 2, App.Height / 3);
+		RenderState.Scale(2);
+		RenderState.Origin(0.5, 0.5);
         background.Render();
-        Draw.Translate(new Vec2(1, 0));
+		RenderState.Translate(new Vec2(1, 0));
         background.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 }
