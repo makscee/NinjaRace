@@ -8,8 +8,12 @@ class BonusOnScreen : Effect
 
     public override void Render()
     {
-        if (tex == null)
-            Draw.Rect(Position + size, Position - size, Color.Red);
+		if (tex == null) {
+			RenderState.Push();
+			RenderState.Color = Color.Red;
+			Draw.Rect(Position + size, Position - size);
+			RenderState.Pop();
+		}
         else tex.Render();
     }
 

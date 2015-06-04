@@ -18,11 +18,13 @@ class DisplayField : IRenderable
     {
         Shader s = new Shader(NinjaRace.Shaders.Test);
         this.name = Program.font.MakeTexture(name);
-        s.SetVec2("size", new Vec2(this.name.Width, this.name.Height));
-        s.SetInt("doX", 0);
+		RenderState.Push();
+		RenderState.Set("size", new Vec2(this.name.Width, this.name.Height));
+		RenderState.Set("doX", 0);
         this.name.ApplyShader(s);
-        s.SetInt("doX", 1);
+		RenderState.Set("doX", 1);
         this.name.ApplyShader(s);
+		RenderState.Pop();
         return this;
     }
 
@@ -67,15 +69,15 @@ class DisplayField : IRenderable
     public void Render()
     {
         Draw.Rect(position - size, position + size, backGroundColor);
-        Draw.Save();
-        Draw.Translate(offset);
-        Draw.Color(textColor);
-        Draw.Translate(position);
-        Draw.Scale((double)name.Width / (double)name.Height, 1);
-        Draw.Scale(textScale);
-        Draw.Align(align);
+		RenderState.Push();
+		RenderState.Translate(offset);
+		RenderState.Color = textColor;
+		RenderState.Translate(position);
+		RenderState.Scale((double)name.Width / (double)name.Height, 1);
+		RenderState.Scale(textScale);
+		RenderState.Origin(align);
         name.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 
     public DisplayField SetTextFromTheLeft()

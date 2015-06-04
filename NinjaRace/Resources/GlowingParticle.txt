@@ -2,11 +2,11 @@ uniform sampler2D texture;
 uniform vec2 size;
 uniform vec4 color;
 
-in vec2 modelPos;
+varying vec3 modelPos;
 
 void main()
 {
-	if(distance(modelPos, vec2(0.5)) > 0.5)
+	if(distance(modelPos.xy, vec2(0.5)) > 0.5)
 		discard;
-	gl_FragColor = vec4(color.x, color.y, color.z, pow(1 - distance(modelPos, vec2(0.5)) * 2, 2));
+	gl_FragColor = vec4(color.x, color.y, color.z, pow(1.0 - distance(modelPos.xy, vec2(0.5)) * 2.0, 2.0));
 }

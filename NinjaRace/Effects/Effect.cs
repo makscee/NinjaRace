@@ -32,7 +32,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
 
     public virtual void Dispose()
     {
-        IState current = ((MyManager)App.MainState).CurrentState;
+        State current = ((MyManager)((State.Manager)App.State).CurrentState).CurrentState;
         if (current is Menu)
         {
             Menu menu = (Menu)current;

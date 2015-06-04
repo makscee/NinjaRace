@@ -40,6 +40,9 @@ class Frozen : PlayerState
 
     public override void Render()
     {
-        Draw.Rect(player.Position + player.Size, player.Position - player.Size, new Color(0.5, 0.5, 1));
+		RenderState.Push();
+		RenderState.Color = new Color(0.5, 0.5, 1);
+        Draw.Rect(player.Position + player.Size, player.Position - player.Size);
+		RenderState.Pop();
     }
 }

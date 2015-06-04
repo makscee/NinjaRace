@@ -65,7 +65,10 @@ class LiftTile : Tile
 
     public override void Render()
     {
-        Draw.Rect(Position + Size, Position - Size, Color.Magenta);
+		RenderState.Push();
+		RenderState.Color = Color.Magenta;
+        Draw.Rect(Position + Size, Position - Size);
+		RenderState.Pop();
     }
 
 
