@@ -95,6 +95,7 @@
     <Compile Include="Level\Tile\Bonus\Bonus.cs" />
     <Compile Include="Level\Tile\Bonus\BonusTile.cs" />
     <Compile Include="Level\Tile\Bonus\impl\FreezeBonus.cs" />
+    <Compile Include="Level\Tile\Bonus\impl\SlowDown.cs" />
     <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
     <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Level\Tile\impl\LiftTile.cs" />

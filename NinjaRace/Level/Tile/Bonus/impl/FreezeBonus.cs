@@ -1,11 +1,10 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
-using System.Threading;
+using System.Timers;
 
 class FreezeBonus : Bonus
 {
-    static Timer t;
     public void Get(Player player)
     {
         Effect e = new BonusOnScreen(null);
@@ -17,7 +16,10 @@ class FreezeBonus : Bonus
         {
             Player op = player.GetOpponent();
             op.States.Set(new Frozen(op));
-            t = new Timer((Object state) => { op.States.SetFlying(); }, null, 2000, Timeout.Infinite);
+            Timer t = new Timer(2000);
+            t.Elapsed += new ElapsedEventHandler((Object source, ElapsedEventArgs ee) => { op.States.SetFlying(); });
+            t.Enabled = true;
+            t.AutoReset = false;
             player.bonus = () => { };
             e.Dispose();
         };
