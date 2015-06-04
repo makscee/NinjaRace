@@ -2,3 +2,5 @@
 **/Release/*
 *.suo
 !VPE/Dependencies/**/*
+packages/
+*.userprefs
