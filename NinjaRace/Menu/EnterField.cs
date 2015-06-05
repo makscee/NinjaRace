@@ -23,11 +23,13 @@ class EnterField : IRenderable
     public EnterField SetName(string name)
     {
         nameTex = Program.font.MakeTexture(name);
-        s.SetVec2("size", new Vec2(nameTex.Width, nameTex.Height));
-        s.SetInt("doX", 0);
+		RenderState.Push();
+		RenderState.Set("size", new Vec2(nameTex.Width, nameTex.Height));
+		RenderState.Set("doX", 0);
         nameTex.ApplyShader(s);
-        s.SetInt("doX", 1);
+		RenderState.Set("doX", 1);
         nameTex.ApplyShader(s);
+		RenderState.Pop();
         return this;
     }
 
@@ -104,22 +106,22 @@ class EnterField : IRenderable
             new Color(Math.Min(backGroundColor.R * 1.5, 1d), Math.Min(backGroundColor.G * 1.5, 1d), Math.Min(backGroundColor.B * 1.5, 1d))
             : backGroundColor;
         Draw.Rect(position - size, position + size, t);
-        Draw.Save();
-        Draw.Color(textColor);
-        Draw.Translate(position - new Vec2(size.X * 0.95, 0));
-        Draw.Scale((double)nameTex.Width / (double)nameTex.Height, 1);
-        Draw.Scale(size.Y - 4);
-        Draw.Align(0, 0.5);
+		RenderState.Push();
+		RenderState.Color = (textColor);
+		RenderState.Translate(position - new Vec2(size.X * 0.95, 0));
+		RenderState.Scale((double)nameTex.Width / (double)nameTex.Height, 1);
+		RenderState.Scale(size.Y - 4);
+		RenderState.Origin(0, 0.5);
         nameTex.Render();
-        Draw.Load();
-        Draw.Save();
-        Draw.Color(textColor);
-        Draw.Translate(position + new Vec2(size.X * 0.95, 0));
-        Draw.Scale((double)textTex.Width / (double)textTex.Height, 1);
-        Draw.Scale(size.Y - 4);
-        Draw.Align(1, 0.5);
+		RenderState.Pop();
+		RenderState.Push();
+		RenderState.Color = (textColor);
+		RenderState.Translate(position + new Vec2(size.X * 0.95, 0));
+		RenderState.Scale((double)textTex.Width / (double)textTex.Height, 1);
+		RenderState.Scale(size.Y - 4);
+		RenderState.Origin(1, 0.5);
         textTex.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 
     private bool Hit()
@@ -133,15 +135,17 @@ class EnterField : IRenderable
     private void RefreshTexture()
     {
         if (text.Length == 0)
-            textTex = new Texture(0, 0);
+            textTex = new Texture(1, 1);
         else
         {
             textTex = Program.font.MakeTexture(text);
-            s.SetVec2("size", new Vec2(textTex.Width, textTex.Height));
-            s.SetInt("doX", 0);
+			RenderState.Push();
+			RenderState.Set("size", new Vec2(textTex.Width, textTex.Height));
+			RenderState.Set("doX", 0);
             textTex.ApplyShader(s);
-            s.SetInt("doX", 1);
+			RenderState.Set("doX", 1);
             textTex.ApplyShader(s);
+			RenderState.Pop();
         }
     }
 }

@@ -72,6 +72,9 @@ class DropTile : Tile
 
     public override void Render()
     {
-        Draw.Rect(Position - Size, Position + Size, Color.Gray);
+		RenderState.Push();
+		RenderState.Color = Color.Gray;
+        Draw.Rect(Position - Size, Position + Size);
+		RenderState.Pop();
     }
 }

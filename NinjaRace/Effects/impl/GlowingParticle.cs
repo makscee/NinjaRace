@@ -14,10 +14,12 @@ class GlowingParticle : Effect
     {
         Size = size;
         tex = new Texture(50, 50);
-        s.SetVec2("size", new Vec2(tex.Width, tex.Height));
-        s.SetTexture("texture", tex);
-        s.SetVec4("color", color.R, color.G, color.B, 1);
+		RenderState.Push();
+		RenderState.Set("size", new Vec2(tex.Width, tex.Height));
+		RenderState.Set("texture", tex);
+		RenderState.Set("color", color);
         tex.ApplyShader(s);
+		RenderState.Pop();
     }
 
     public GlowingParticle SetSpeed(double speed)
@@ -30,8 +32,10 @@ class GlowingParticle : Effect
     {
         tex.Dispose();
         tex = new Texture(50, 50);
-        s.SetVec4("color", color.R, color.G, color.B, 1);
+		RenderState.Push();
+		RenderState.Color = color;
         tex.ApplyShader(s);
+		RenderState.Pop();
         return this;
     }
 
@@ -61,8 +65,7 @@ class GlowingParticle : Effect
 
     public override void Render()
     {
-        
-        tex.RenderToPosAndSize(Position, Size);
+		Draw.Texture(tex, Position, Position + Size);
     }
 
     public override void Update(double dt)

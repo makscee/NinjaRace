@@ -25,11 +25,13 @@ class Button : IRenderable
     {
         this.name = Program.font.MakeTexture(name);
         Shader s = new Shader(NinjaRace.Shaders.Test);
-        s.SetVec2("size", new Vec2(this.name.Width, this.name.Height));
-        s.SetInt("doX", 0);
+		RenderState.Push();
+		RenderState.Set("size", new Vec2(this.name.Width, this.name.Height));
+		RenderState.Set("doX", 0);
         this.name.ApplyShader(s);
-        s.SetInt("doX", 1);
+		RenderState.Set("doX", 1);
         this.name.ApplyShader(s);
+		RenderState.Pop();
         return this;
     }
 
@@ -83,15 +85,15 @@ class Button : IRenderable
             new Color(Math.Min(backGroundColor.R * 1.5, 1d), Math.Min(backGroundColor.G * 1.5, 1d), Math.Min(backGroundColor.B * 1.5, 1d))
             : backGroundColor;
         Draw.Rect(position - size, position + size, t);
-        Draw.Save();
-        Draw.Translate(offset);
-        Draw.Color(textColor);
-        Draw.Translate(position);
-        Draw.Scale((double)name.Width / (double)name.Height, 1);
-        Draw.Scale(textScale);
-        Draw.Align(0.5 + align.X, 0.5 + align.Y);
+		RenderState.Push();
+		RenderState.Translate(offset);
+		RenderState.Color = textColor;
+		RenderState.Translate(position);
+		RenderState.Scale((double)name.Width / (double)name.Height, 1);
+		RenderState.Scale(textScale);
+		RenderState.Origin(0.5 + align.X, 0.5 + align.Y);
         name.Render();
-        Draw.Load();
+		RenderState.Pop();
     }
 
     private bool Hit()

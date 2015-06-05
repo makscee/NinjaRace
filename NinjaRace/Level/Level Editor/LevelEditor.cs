@@ -145,9 +145,13 @@ class LevelEditor : State
         for (int y = 1; y < level.tiles.GetLength(0); y++)
             for (int x = 1; x < level.tiles.GetLength(1); x++)
             {
-                if (level.tiles.GetTile(x, y) == null)
-                    Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
-                        , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0.1, 0.1, 0.1));
+				if (level.tiles.GetTile(x, y) == null) {
+					RenderState.Push();
+					RenderState.Color = new Color(0.1, 0.1, 0.1);
+					Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
+                        , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9);
+					RenderState.Pop();
+				}
                 else if (level.tiles.GetTile(x, y) is StartTile)
                     Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
@@ -171,9 +175,9 @@ class LevelEditor : State
     void RenderTileMenu()
     {
         Vec2 v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1);
-        Draw.Save();
+        RenderState.Push();
         new Camera(360).Apply();
-        Draw.Translate(new Vec2(240, 180));
+		RenderState.Translate(new Vec2(240, 180));
 
 
         if (currentTile == null)
@@ -185,6 +189,6 @@ class LevelEditor : State
                 Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
             ((Tile)Type.GetType(TileTypes[i]).GetConstructor(new Type[] { }).Invoke(new object[] { })).SetPosition(v).Render();
         }
-        Draw.Load();
+		RenderState.Pop();
     }
 }
