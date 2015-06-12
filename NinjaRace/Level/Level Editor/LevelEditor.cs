@@ -10,7 +10,7 @@ class LevelEditor : State
     Camera cam = new Camera(240);
     bool dragging = false;
     Vec2 draggingVec;
-    Button done;
+    //Button done;
     int vecForSaw1 = -1, vecForSaw2 = -1;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
@@ -22,10 +22,10 @@ class LevelEditor : State
         TTenum = TileTypes.GetEnumerator();
         level = new Level(new Tiles(sizex, sizey), name);
         cam.Position = new Vec2(100, 100);
-        done = new Button(new Vec2(130, -110), new Vec2(25, 8))
-            .SetName("DONE")
-            .SetTextScale(12)
-            .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
+        //done = new Button(new Vec2(130, -110), new Vec2(25, 8))
+        //    .SetName("DONE")
+        //    .SetTextScale(12)
+        //    .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
     }
 
     public LevelEditor(string name)
@@ -33,10 +33,10 @@ class LevelEditor : State
         TTenum = TileTypes.GetEnumerator();
         level = DBUtils.GetLevel(name);
         cam.Position = new Vec2(100, 100);
-        done = new Button(new Vec2(130, -110), new Vec2(25, 8))
-            .SetName("DONE")
-            .SetTextScale(12)
-            .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
+        //done = new Button(new Vec2(130, -110), new Vec2(25, 8))
+        //    .SetName("DONE")
+        //    .SetTextScale(12)
+        //    .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
@@ -48,7 +48,7 @@ class LevelEditor : State
         }
         if (button == MouseButton.Left)
         {
-            done.Click();
+            //done.Click();
             if (currentTile is Saw)
             {
                 vecForSaw1 = Tiles.GetID(GetX(), GetY());
@@ -88,6 +88,13 @@ class LevelEditor : State
 
     public override void KeyDown(Key key)
     {
+        if (key == Key.Escape)
+            Close();
+        if (key == Key.Enter)
+        {
+            DBUtils.StoreTiles(level);
+            Close();
+        }
         if (key == Key.E)
         {
             if (TTenum.MoveNext())
@@ -168,7 +175,7 @@ class LevelEditor : State
             Draw.Rect(Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) + Tile.Size,
                 Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) - Tile.Size, Color.Green);
         new Camera(240).Apply();
-        done.Render();
+        //done.Render();
         RenderTileMenu();
     }
 

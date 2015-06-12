@@ -50,7 +50,7 @@ abstract class Tile : IRenderable, IUpdateable
     {
         if(tex == null)
             LoadTexture();
-        tex.RenderToPosAndSize(Position, Tile.Size);
+        Draw.Texture(tex.GetCurrent(), Position - Size, Position + Size);
     }
 
     public virtual void Effect(Player player, Side side) { }

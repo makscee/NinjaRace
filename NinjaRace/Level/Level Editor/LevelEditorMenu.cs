@@ -4,34 +4,44 @@ using System;
 
 class LevelEditorMenu : Menu
 {
-    EnterField xField, yField, name;
+    TextInput xInput = new TextInput(200);
+    TextInput yInput = new TextInput(200);
+    TextInput name = new TextInput(200);
     public LevelEditorMenu()
     {
-        AddButton(new Button(new Vec2(0, -30), new Vec2(80, 20))
-            .SetName("DONE")
-            .SetAction(() => { this.Close(); Program.Manager.PushState(GetState()); }));
-        AddButton(new Button(new Vec2(0, -80), new Vec2(80, 20))
-            .SetName("EDIT EXISTING")
-            .SetAction(() => { this.Close(); Program.Manager.PushState(new LevelEditor(name.GetText())); }));
-        yField = new EnterField(new Vec2(0, 50), new Vec2(100, 15), 5)
-            .SetName("WIDTH")
-            .SetDefault("0");
-        xField = new EnterField(new Vec2(0, 20), new Vec2(100, 15), 5)
-            .SetName("HEGHT")
-            .SetDefault("0");
-        name = new EnterField(new Vec2(0, 80), new Vec2(100, 15), 9)
-            .SetName("NAME")
-            .SetDefault("DEFAULT");
-        
-        AddEField(xField);
-        AddEField(yField);
-        AddEField(name);
+        name.Anchor = new Vec2(0.6, 0.8);
+        name.Value = "DEFAULT";
+        Frame.Add(name);
+
+        Label nameL = new Label("NAME:", 30);
+        nameL.Anchor = new Vec2(0.3, 0.8);
+        Frame.Add(nameL);
+
+        xInput.Anchor = new Vec2(0.6, 0.7);
+        Frame.Add(xInput);
+
+        Label xSize = new Label("X SIZE:", 30);
+        xSize.Anchor = new Vec2(0.3, 0.7);
+        Frame.Add(xSize);
+
+        yInput.Anchor = new Vec2(0.6, 0.6);
+        Frame.Add(yInput);
+
+        Label ySize = new Label("Y SIZE:", 30);
+        ySize.Anchor = new Vec2(0.3, 0.6);
+        Frame.Add(ySize);
+        Button edit = new Button("EDIT EXISTING", () => { this.Close(); Program.Manager.PushState(new LevelEditor(name.Value)); }, 50);
+        edit.Anchor = new Vec2(0.5, 0.4);
+        Frame.Add(edit);
+
+        Button done = new Button("DONE",
+            () => { this.Close(); Program.Manager.PushState(GetState()); }, 50);
+        done.Anchor = new Vec2(0.5, 0.2);
+        Frame.Add(done);
     }
 
-    State GetState()
+    LevelEditor GetState()
     {
-        int sizex = int.Parse(xField.GetText());
-        int sizey = int.Parse(yField.GetText());
-        return new LevelEditor(sizex + 1, sizey + 1, name.GetText());
+        return new LevelEditor(int.Parse(xInput.Value), int.Parse(yInput.Value), name.Value);
     }
 }

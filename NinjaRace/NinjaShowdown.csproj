@@ -99,6 +99,9 @@
     <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
     <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Level\Tile\impl\LiftTile.cs" />
+    <Compile Include="Menu\Label.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\TextInput.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
@@ -121,11 +124,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Shaders.resx</DependentUpon>
     </Compile>
-    <Compile Include="States\AfterGame.cs" />
     <Compile Include="Menu\Button.cs" />
-    <Compile Include="Menu\DisplayField.cs" />
-    <Compile Include="Menu\EnterField.cs" />
-    <Compile Include="Menu\Menu.cs" />
     <Compile Include="Player\States\impl\Dead.cs" />
     <Compile Include="Player\States\impl\Flying.cs" />
     <Compile Include="Player\States\impl\PlayerState.cs" />
@@ -182,12 +181,6 @@
     <None Include="Resources\Test.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\csVPE\VPE\VPE.csproj">
-      <Project>{ca4698fe-400a-453d-8958-1feccb7fb881}</Project>
-      <Name>VPE</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Shaders.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
@@ -214,7 +207,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\VPE2\VPE\VPE\VPE.csproj">
+      <Project>{c11c0612-d2e4-4881-afea-8db29aff5afd}</Project>
+      <Name>VPE</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

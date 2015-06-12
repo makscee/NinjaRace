@@ -2,8 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaShowdown", "NinjaRace\NinjaShowdown.csproj", "{A7E41FE5-C396-461A-8C94-F8CF604F7A24}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD} = {C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPE", "..\csVPE\VPE\VPE.csproj", "{CA4698FE-400A-453D-8958-1FECCB7FB881}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPE", "..\VPE2\VPE\VPE\VPE.csproj", "{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +18,10 @@ Global
 		{A7E41FE5-C396-461A-8C94-F8CF604F7A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7E41FE5-C396-461A-8C94-F8CF604F7A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7E41FE5-C396-461A-8C94-F8CF604F7A24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA4698FE-400A-453D-8958-1FECCB7FB881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA4698FE-400A-453D-8958-1FECCB7FB881}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA4698FE-400A-453D-8958-1FECCB7FB881}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA4698FE-400A-453D-8958-1FECCB7FB881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11C0612-D2E4-4881-AFEA-8DB29AFF5AFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -47,7 +47,9 @@ class GlowingParticle : Effect
 
     public GlowingParticle SetNeedVelocity(Vec2 vel)
     {
-        NeedVel = vel.Unit;
+        if (vel.Length > 0)
+            NeedVel = vel.Unit;
+        else NeedVel = vel;
         return this;
     }
 
@@ -65,7 +67,7 @@ class GlowingParticle : Effect
 
     public override void Render()
     {
-		Draw.Texture(tex, Position, Position + Size);
+		Draw.Texture(tex, Position - Size, Position + Size);
     }
 
     public override void Update(double dt)

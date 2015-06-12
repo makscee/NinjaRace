@@ -1,4 +1,5 @@
 ﻿using System;
+using Timer = System.Timers.Timer;
 using System.Timers;
 using VitPro.Engine;
 using VitPro;

@@ -1,6 +1,7 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
+using Timer = System.Timers.Timer;
 using System.Timers;
 
 class FreezeBonus : Bonus
