@@ -5,14 +5,9 @@ using System;
 class Dead : PlayerState
 {
     double DeathTime = 1;
-    AnimatedTexture tex;
     public Dead(Player player) : base(player)
     {
         this.player = player;
-    }
-    public override AnimatedTexture GetTexture()
-    {
-        return tex;
     }
     public override void Update(double dt)
     {

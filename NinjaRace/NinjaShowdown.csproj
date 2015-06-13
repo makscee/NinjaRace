@@ -106,6 +106,7 @@
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
+    <Compile Include="Player\Controllers\PlayerController.cs" />
     <Compile Include="Player\States\impl\Dash.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\impl\Win.cs" />

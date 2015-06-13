@@ -54,6 +54,11 @@ partial class Player : IUpdateable, IRenderable
         CollisionHits();
         Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
         Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
+        Vec2 nd = Controller.NeedDash();
+        if (!nd.Equals(Vec2.Zero))
+        {
+            States.Set(new Dash(this, nd));
+        }
         States.Update(dt);
         UpdateSword(dt);
         if (Position.Y < -50)

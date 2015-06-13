@@ -10,4 +10,5 @@ interface IController
     bool NeedBonus();
     void KeyDown(Key key);
     void KeyUp(Key key);
+    Vec2 NeedDash();
 }
