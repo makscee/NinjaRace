@@ -1,9 +1,10 @@
 ﻿using VitPro;
 using VitPro.Engine;
+using UI = VitPro.Engine.UI;
 using System;
 using System.Collections.Generic;
 
-class LevelEditor : State
+class LevelEditor : UI.State
 {
     Level level;
     Tile currentTile;
@@ -17,30 +18,30 @@ class LevelEditor : State
         "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile" };
     List<string>.Enumerator TTenum;
 
-    public LevelEditor(int sizex, int sizey, string name)
+    void init()
     {
         TTenum = TileTypes.GetEnumerator();
-        level = new Level(new Tiles(sizex, sizey), name);
         cam.Position = new Vec2(100, 100);
-        //done = new Button(new Vec2(130, -110), new Vec2(25, 8))
-        //    .SetName("DONE")
-        //    .SetTextScale(12)
-        //    .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
+        Button done = new Button("DONE", () => { DBUtils.StoreTiles(level); this.Close(); }, 20);
+        done.Anchor = new Vec2(0.95, 0.05);
+        Frame.Add(done);
+    }
+
+    public LevelEditor(int sizex, int sizey, string name)
+    {
+        level = new Level(new Tiles(sizex, sizey), name);
+        init();
     }
 
     public LevelEditor(string name)
     {
-        TTenum = TileTypes.GetEnumerator();
         level = DBUtils.GetLevel(name);
-        cam.Position = new Vec2(100, 100);
-        //done = new Button(new Vec2(130, -110), new Vec2(25, 8))
-        //    .SetName("DONE")
-        //    .SetTextScale(12)
-        //    .SetAction(() => { DBUtils.StoreTiles(level); this.Close(); });
+        init();
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)
     {
+        base.MouseDown(button, pos);
         if (button == MouseButton.Right)
         {
             dragging = true;
@@ -70,7 +71,7 @@ class LevelEditor : State
 
     public override void MouseUp(MouseButton button, Vec2 pos)
     {
-
+        base.MouseUp(button, pos);
         if (button == MouseButton.Right)
             dragging = false;
         if (button == MouseButton.Left)
@@ -88,6 +89,7 @@ class LevelEditor : State
 
     public override void KeyDown(Key key)
     {
+        base.KeyDown(key);
         if (key == Key.Escape)
             Close();
         if (key == Key.Enter)
@@ -137,6 +139,7 @@ class LevelEditor : State
 
     public override void Update(double dt)
     {
+        base.Update(dt);
         if (dragging)
         {
             cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
@@ -177,6 +180,7 @@ class LevelEditor : State
         new Camera(240).Apply();
         //done.Render();
         RenderTileMenu();
+        base.Render();
     }
 
     void RenderTileMenu()
@@ -185,7 +189,7 @@ class LevelEditor : State
         RenderState.Push();
         new Camera(360).Apply();
 		RenderState.Translate(new Vec2(240, 180));
-
+        RenderState.Scale(0.5);
 
         if (currentTile == null)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
