@@ -4,14 +4,15 @@ using VitPro.Engine;
 class Timer : IUpdateable
 {
     double elapsed = 0, elapsedPart = 0, life, period;
-    Action callback;
+    Action callback = new Action(() => {});
     bool Alive = true;
 
     public Timer(double life, Action callback)
     {
         this.life = life;
         period = life;
-        this.callback = callback;
+        this.callback += callback;
+        TimerContainer.Timers.Add(this);
     }
 
     public Timer(double life, double period, Action callback)
@@ -40,13 +41,22 @@ class Timer : IUpdateable
         Alive = false;
     }
 
+    public bool IsDone()
+    {
+        return elapsed > life;
+    }
+
     public void Update(double dt)
     {
         if (!Alive)
             return;
         if (elapsed > life)
+        {
+            TimerContainer.Timers.Remove(this);
             return;
+        }
         elapsed += dt;
+        elapsedPart += dt;
         if (elapsedPart > period)
         {
             callback.Invoke();

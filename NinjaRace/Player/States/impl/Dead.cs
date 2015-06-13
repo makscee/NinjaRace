@@ -9,7 +9,6 @@ class Dead : PlayerState
     public Dead(Player player) : base(player)
     {
         this.player = player;
-        Animated = true;
     }
     public override AnimatedTexture GetTexture()
     {

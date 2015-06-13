@@ -22,6 +22,7 @@ class Showdown : State
     {
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
+        TimerContainer.Update(dt);
     }
     public override void KeyDown(Key key)
     {

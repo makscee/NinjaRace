@@ -1,7 +1,6 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
-using Timer = System.Timers.Timer;
 using System.Timers;
 
 class FreezeBonus : Bonus
@@ -17,10 +16,7 @@ class FreezeBonus : Bonus
         {
             Player op = player.GetOpponent();
             op.States.Set(new Frozen(op));
-            Timer t = new Timer(2000);
-            t.Elapsed += new ElapsedEventHandler((Object source, ElapsedEventArgs ee) => { op.States.SetFlying(); });
-            t.Enabled = true;
-            t.AutoReset = false;
+            Timer t = new Timer(2, () => { op.States.SetFlying(); });
             player.bonus = () => { };
             e.Dispose();
         };

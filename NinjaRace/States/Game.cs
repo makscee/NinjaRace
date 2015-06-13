@@ -25,6 +25,7 @@ class Game : State
             Close();
         }
         World.Update(dt);
+        TimerContainer.Update(dt);
     }
     public override void KeyDown(Key key)
     {
