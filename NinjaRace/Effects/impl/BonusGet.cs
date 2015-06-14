@@ -17,7 +17,7 @@ class BonusGet : Effect
             particles.Add(new GlowingParticle(pos, new Vec2(15, 15), Color.Green)
                 .SetVelocity(Vec2.Rotate(Vec2.OrtX * 500 * Program.Random.NextDouble(1, 2), Math.PI / 15 * i))
                 .SetSpeed(2000)
-                .SetAcc(30));
+                .SetAcc(50));
         }
     }
 

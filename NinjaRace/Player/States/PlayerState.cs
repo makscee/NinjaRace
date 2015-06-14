@@ -24,6 +24,9 @@ class PlayerState : IRenderable, IUpdateable
     public virtual void Update(double dt)
     {
         player.Velocity -= Vec2.Clamp(new Vec2(player.Velocity.X - player.Controller.NeedVel().X * player.Speed * player.SpeedUp, 0), player.Acc * player.SpeedUp * dt);
+        AnimatedTexture tex = GetTexture();
+        if (tex != null)
+            tex.Update(dt);
     }
     public virtual void Jump()
     {

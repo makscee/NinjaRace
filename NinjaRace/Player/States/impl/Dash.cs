@@ -5,12 +5,12 @@ using System;
 class Dash : PlayerState
 {
     Vec2 dir = Vec2.Zero;
-    double speed, t = 0, mt = 0.05;
+    double speed, t = 0, mt = 0.05, accFactor = 4;
 
     public Dash(Player player, Vec2 dir) : base(player) 
     {
         this.dir = dir;
-        speed = player.Speed * 6;
+        speed = player.Speed * accFactor;
     }
 
     public override void Render()

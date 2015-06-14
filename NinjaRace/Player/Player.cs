@@ -57,7 +57,9 @@ partial class Player : IUpdateable, IRenderable
         Vec2 nd = Controller.NeedDash();
         if (!nd.Equals(Vec2.Zero))
         {
-            States.Set(new Dash(this, nd));
+            if(States.current is Walking && nd.Y == 0 || (States.current is Flying || States.current is WallGrab) && nd.Y != 0)
+                States.Set(new Dash(this, nd));
+
         }
         States.Update(dt);
         UpdateSword(dt);

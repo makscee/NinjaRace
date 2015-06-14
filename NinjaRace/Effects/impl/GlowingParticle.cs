@@ -67,7 +67,10 @@ class GlowingParticle : Effect
 
     public override void Render()
     {
-		Draw.Texture(tex, Position - Size, Position + Size);
+        RenderState.Push();
+        RenderState.BlendMode = BlendMode.Add;
+        Draw.Texture(tex, Position - Size, Position + Size);
+        RenderState.Pop();
     }
 
     public override void Update(double dt)

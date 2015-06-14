@@ -8,5 +8,5 @@ void main()
 {
 	if(distance(modelPos.xy, vec2(0.5)) > 0.5)
 		discard;
-	gl_FragColor = vec4(color.x, color.y, color.z, pow(1.0 - distance(modelPos.xy, vec2(0.5)) * 2.0, 2.0));
+	gl_FragColor = vec4(color.x, color.y, color.z, pow(1.0 - distance(modelPos.xy, vec2(0.5)) * 2.0, 3.0));
 }
