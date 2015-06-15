@@ -163,61 +163,79 @@
     <Content Include="Data\img\background.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player1.png">
+    <Content Include="Data\img\player\idle\player1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player10.png">
+    <Content Include="Data\img\player\idle\player10.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player11.png">
+    <Content Include="Data\img\player\idle\player11.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player12.png">
+    <Content Include="Data\img\player\idle\player12.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player13.png">
+    <Content Include="Data\img\player\idle\player13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player14.png">
+    <Content Include="Data\img\player\idle\player14.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player15.png">
+    <Content Include="Data\img\player\idle\player15.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player16.png">
+    <Content Include="Data\img\player\idle\player16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player17.png">
+    <Content Include="Data\img\player\idle\player17.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player18.png">
+    <Content Include="Data\img\player\idle\player18.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player19.png">
+    <Content Include="Data\img\player\idle\player19.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player2.png">
+    <Content Include="Data\img\player\idle\player2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player3.png">
+    <Content Include="Data\img\player\idle\player3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player4.png">
+    <Content Include="Data\img\player\idle\player4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player5.png">
+    <Content Include="Data\img\player\idle\player5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player6.png">
+    <Content Include="Data\img\player\idle\player6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player7.png">
+    <Content Include="Data\img\player\idle\player7.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player8.png">
+    <Content Include="Data\img\player\idle\player8.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\img\player\player9.png">
+    <Content Include="Data\img\player\idle\player9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\run\player_run6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\tiles\bonus.png">

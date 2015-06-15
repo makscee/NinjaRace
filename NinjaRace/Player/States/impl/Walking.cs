@@ -4,7 +4,7 @@ using System;
 
 class Walking : PlayerState
 {
-    AnimatedTexture tex;
+    AnimatedTexture idle, run;
     public Walking(Player player) : base(player) { }
     public override void Render()
     {
@@ -12,15 +12,30 @@ class Walking : PlayerState
     }
     public override AnimatedTexture GetTexture()
     {
-        if (tex == null)
+        if (player.Controller.NeedVel().X == 0)
         {
-            tex = new AnimatedTexture();
-            for (int i = 1; i < 20; i++)
+            if (idle == null)
             {
-                tex.Add(new Texture("./Data/img/player/player" + i.ToString() + ".png"), 0.05);
+                idle = new AnimatedTexture();
+                for (int i = 1; i < 20; i++)
+                {
+                    idle.Add(new Texture("./Data/img/player/idle/player" + i.ToString() + ".png"), 0.02);
+                }
             }
+            return idle;
         }
-        return tex;
+        else
+        {
+            if (run == null)
+            {
+                run = new AnimatedTexture();
+                for (int i = 1; i < 7; i++)
+                {
+                    run.Add(new Texture("./Data/img/player/run/player_run" + i.ToString() + ".png"), 0.02);
+                }
+            }
+            return run;
+        }
     }
 
 }
