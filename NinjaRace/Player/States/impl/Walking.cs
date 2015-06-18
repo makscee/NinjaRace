@@ -8,7 +8,7 @@ class Walking : PlayerState
     public Walking(Player player) : base(player) { }
     public override void Render()
     {
-        Draw.Texture(GetTexture().GetCurrent(), player.Position - player.Size, player.Position + player.Size);
+        player.RenderTex(GetTexture().GetCurrent());
     }
     public override AnimatedTexture GetTexture()
     {
@@ -19,7 +19,7 @@ class Walking : PlayerState
                 idle = new AnimatedTexture();
                 for (int i = 1; i < 20; i++)
                 {
-                    idle.Add(new Texture("./Data/img/player/idle/player" + i.ToString() + ".png"), 0.02);
+                    idle.Add(new Texture("./Data/img/player/idle/player" + i.ToString() + ".png"), 0.03);
                 }
             }
             return idle;
@@ -31,7 +31,7 @@ class Walking : PlayerState
                 run = new AnimatedTexture();
                 for (int i = 1; i < 7; i++)
                 {
-                    run.Add(new Texture("./Data/img/player/run/player_run" + i.ToString() + ".png"), 0.02);
+                    run.Add(new Texture("./Data/img/player/run/player_run" + i.ToString() + ".png"), 0.03);
                 }
             }
             return run;

@@ -8,6 +8,7 @@ partial class Player : IUpdateable, IRenderable
     public int Dir = 1;
     public Vec2 Position, Size;
     private Vec2 _Velocity, _StartPosition;
+    public Color Color;
     public States States;
     public Action bonus = () => { };
     public double Speed = 250,
@@ -31,12 +32,13 @@ partial class Player : IUpdateable, IRenderable
         }
     }
 
-    public Player(Vec2 StartPosition)
+    public Player(Vec2 StartPosition, Color color)
     {
+        Color = color;
         _StartPosition = StartPosition;
         Position = StartPosition;
         States = new States(this);
-        Size = new Vec2(10, 16);
+        Size = new Vec2(12, 19);
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
         collisions.Add(Side.Up, new List<Tile>());
@@ -82,5 +84,17 @@ partial class Player : IUpdateable, IRenderable
         States.SetFlying();
         CalculateCollisions();
         SpeedUp = 1;
+    }
+
+    public void RenderTex(Texture tex)
+    {
+        RenderState.Push();
+        RenderState.Color = Color;
+        RenderState.Translate(Position - Size);
+        RenderState.Scale(Size * 2);
+        if (Dir == -1)
+            RenderState.SetOrts(-Vec2.OrtX, Vec2.OrtY, new Vec2(1, 0));
+        tex.Render();
+        RenderState.Pop();
     }
 }

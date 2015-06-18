@@ -238,6 +238,9 @@
     <Content Include="Data\img\player\run\player_run6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\img\player\wallgrab\wallgrab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\img\tiles\bonus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

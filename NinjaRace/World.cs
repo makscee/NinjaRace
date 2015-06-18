@@ -10,15 +10,15 @@ class World : IRenderable, IUpdateable
     public Group<Effect> EffectsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(540), cam2 = new Camera(540), cam = new Camera(360), screenCam = new Camera(120);
+    Camera cam1 = new Camera(480), cam2 = new Camera(480), cam = new Camera(360), screenCam = new Camera(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
 
     private void Init()
     {
-        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position).SetControls(new ControllerPlayer1());
-        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position).SetControls(new ControllerPlayer2());
+        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position, Color.White).SetControls(new ControllerPlayer1());
+        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position, new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
     }
 
