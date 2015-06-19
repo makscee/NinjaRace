@@ -18,25 +18,29 @@ class LevelEditor : UI.State
         "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile" };
     List<string>.Enumerator TTenum;
 
+    bool showdown;
+
     void init()
     {
         TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
-        Button done = new Button("DONE", () => { DBUtils.StoreTiles(level); this.Close(); }, 20);
+        Button done = new Button("DONE", () => { level.name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
         done.Anchor = new Vec2(0.95, 0.05);
         Frame.Add(done);
     }
 
-    public LevelEditor(int sizex, int sizey, string name)
+    public LevelEditor(int sizex, int sizey, string name, bool showdown)
     {
         level = new Level(new Tiles(sizex, sizey), name);
         init();
+        this.showdown = showdown;
     }
 
-    public LevelEditor(string name)
+    public LevelEditor(string name, bool showdown)
     {
         level = DBUtils.GetLevel(name);
         init();
+        this.showdown = showdown;
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)

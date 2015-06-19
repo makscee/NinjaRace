@@ -7,6 +7,7 @@ class LevelEditorMenu : Menu
     TextInput xInput = new TextInput(200);
     TextInput yInput = new TextInput(200);
     TextInput name = new TextInput(200);
+    CheckBox showdown = new CheckBox(20);
     public LevelEditorMenu()
     {
         name.Anchor = new Vec2(0.6, 0.8);
@@ -30,7 +31,7 @@ class LevelEditorMenu : Menu
         Label ySize = new Label("Y SIZE:", 30);
         ySize.Anchor = new Vec2(0.3, 0.6);
         Frame.Add(ySize);
-        Button edit = new Button("EDIT EXISTING", () => { this.Close(); Program.Manager.PushState(new LevelEditor(name.Value)); }, 50);
+        Button edit = new Button("EDIT EXISTING", () => { this.Close(); Program.Manager.PushState(new LevelEditor(name.Value, showdown.Checked)); }, 50);
         edit.Anchor = new Vec2(0.5, 0.4);
         Frame.Add(edit);
 
@@ -38,10 +39,13 @@ class LevelEditorMenu : Menu
             () => { this.Close(); Program.Manager.PushState(GetState()); }, 50);
         done.Anchor = new Vec2(0.5, 0.2);
         Frame.Add(done);
+
+        showdown.Anchor = new Vec2(0.8, 0.8);
+        Frame.Add(showdown);
     }
 
     LevelEditor GetState()
     {
-        return new LevelEditor(int.Parse(xInput.Value), int.Parse(yInput.Value), name.Value);
+        return new LevelEditor(int.Parse(xInput.Value), int.Parse(yInput.Value), name.Value, showdown.Checked);
     }
 }

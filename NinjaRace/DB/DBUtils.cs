@@ -11,6 +11,23 @@ class DBUtils
     static string connectionString = 
         ConfigurationManager.ConnectionStrings["NinjaRace.Properties.Settings.DatabaseConnectionString"].ConnectionString;
 
+    public static List<string> GetLevelNames()
+    {
+        List<string> levels = new List<string>();
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            SqlCommand command = new SqlCommand(
+                "SELECT * FROM Levels where name not like '%[_]S';",
+                connection);
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                levels.Add(reader.GetString(0));
+            }
+        }
+        return levels;
+    }
+
     public static Level GetLevel(String name)
     {
         int levelX = 0, levelY = 0;

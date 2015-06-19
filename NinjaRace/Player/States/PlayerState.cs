@@ -18,7 +18,8 @@ class PlayerState : IRenderable, IUpdateable
 
     public virtual void Render()
     {
-        
+        if(GetTexture() != null)
+            player.RenderTex(GetTexture().GetCurrent());
     }
 
     public virtual void Update(double dt)

@@ -14,7 +14,7 @@ class Tiles : IRenderable, IUpdateable
     {
         if (sizex > MaxSize.X || sizey > MaxSize.Y)
             throw new Exception("Size of level is too big");
-        tiles = new Tile[sizex, sizey];
+        tiles = new Tile[sizey, sizex];
         movingTiles = new Group<Tile>();
     }
 

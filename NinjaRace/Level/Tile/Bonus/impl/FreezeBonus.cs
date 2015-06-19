@@ -31,6 +31,15 @@ class Frozen : PlayerState
         player.Velocity = Vec2.Zero;
     }
 
+    AnimatedTexture tex;
+
+    public override AnimatedTexture GetTexture()
+    {
+        if (tex == null)
+            tex = new AnimatedTexture(new Texture("./Data/img/player/idle/player1.png"));
+        return tex;
+    }
+
     public override void Update(double dt) { }
 
     public override void Jump() { }
@@ -39,7 +48,11 @@ class Frozen : PlayerState
     {
 		RenderState.Push();
 		RenderState.Color = new Color(0.5, 0.5, 1);
-        Draw.Rect(player.Position + player.Size, player.Position - player.Size);
+        RenderState.Translate(player.Position - player.Size);
+        RenderState.Scale(player.Size * 2);
+        if (player.Dir == -1)
+            RenderState.SetOrts(-Vec2.OrtX, Vec2.OrtY, new Vec2(1, 0));
+        GetTexture().Render();
 		RenderState.Pop();
     }
 }

@@ -99,6 +99,7 @@
     <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
     <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Level\Tile\impl\LiftTile.cs" />
+    <Compile Include="Menu\Checkbox.cs" />
     <Compile Include="Menu\Label.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\TextInput.cs" />

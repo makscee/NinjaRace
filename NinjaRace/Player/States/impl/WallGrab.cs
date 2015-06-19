@@ -18,11 +18,6 @@ class WallGrab : PlayerState
         return tex;
     }
 
-    public override void Render()
-    {
-        player.RenderTex(GetTexture().GetCurrent());
-    }
-
     public override void Update(double dt)
     {
         if (player.collisions[Side.Left].Count != 0)

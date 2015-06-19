@@ -6,10 +6,6 @@ class Walking : PlayerState
 {
     AnimatedTexture idle, run;
     public Walking(Player player) : base(player) { }
-    public override void Render()
-    {
-        player.RenderTex(GetTexture().GetCurrent());
-    }
     public override AnimatedTexture GetTexture()
     {
         if (player.Controller.NeedVel().X == 0)
