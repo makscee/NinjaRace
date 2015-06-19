@@ -22,13 +22,6 @@ class World : IRenderable, IUpdateable
         EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
     }
 
-    public World()
-    {
-        Program.World = this;
-        level = DBUtils.GetLevel("default");
-        Init();
-    }
-
     public World(string level)
     {
         Program.World = this;

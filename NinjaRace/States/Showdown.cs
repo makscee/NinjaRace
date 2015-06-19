@@ -6,9 +6,9 @@ class Showdown : State
 {
     World World;
 
-    public Showdown()
+    public Showdown(string level)
     {
-        World = new World("showdown");
+        World = new World(level);
         World.player1.EnableSword();
         World.player2.EnableSword();
     }

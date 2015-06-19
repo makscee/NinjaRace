@@ -17,8 +17,9 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
-                "SELECT * FROM Levels where name not like '%[_]S';",
+                "SELECT * FROM Levels where name not like '%[_]S%';",
                 connection);
+            connection.Open();
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -44,8 +45,8 @@ class DBUtils
             {
                 while (reader.Read())
                 {
-                    levelX = reader.GetInt32(2);
-                    levelY = reader.GetInt32(1);
+                    levelX = reader.GetInt32(1);
+                    levelY = reader.GetInt32(2);
                 }
             }
             else

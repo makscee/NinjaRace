@@ -7,7 +7,7 @@ class MainMenu : Menu
 {
     public MainMenu()
     {
-        Button start = new Button("START", () => { Program.Manager.PushState(new Game()); }, 50);
+        Button start = new Button("START", () => { Program.Manager.PushState(new PreGame()); }, 50);
         start.Anchor = new Vec2(0.5, 0.8);
         Frame.Add(start);
 

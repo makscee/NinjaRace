@@ -6,9 +6,9 @@ class Game : State
 {
     World World;
 
-    public Game()
+    public Game(string level)
     {
-        World = new World();
+        World = new World(level);
     }
 
     public override void Render()
@@ -21,7 +21,7 @@ class Game : State
         dt = Math.Min(dt, 1.0 / 60);
         if (World.player1.States.current is Win || World.player2.States.current is Win)
         {
-            Program.Manager.PushState(new Showdown());
+            Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S"));
             Close();
         }
         World.Update(dt);
