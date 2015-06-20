@@ -4,7 +4,7 @@ using System;
 
 partial class Player
 {
-    long Delay = 500;
+    double Delay = 0.5;
     Timer t;
     bool _EnableSword = false;
 
@@ -23,7 +23,9 @@ partial class Player
     {
         if (new CollisionBox(Position + new Vec2(Size.X * 1.5, 0) * Dir, new Vec2(Size.X * 3, Size.Y / 2))
             .Collide(GetOpponent().Box) != Side.None)
-            GetOpponent().States.SetDead();
+        {
+            GetOpponent().States.current.Die(Position);
+        }
     }
 
     void RenderSword()

@@ -89,14 +89,15 @@
     <Compile Include="Effects\impl\BonusGet.cs" />
     <Compile Include="Effects\impl\BonusOnScreen.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
+    <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
-    <Compile Include="Level\Tile\Bonus\Bonus.cs" />
-    <Compile Include="Level\Tile\Bonus\BonusTile.cs" />
-    <Compile Include="Level\Tile\Bonus\impl\FreezeBonus.cs" />
-    <Compile Include="Level\Tile\Bonus\impl\SlowDown.cs" />
-    <Compile Include="Level\Tile\Bonus\impl\SpeedUp.cs" />
+    <Compile Include="Bonus\Bonus.cs" />
+    <Compile Include="Bonus\BonusTile.cs" />
+    <Compile Include="Bonus\impl\FreezeBonus.cs" />
+    <Compile Include="Bonus\impl\SlowDown.cs" />
+    <Compile Include="Bonus\impl\SpeedUp.cs" />
     <Compile Include="Level\Tile\impl\DropTile.cs" />
     <Compile Include="Level\Tile\impl\LiftTile.cs" />
     <Compile Include="Menu\Checkbox.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="StateManager.cs" />
     <Compile Include="States\Game.cs" />
+    <Compile Include="States\GameOver.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="Level\Tile\impl\FinishTile.cs" />
     <Compile Include="Level\Tile\impl\Ground.cs" />
@@ -163,6 +165,15 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="Data\img\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\bonuses\freeze.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\bonuses\slow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\heart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\idle\player1.png">

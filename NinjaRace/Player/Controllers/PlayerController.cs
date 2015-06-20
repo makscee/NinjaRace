@@ -40,7 +40,6 @@ abstract class PlayerController : IController
 
     public void KeyDown(Key key)
     {
-        last = key;
         if (key == jump)
             _NeedJump = true;
         if (key == sword)

@@ -11,6 +11,7 @@ partial class Player : IUpdateable, IRenderable
     public Color Color;
     public States States;
     public Action bonus = () => { };
+    public int lives = 3;
     public double Speed = 250,
         Acc = 2700,
         Gravity = 700,
@@ -66,7 +67,7 @@ partial class Player : IUpdateable, IRenderable
         States.Update(dt);
         UpdateSword(dt);
         if (Position.Y < -50)
-            States.SetDead();
+            States.current.Die(Position - Vec2.OrtY);
         if (Controller.NeedBonus())
             bonus.Apply();
     }

@@ -11,6 +11,8 @@ class Showdown : State
         World = new World(level);
         World.player1.EnableSword();
         World.player2.EnableSword();
+        World.EffectsScreen.Add(new Hearts(World.player1));
+        World.EffectsScreen.Add(new Hearts(World.player2));
     }
 
     public override void Render()
@@ -23,6 +25,10 @@ class Showdown : State
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
         TimerContainer.Update(dt);
+        if (World.player1.lives < 1)
+            Program.Manager.NextState = new GameOver("PLAYER1");
+        if (World.player2.lives < 1)
+            Program.Manager.NextState = new GameOver("PLAYER2");
     }
     public override void KeyDown(Key key)
     {

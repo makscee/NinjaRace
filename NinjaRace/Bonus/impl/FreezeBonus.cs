@@ -7,9 +7,9 @@ class FreezeBonus : Bonus
 {
     public void Get(Player player)
     {
-        Effect e = new BonusOnScreen(null);
+        Effect e = new BonusOnScreen(new Texture("./Data/img/bonuses/freeze.png"), player);
         foreach (var a in Program.World.EffectsScreen)
-            if (a is BonusOnScreen)
+            if (a is BonusOnScreen && ((BonusOnScreen)a).player == player)
                 a.Dispose();
         Program.World.EffectsScreen.Add(e);
         player.bonus = () => 
