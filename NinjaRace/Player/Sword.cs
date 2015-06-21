@@ -4,7 +4,7 @@ using System;
 
 partial class Player
 {
-    double Delay = 0.5;
+    double Delay = 0.3;
     Timer t;
     bool _EnableSword = false;
 
@@ -21,18 +21,7 @@ partial class Player
 
     void DoSwing()
     {
-        if (new CollisionBox(Position + new Vec2(Size.X * 1.5, 0) * Dir, new Vec2(Size.X * 3, Size.Y / 2))
-            .Collide(GetOpponent().Box) != Side.None)
-        {
-            GetOpponent().States.current.Die(Position);
-        }
-    }
-
-    void RenderSword()
-    {
-        if(_EnableSword)
-            Draw.Rect(Position + new Vec2(Size.X * 1.5, 0) * Dir + new Vec2(Size.X * 3, Size.Y / 2),
-                Position + new Vec2(Size.X * 1.5, 0) * Dir - new Vec2(Size.X * 3, Size.Y / 2), Color.Gray);
+        States.Set(new SwordHit(this));
     }
 
     public void UpdateSword(double dt)

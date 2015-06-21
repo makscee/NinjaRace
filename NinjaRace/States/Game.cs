@@ -21,7 +21,8 @@ class Game : State
         dt = Math.Min(dt, 1.0 / 60);
         if (World.player1.States.current is Win || World.player2.States.current is Win)
         {
-            Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S"));
+            Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S", 
+                World.player1.States.current is Win ? true : false));
             Close();
         }
         World.Update(dt);

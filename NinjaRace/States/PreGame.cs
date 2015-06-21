@@ -12,7 +12,6 @@ class PreGame : Menu
     public PreGame()
     {
         levels.AddRange(DBUtils.GetLevelNames());
-        levels.Add("TEST");
 
         current = new Label(levels[levelNum], 50);
         current.Anchor = new Vec2(0.5, 0.5);

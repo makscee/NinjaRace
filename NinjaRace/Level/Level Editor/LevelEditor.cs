@@ -38,9 +38,9 @@ class LevelEditor : UI.State
 
     public LevelEditor(string name, bool showdown)
     {
-        level = DBUtils.GetLevel(name);
+        level = DBUtils.GetLevel(name + (showdown ? "_S" : ""));
         init();
-        this.showdown = showdown;
+        showdown = false;
     }
 
     public override void MouseDown(MouseButton button, Vec2 pos)

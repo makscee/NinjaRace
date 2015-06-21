@@ -110,6 +110,7 @@
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
     <Compile Include="Player\Controllers\PlayerController.cs" />
     <Compile Include="Player\States\impl\Dash.cs" />
+    <Compile Include="Player\States\impl\SwordHit.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\impl\Win.cs" />
     <Compile Include="Player\Sword.cs" />
@@ -249,6 +250,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\run\player_run6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\sword\sword1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\sword\sword2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\wallgrab\wallgrab.png">

@@ -75,7 +75,6 @@ partial class Player : IUpdateable, IRenderable
     public void Render()
     {
         States.Render();
-        RenderSword();
     }
 
     public void Respawn()

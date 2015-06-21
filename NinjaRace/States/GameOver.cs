@@ -10,7 +10,7 @@ class GameOver : Menu
         done.Anchor = new Vec2(0.5, 0.2);
         Frame.Add(done);
 
-        Label congrats = new Label("CONGRATULATIONS " + player + "!", 65);
+        Label congrats = new Label("CONGRATULATIONS " + player + "!", 55);
         congrats.Anchor = new Vec2(0.5, 0.7);
         Frame.Add(congrats);
     }

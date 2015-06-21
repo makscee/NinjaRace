@@ -34,10 +34,6 @@ class PlayerState : IRenderable, IUpdateable
         player.States.SetFlying();
         player.Velocity = new Vec2(player.Velocity.X, player.JumpForce);
     }
-    public virtual void SpeedUp(Vec2 dir)
-    {
-
-    }
     public virtual void Die(Vec2 position)
     {
         player.States.SetDead();

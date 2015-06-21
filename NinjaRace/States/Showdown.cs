@@ -6,11 +6,14 @@ class Showdown : State
 {
     World World;
 
-    public Showdown(string level)
+    public Showdown(string level, bool first)
     {
         World = new World(level);
         World.player1.EnableSword();
         World.player2.EnableSword();
+        if (first)
+            World.player2.lives = 2;
+        else World.player1.lives = 2;
         World.EffectsScreen.Add(new Hearts(World.player1));
         World.EffectsScreen.Add(new Hearts(World.player2));
     }
