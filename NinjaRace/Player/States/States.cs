@@ -93,4 +93,9 @@ class States : IRenderable, IUpdateable
     }
 
     public double GetTime() { return current.GetTime(); }
+
+    public bool IsFlying { get { return current == flying; } }
+    public bool IsWalking { get { return current == walking; } }
+    public bool IsDead { get { return current == dead; } }
+    public bool IsWallgrab { get { return current == wallgrab; } }
 }

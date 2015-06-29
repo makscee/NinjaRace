@@ -19,7 +19,7 @@ class Dead : PlayerState
         }
         foreach (var a in player.collisions.Values)
             foreach (var b in a)
-                if (b is Spikes)
+                if (b.GetType() == typeof(Spikes))
                     return;
                 else touch = true;
         if (touch)

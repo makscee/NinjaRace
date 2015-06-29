@@ -27,13 +27,15 @@ class LiftTile : Tile
                 Vec2i coords = Tiles.GetCoords(ID);
                 int x = coords.X + 1;
                 Tiles tiles = Program.World.level.tiles;
-                while (tiles.GetTile(x, coords.Y) is LiftTile)
+                while (tiles.GetTile(x, coords.Y) != null &&
+                    tiles.GetTile(x, coords.Y).GetType() == typeof(LiftTile))
                 {
                     near.Add(tiles.GetTile(x, coords.Y));
                     x++;
                 }
                 x = coords.X - 1;
-                while (tiles.GetTile(x, coords.Y) is LiftTile)
+                while (tiles.GetTile(x, coords.Y) != null &&
+                    tiles.GetTile(x, coords.Y).GetType() == typeof(LiftTile))
                 {
                     near.Add(tiles.GetTile(x, coords.Y));
                     x--;
@@ -46,11 +48,13 @@ class LiftTile : Tile
     {
         if (!lifting)
             return;
-        if (player.States.current is Flying)
+        if (player.States.IsFlying || player.States.IsDead)
         {
             lifting = false;
             return;
         }
+        if (player.collisions[Side.Up].Count > 0)
+            player.States.current.Die(Position);
         Vec2 v = new Vec2(0, dt * speed);
         Position += v;
         foreach (var a in near)

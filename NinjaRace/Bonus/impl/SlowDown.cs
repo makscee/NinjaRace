@@ -9,7 +9,7 @@ class SlowDown : Bonus
     {
         Effect e = new BonusOnScreen(new Texture("./Data/img/bonuses/slow.png"), player);
         foreach (var a in Program.World.EffectsScreen)
-            if (a is BonusOnScreen && ((BonusOnScreen)a).player == player)
+            if (a.GetType() == typeof(BonusOnScreen) && ((BonusOnScreen)a).player == player)
                 a.Dispose();
         Program.World.EffectsScreen.Add(e);
         player.bonus = () =>

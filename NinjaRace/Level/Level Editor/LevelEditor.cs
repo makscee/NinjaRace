@@ -53,8 +53,7 @@ class LevelEditor : UI.State
         }
         if (button == MouseButton.Left)
         {
-            //done.Click();
-            if (currentTile is Saw)
+            if (currentTile != null && currentTile.GetType() == typeof(Saw))
             {
                 vecForSaw1 = Tiles.GetID(GetX(), GetY());
             }
@@ -80,7 +79,7 @@ class LevelEditor : UI.State
             dragging = false;
         if (button == MouseButton.Left)
         {
-            if (currentTile is Saw)
+            if (currentTile != null && currentTile.GetType() == typeof(Saw))
             {
                 vecForSaw2 = Tiles.GetID(GetX(), GetY());
                 Saw s = new Saw();
@@ -149,7 +148,7 @@ class LevelEditor : UI.State
             cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
-        if(MouseButton.Left.Pressed() && !(currentTile is Saw))
+        if(MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
             level.tiles.AddTile(GetX(), GetY(), currentTile);
         level.Update(dt);
     }
@@ -166,7 +165,8 @@ class LevelEditor : UI.State
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9);
 					RenderState.Pop();
 				}
-                else if (level.tiles.GetTile(x, y) is StartTile)
+                else if (level.tiles.GetTile(x, y) != null &&
+                    level.tiles.GetTile(x, y).GetType() == typeof(StartTile))
                     Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
             }

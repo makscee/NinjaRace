@@ -37,13 +37,13 @@ partial class Player : IUpdateable, IRenderable
     {
         Color = color;
         _StartPosition = StartPosition;
-        Position = StartPosition;
         States = new States(this);
         Size = new Vec2(12, 19);
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
+        Respawn();
     }
 
     public Player SetControls(IController controller)
@@ -60,7 +60,7 @@ partial class Player : IUpdateable, IRenderable
         Vec2 nd = Controller.NeedDash();
         if (!nd.Equals(Vec2.Zero))
         {
-            if(States.current is Walking && nd.Y == 0 || (States.current is Flying || States.current is WallGrab) && nd.Y != 0)
+            if(States.IsWalking && nd.Y == 0 || (States.IsFlying || States.IsWallgrab) && nd.Y != 0)
                 States.Set(new Dash(this, nd));
 
         }

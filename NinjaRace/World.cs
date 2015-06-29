@@ -96,7 +96,7 @@ class World : IRenderable, IUpdateable
 
     private void UpdateForPlayer(double dt, Player player)
     {
-        if (!(player.States.current is Win))
+        if (!(player.States.current.GetType() == typeof(Win)))
             Time += dt;
         player.CalculateCollisions();
         player.Update(dt);

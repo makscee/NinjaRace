@@ -11,7 +11,7 @@ class LevelEditorMenu : Menu
     public LevelEditorMenu()
     {
         name.Anchor = new Vec2(0.6, 0.8);
-        name.Value = "DEFAULT";
+        name.Value = "FIRST";
         Frame.Add(name);
 
         Label nameL = new Label("NAME:", 30);

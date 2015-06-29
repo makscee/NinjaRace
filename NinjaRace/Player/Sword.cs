@@ -21,7 +21,7 @@ partial class Player
 
     void DoSwing()
     {
-        if (!(States.current is Dead))
+        if (!(States.IsDead))
             States.Set(new SwordHit(this));
     }
 

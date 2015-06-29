@@ -23,7 +23,7 @@ class Tiles : IRenderable, IUpdateable
         StartTile left, right;
         left = right = null;
         foreach (var a in tiles)
-            if (a is StartTile)
+            if (a != null && a.GetType() == typeof(StartTile))
             {
                 StartTile t = (StartTile)a;
                 if (left == null)
@@ -90,10 +90,10 @@ class Tiles : IRenderable, IUpdateable
     public void Render()
     {
         foreach (var a in tiles)
-            if (a != null && !(a is Saw))
+            if (a != null && !(a.GetType() == typeof(Saw)))
                 a.Render();
         foreach (var a in tiles)
-            if (a is Saw)
+            if (a != null && a.GetType() == typeof(Saw))
                 a.Render();
     }
 

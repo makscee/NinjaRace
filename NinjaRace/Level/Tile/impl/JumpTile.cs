@@ -9,7 +9,7 @@ class JumpTile : Tile
     {
         if (side != Side.Down)
             return;
-        if (player.States.current is Walking || player.States.current is Flying)
+        if (player.States.IsWalking || player.States.IsFlying)
         {
             player.States.SetFlying();
             player.Velocity = new Vec2(0, player.JumpForce * 2);

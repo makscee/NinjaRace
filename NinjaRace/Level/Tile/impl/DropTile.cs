@@ -28,13 +28,15 @@ class DropTile : Tile
                 Vec2i coords = Tiles.GetCoords(ID);
                 int x = coords.X + 1;
                 Tiles tiles = Program.World.level.tiles;
-                while (tiles.GetTile(x, coords.Y) is DropTile)
+                while (tiles.GetTile(x, coords.Y) != null && 
+                    tiles.GetTile(x, coords.Y).GetType() == typeof(DropTile))
                 {
                     near.Add(tiles.GetTile(x, coords.Y));
                     x++;
                 }
                 x = coords.X - 1;
-                while (tiles.GetTile(x, coords.Y) is DropTile)
+                while (tiles.GetTile(x, coords.Y) != null && 
+                    tiles.GetTile(x, coords.Y).GetType() == typeof(DropTile))
                 {
                     near.Add(tiles.GetTile(x, coords.Y));
                     x--;
@@ -47,13 +49,13 @@ class DropTile : Tile
     {
         if (!dropping)
             return;
-        if (player.States.current is Flying)
+        if (player.States.IsFlying)
         {
             dropping = false;
             return;
         }
         foreach (var a in player.collisions[Side.Down])
-            if (!a.IsMark && !(a is DropTile))
+            if (!a.IsMark && !(a.GetType() == typeof(DropTile)))
             {
                 dropping = false;
                 return;
