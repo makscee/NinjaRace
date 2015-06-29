@@ -14,4 +14,10 @@ class TextInput : UI.TextInput
         TextAlign = 0;
         FocusedBorderColor = Color.White;
     }
+
+    public override void CharInput(char c)
+    {
+        c = c.ToString().ToUpper().ToCharArray()[0];
+        base.CharInput(c);
+    }
 }

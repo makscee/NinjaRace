@@ -93,6 +93,7 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
+            string name = level.name.ToUpper();
             new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
             new SqlCommand("delete from Levels where Name='" + level.name + "';", connection).ExecuteNonQuery();
             SqlCommand command = new SqlCommand("insert into Levels ([Name], [WIDTH], [HEIGHT])"
