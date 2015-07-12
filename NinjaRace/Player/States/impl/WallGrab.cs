@@ -9,12 +9,12 @@ class WallGrab : PlayerState
     public WallGrab(Player player) : base(player)
     {
         player.Velocity = new Vec2(0, player.Velocity.Y);
+        if (tex == null)
+            tex = new AnimatedTexture(new Texture("./Data/img/player/wallgrab/wallgrab.png"));
     }
 
     public override AnimatedTexture GetTexture()
     {
-        if (tex == null)
-            tex = new AnimatedTexture(new Texture("./Data/img/player/wallgrab/wallgrab.png"));
         return tex;
     }
 
@@ -33,6 +33,6 @@ class WallGrab : PlayerState
         if (side == Side.Left)
             player.Velocity = Vec2.Rotate(new Vec2(0, player.JumpForce), -Math.PI / 4) * 1.5;
         else player.Velocity = Vec2.Rotate(new Vec2(0, player.JumpForce), Math.PI / 4) * 1.5;
-        player.States.SetFlying();
+        player.States.SetFalling();
     }
 }

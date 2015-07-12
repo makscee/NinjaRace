@@ -12,12 +12,12 @@ class FreezeBonus : Bonus
             if (a.GetType() == typeof(BonusOnScreen) && ((BonusOnScreen)a).player == player)
                 a.Dispose();
         Program.World.EffectsScreen.Add(e);
-        player.bonus = () => 
+        player.Bonus = () => 
         {
             Player op = player.GetOpponent();
             op.States.Set(new Frozen(op));
-            Timer t = new Timer(2, () => { op.States.SetFlying(); });
-            player.bonus = () => { };
+            Timer t = new Timer(2, () => { op.States.SetFalling(); });
+            player.Bonus = () => { };
             e.Dispose();
         };
     }

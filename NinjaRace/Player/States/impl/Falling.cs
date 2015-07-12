@@ -2,32 +2,33 @@
 using VitPro.Engine;
 using System;
 
-class Flying : PlayerState
+class Falling : PlayerState
 {
-    bool jumped = false;
-
-    public Flying(Player player) : base(player) { }
+    AnimatedTexture tex;
+    public bool CanJump;
+    public Falling(Player player) : base(player) 
+    {
+        tex = new AnimatedTexture();
+        for (int i = 1; i <= 5; i++)
+            tex.Add(new Texture("./Data/img/player/fall/fall" + i + ".png"), 0.05);
+    }
     public override void Update(double dt)
     {
+        base.Update(dt);
         player.Velocity -= Vec2.Clamp(new Vec2(player.Velocity.X - player.Controller.NeedVel().X * player.Speed * player.SpeedUp, 0), player.Acc * player.SpeedUp * dt);
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
     }
-    public override void Render()
+
+    public override AnimatedTexture GetTexture()
     {
-        Draw.Rect(player.Position + player.Size, player.Position - player.Size, Color.Red);
+        return tex;
     }
+
     public override void Jump()
     {
-        if (!jumped)
+        if (CanJump)
         {
-            jumped = true;
             base.Jump();
         }
     }
-    public override void Reset()
-    {
-        base.Reset();
-        jumped = false;
-    }
-
 }

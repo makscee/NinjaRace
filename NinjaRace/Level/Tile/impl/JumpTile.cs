@@ -11,7 +11,7 @@ class JumpTile : Tile
             return;
         if (player.States.IsWalking || player.States.IsFlying)
         {
-            player.States.SetFlying();
+            player.States.Jump();
             player.Velocity = new Vec2(0, player.JumpForce * 2);
         }
     }

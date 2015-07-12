@@ -22,7 +22,7 @@ using VitPro.Engine;
 
      public override void Render()
      {
-         for (int i = 0; i < player.lives; i++)
+         for (int i = 0; i < player.Lives; i++)
          {
              Draw.Texture(tex, Position - size + Vec2.OrtX * dist * i * (left ? 1 : -1),
                  Position + size + Vec2.OrtX * dist * i * (left ? 1 : -1));

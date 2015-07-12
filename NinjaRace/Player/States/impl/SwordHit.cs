@@ -7,16 +7,15 @@ class SwordHit : PlayerState
     AnimatedTexture tex;
     public override AnimatedTexture GetTexture()
     {
-        if (tex == null)
-        {
-            tex = new AnimatedTexture();
-            tex.Add(new Texture("./Data/img/player/sword/sword1.png"), 0.04);
-            tex.Add(new Texture("./Data/img/player/sword/sword2.png"), 0.04);
-        }
         return tex;
     }
 
-    public SwordHit(Player player) : base(player) { }
+    public SwordHit(Player player) : base(player)
+    {
+        tex = new AnimatedTexture();
+        tex.Add(new Texture("./Data/img/player/sword/sword1.png"), 0.04);
+        tex.Add(new Texture("./Data/img/player/sword/sword2.png"), 0.04);
+    }
 
     public override void Render()
     {
@@ -42,6 +41,6 @@ class SwordHit : PlayerState
             player.GetOpponent().States.current.Die(player.Position);
         }
         if (GetTime() > 0.08)
-            player.States.Reset();
+            player.States.SetFalling(false);
     }
 }

@@ -31,14 +31,13 @@ class PlayerState : IRenderable, IUpdateable
     }
     public virtual void Jump()
     {
-        player.States.SetFlying();
-        player.Velocity = new Vec2(player.Velocity.X, player.JumpForce);
+        player.States.Jump();
     }
     public virtual void Die(Vec2 position)
     {
         player.States.SetDead();
         player.Velocity += (player.Position - position).Unit * player.JumpForce;
-        player.lives--;
+        player.Lives--;
     }
 
     public void AddTime(double dt)
@@ -54,5 +53,7 @@ class PlayerState : IRenderable, IUpdateable
     public virtual void Reset()
     {
         time = 0;
+        if (GetTexture() != null)
+            GetTexture().Reset();
     }
 }

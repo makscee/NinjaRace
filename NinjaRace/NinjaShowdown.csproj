@@ -110,6 +110,8 @@
     <Compile Include="Level\Level Editor\LevelEditor.cs" />
     <Compile Include="Player\Controllers\PlayerController.cs" />
     <Compile Include="Player\States\impl\Dash.cs" />
+    <Compile Include="Player\States\impl\DoubleJump.cs" />
+    <Compile Include="Player\States\impl\Jump.cs" />
     <Compile Include="Player\States\impl\SwordHit.cs" />
     <Compile Include="Player\States\States.cs" />
     <Compile Include="Player\States\impl\Win.cs" />
@@ -131,7 +133,7 @@
     </Compile>
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Player\States\impl\Dead.cs" />
-    <Compile Include="Player\States\impl\Flying.cs" />
+    <Compile Include="Player\States\impl\Falling.cs" />
     <Compile Include="Player\States\PlayerState.cs" />
     <Compile Include="Player\States\impl\Walking.cs" />
     <Compile Include="Player\States\impl\WallGrab.cs" />
@@ -175,6 +177,45 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\heart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\doublejump\doublejump8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\fall\fall1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\fall\fall2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\fall\fall3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\fall\fall4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\fall\fall5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\idle\player1.png">
@@ -232,6 +273,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\idle\player9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\jump\jump1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\player\jump\jump2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\run\player_run1.png">

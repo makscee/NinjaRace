@@ -9,30 +9,34 @@ class States : IRenderable, IUpdateable
     public States(Player player) 
     { 
         this.player = player;
-        flying = new Flying(player);
+        falling = new Falling(player);
         walking = new Walking(player);
         dead = new Dead(player);
         wallgrab = new WallGrab(player);
+        jump = new Jump(player);
+        doublejump = new DoubleJump(player);
     }
 
-    PlayerState flying, walking, dead, wallgrab;
+    PlayerState falling, walking, dead, wallgrab, jump, doublejump;
 
     public void StateChangeCheck()
     {
         if (current == dead)
             return;
-        if(!(current == walking || current == flying || current == wallgrab) && current != null)
+        if(!(current == walking || current == falling || current == wallgrab || current == jump || current == doublejump) && current != null)
             return;
         if (!player.TouchWalls())
         {
-            if (current == flying)
+            if (current is Falling)
                 return;
-            current = flying;
+            current = falling;
             current.Reset();
             return;
         }
         if (player.OnGround())
         {
+            if (current == jump && player.Velocity.Y > 0)
+                return;
             if (current == walking)
                 return;
             current = walking;
@@ -55,28 +59,39 @@ class States : IRenderable, IUpdateable
         current.Reset();
     }
 
-    public void SetFlying()
+    public void SetFalling(bool canJump = true)
     {
-        if (current == flying)
-            return;
-        current = flying;
-        current.Reset();
+        ((Falling)falling).CanJump = canJump;
+        Set(falling);
     }
 
     public void SetDead()
     {
-        if (current == dead)
-            return;
-        current = dead;
-        current.Reset();
+        Set(dead);
     }
 
     public void SetWalking()
     {
+        Set(walking);
+    }
+
+    public void Jump()
+    {
         if (current == walking)
+        {
+            Set(jump);
             return;
-        current = walking;
-        current.Reset();
+        }
+        if(current == falling)
+        {
+            Set(doublejump);
+            return;
+        }
+        if (current == jump)
+        {
+            Set(doublejump);
+            return;
+        }
     }
 
     public void Reset()
@@ -102,7 +117,7 @@ class States : IRenderable, IUpdateable
 
     public double GetTime() { return current.GetTime(); }
 
-    public bool IsFlying { get { return current == flying; } }
+    public bool IsFlying { get { return current == falling; } }
     public bool IsWalking { get { return current == walking; } }
     public bool IsDead { get { return current == dead; } }
     public bool IsWallgrab { get { return current == wallgrab; } }

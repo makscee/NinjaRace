@@ -12,16 +12,16 @@ class SlowDown : Bonus
             if (a.GetType() == typeof(BonusOnScreen) && ((BonusOnScreen)a).player == player)
                 a.Dispose();
         Program.World.EffectsScreen.Add(e);
-        player.bonus = () =>
+        player.Bonus = () =>
             {
                 player.GetOpponent().SpeedUp -= 0.25;
-                int lives = player.GetOpponent().lives;
+                int lives = player.GetOpponent().Lives;
                 new Timer(5, () =>
                 {
-                    if (player.lives == lives)
+                    if (player.Lives == lives)
                         player.SpeedUp += 0.25;
                 });
-                player.bonus = () => { };
+                player.Bonus = () => { };
                 e.Dispose();
             };
     }

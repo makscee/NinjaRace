@@ -10,13 +10,13 @@ partial class Player : IUpdateable, IRenderable
     private Vec2 _Velocity, _StartPosition;
     public Color Color;
     public States States;
-    public Action bonus = () => { };
-    public int lives = 3;
+    public Action Bonus = () => { };
+    public int Lives = 3;
     public double Speed = 250,
         Acc = 2700,
         Gravity = 700,
         GAcc = 1200,
-        JumpForce = 350,
+        JumpForce = 275,
         SlideSpeed = 50,
         SlideAcc = 1200,
         SpeedUp = 1;
@@ -69,7 +69,7 @@ partial class Player : IUpdateable, IRenderable
         if (Position.Y < -50)
             States.current.Die(Position - Vec2.OrtY);
         if (Controller.NeedBonus())
-            bonus.Apply();
+            Bonus.Apply();
     }
 
     public void Render()
@@ -81,7 +81,7 @@ partial class Player : IUpdateable, IRenderable
     {
         Velocity = Vec2.Zero;
         Position = _StartPosition;
-        States.SetFlying();
+        States.SetFalling();
         CalculateCollisions();
         SpeedUp = 1;
     }

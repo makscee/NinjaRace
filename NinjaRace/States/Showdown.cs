@@ -21,11 +21,11 @@ class Showdown : UI.State
         World.player1.Dir = 1;
 
         if (first)
-            World.player2.lives = 2;
-        else World.player1.lives = 2;
+            World.player2.Lives = 2;
+        else World.player1.Lives = 2;
         World.EffectsScreen.Add(new Hearts(World.player1));
         World.EffectsScreen.Add(new Hearts(World.player2));
-        t = new Timer(3, () => { started = true; Frame.Remove(time); });
+        t = new Timer(0, () => { started = true; Frame.Remove(time); });
         time.Anchor = new Vec2(0.5, 0.5);
         Frame.Add(time);
 
@@ -51,9 +51,9 @@ class Showdown : UI.State
         }
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
-        if (World.player1.lives < 1 || World.player2.lives < 1)
+        if (World.player1.Lives < 1 || World.player2.Lives < 1)
         {
-            string s = "PLAYER" + (World.player1.lives < 1 ? "2" : "1");
+            string s = "PLAYER" + (World.player1.Lives < 1 ? "2" : "1");
 
             Texture tex = new Texture(RenderState.Width, RenderState.Height);
             RenderState.BeginTexture(tex);
