@@ -17,6 +17,10 @@ class Level : IRenderable, IUpdateable
     {
         tiles.Render();
     }
+    public void RenderArea (Vec2 pos, Vec2 size)
+    {
+        tiles.RenderArea(pos, size);
+    }
     public void Update(double dt) 
     {
         tiles.Update(dt);

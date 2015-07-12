@@ -2,7 +2,7 @@
 using VitPro.Engine;
 using System;
 
-class World : IRenderable, IUpdateable
+class World : IUpdateable
 {
     public Group<Effect> EffectsTop = new Group<Effect>();
     public Group<Effect> EffectsMid = new Group<Effect>();
@@ -31,10 +31,12 @@ class World : IRenderable, IUpdateable
         cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 
-    public void Render()
+    public void Render(Player player = null)
     {
         EffectsBot.Render();
-        level.Render();
+        if (player != null)
+            level.RenderArea(player.Position, new Vec2(340, 130));
+        else level.Render();
         EffectsMid.Render();
         player2.Render();
         player1.Render();
@@ -62,7 +64,7 @@ class World : IRenderable, IUpdateable
         camt.Position = cam1.Position + camOffset;
         camt.Apply();
         DrawBackground(player1);
-        Render();
+        Render(player1);
 		RenderState.EndTexture();
         tex.RemoveAlpha();
 
@@ -79,7 +81,7 @@ class World : IRenderable, IUpdateable
         camt.Position = cam2.Position - camOffset;
         camt.Apply();
         DrawBackground(player2);
-        Render();
+        Render(player2);
 		RenderState.EndTexture();
         tex.RemoveAlpha();
 		RenderState.Push();

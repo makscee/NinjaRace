@@ -72,11 +72,11 @@ class MyManager : State.Manager
 		RenderState.EndTexture();
         tex.RemoveAlpha();
         DefaultRender();
-        //RenderState.Push();
-        //Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
-        //RenderState.Color = (Color.Yellow);
-        //Draw.Texture(t, new Vec2(0.85, 0.85) - new Vec2(0.1 * t.Width / t.Height / 2, 0.1), new Vec2(0.85, 0.85) + new Vec2(0.1 * t.Width / t.Height / 2, 0.1));
-        //t.Dispose();
-        //RenderState.Pop();
+        RenderState.Push();
+        Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
+        RenderState.Color = (Color.Yellow);
+        Draw.Texture(t, new Vec2(0.85, 0.85) - new Vec2(0.1 * t.Width / t.Height / 2, 0.1), new Vec2(0.85, 0.85) + new Vec2(0.1 * t.Width / t.Height / 2, 0.1));
+        t.Dispose();
+        RenderState.Pop();
     }
 }

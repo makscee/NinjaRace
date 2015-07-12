@@ -28,7 +28,7 @@ partial class Player
                     collisions[s].Add(t);
                 }
             }
-        foreach(Tile t in tiles.GetCustomTiles())
+        foreach(Tile t in tiles.GetMovingTiles())
             if (CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
             {
                 Side s = Box.Collide(t.Box);

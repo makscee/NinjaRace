@@ -7,6 +7,7 @@ using System.Collections.Generic;
 class Tiles : IRenderable, IUpdateable
 {
     private Tile[,] tiles;
+    private PosGroup<Tile> PosTiles;
     private Group<Tile> movingTiles;
     public static Vec2i MaxSize = new Vec2i(500, 150);
 
@@ -15,6 +16,8 @@ class Tiles : IRenderable, IUpdateable
         if (sizex > MaxSize.X || sizey > MaxSize.Y)
             throw new Exception("Size of level is too big");
         tiles = new Tile[sizey, sizex];
+        PosTiles = new PosGroup<Tile>(0, 0, sizex * Tile.Size.X * 2, sizey * Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
+
         movingTiles = new Group<Tile>();
     }
 
@@ -73,6 +76,10 @@ class Tiles : IRenderable, IUpdateable
             movingTiles.Add(tile);
             movingTiles.Refresh();
         }
+        else
+        {
+            PosTiles.Add(tile, tile.Position);
+        }
     }
 
     public Tile GetTile(int x, int y)
@@ -97,6 +104,14 @@ class Tiles : IRenderable, IUpdateable
                 a.Render();
     }
 
+    public void RenderArea(Vec2 pos, Vec2 size)
+    {
+        IEnumerable<Tile> t = PosTiles.Query(pos - size, pos + size);
+        foreach (var a in t)
+            a.Render();
+        movingTiles.Render();
+    }
+
     public void Update(double dt)
     {
         foreach (var a in tiles)
@@ -104,7 +119,7 @@ class Tiles : IRenderable, IUpdateable
                 a.Update(dt);
     }
 
-    public Group<Tile> GetCustomTiles()
+    public Group<Tile> GetMovingTiles()
     {
         return movingTiles;
     }
@@ -133,6 +148,7 @@ class Tiles : IRenderable, IUpdateable
     public void DeleteTile(int id)
     {
         Vec2i coords = GetCoords(id);
+        PosTiles.Remove(tiles[coords.Y, coords.X]);
         tiles[coords.Y, coords.X] = null;
     }
 }
