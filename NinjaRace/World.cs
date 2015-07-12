@@ -10,7 +10,7 @@ class World : IUpdateable
     public Group<Effect> EffectsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(480), cam2 = new Camera(480), cam = new Camera(360), screenCam = new Camera(120);
+    Camera cam1 = new Camera(240), cam2 = new Camera(240), cam = new Camera(360), screenCam = new Camera(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
@@ -57,39 +57,34 @@ class World : IUpdateable
 
     public void RenderSplit()
     {
-		Texture tex = new Texture(RenderState.Width, RenderState.Height);
-		RenderState.BeginTexture(tex);
+        RenderState.Push();
+        RenderState.BeginArea(new Vec2i(0, RenderState.Height / 2), 
+            new Vec2i(RenderState.Width, RenderState.Height / 2));
         Draw.Clear(Color.Black);
+        RenderState.Translate(Vec2.OrtY * 0.5);
         Camera camt = new Camera(cam1.FOV);
         camt.Position = cam1.Position + camOffset;
         camt.Apply();
+        RenderState.Translate(Vec2.OrtY * cam1.FOV / 2);
         DrawBackground(player1);
         Render(player1);
-		RenderState.EndTexture();
-        tex.RemoveAlpha();
+        RenderState.EndArea();
+        RenderState.Pop();
 
-		RenderState.Push();
-		RenderState.Scale(2);
-		RenderState.Origin(0.5, 0.5);
-		RenderState.Translate(0, 0.5);
-        tex.Render();
-		RenderState.Pop();
-
-		tex = new Texture(RenderState.Width, RenderState.Height);
-		RenderState.BeginTexture(tex);
+        RenderState.Push();
+        RenderState.BeginArea(new Vec2i(0, 0),
+            new Vec2i(RenderState.Width, RenderState.Height / 2));
         Draw.Clear(Color.Black);
-        camt.Position = cam2.Position - camOffset;
+        RenderState.Translate(Vec2.OrtY * 0.5);
+        camt = new Camera(cam1.FOV);
+        camt.Position = cam2.Position + camOffset;
         camt.Apply();
+        RenderState.Translate(Vec2.OrtY * cam2.FOV / 2);
         DrawBackground(player2);
         Render(player2);
-		RenderState.EndTexture();
-        tex.RemoveAlpha();
-		RenderState.Push();
-		RenderState.Scale(2);
-		RenderState.Origin(0.5, 0.5);
-		RenderState.Translate(0, -0.5);
-        tex.Render();
-		RenderState.Pop();
+        RenderState.EndArea();
+        RenderState.Pop();
+
 		RenderState.Push();
         screenCam.Apply();
         EffectsScreen.Render();
