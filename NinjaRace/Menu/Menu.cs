@@ -11,7 +11,12 @@ class Menu : UI.State
     public override void Render()
     {
         Draw.Clear(Color.Black);
+        RenderBackground();
         base.Render();
+    }
+
+    public virtual void RenderBackground()
+    {
     }
 
     public override void KeyDown(Key key)

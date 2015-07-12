@@ -71,6 +71,14 @@ class States : IRenderable, IUpdateable
         current.Reset();
     }
 
+    public void SetWalking()
+    {
+        if (current == walking)
+            return;
+        current = walking;
+        current.Reset();
+    }
+
     public void Reset()
     {
         current = null;

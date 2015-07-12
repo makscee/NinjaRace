@@ -41,9 +41,9 @@ class Timer : IUpdateable
         Alive = false;
     }
 
-    public bool IsDone()
+    public bool IsDone
     {
-        return elapsed > life;
+        get { return elapsed > life; }
     }
 
     public void Update(double dt)

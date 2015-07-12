@@ -7,6 +7,7 @@ using VitPro.Engine;
      Texture tex = new Texture("./Data/img/heart.png");
 
      Vec2 size = new Vec2(3, 3);
+     double dist = 7;
 
      Player player;
 
@@ -23,8 +24,8 @@ using VitPro.Engine;
      {
          for (int i = 0; i < player.lives; i++)
          {
-             Draw.Texture(tex, Position - size + Vec2.OrtX * 5 * i * (left ? 1 : -1),
-                 Position + size + Vec2.OrtX * 5 * i * (left ? 1 : -1));
+             Draw.Texture(tex, Position - size + Vec2.OrtX * dist * i * (left ? 1 : -1),
+                 Position + size + Vec2.OrtX * dist * i * (left ? 1 : -1));
          }
      }
  }

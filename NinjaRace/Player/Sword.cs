@@ -5,7 +5,7 @@ using System;
 partial class Player
 {
     double Delay = 0.3;
-    Timer t;
+    Timer t = new Timer(0, () => {});
     bool _EnableSword = false;
 
     public Player EnableSword()
@@ -27,7 +27,7 @@ partial class Player
 
     public void UpdateSword(double dt)
     {
-        if (Controller.NeedSwing() && _EnableSword)
+        if (Controller.NeedSwing() && _EnableSword && t.IsDone)
         {
             t = new Timer(Delay, DoSwing);
         }

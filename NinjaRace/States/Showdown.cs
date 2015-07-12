@@ -8,12 +8,18 @@ class Showdown : UI.State
     World World;
     bool started = false;
     Timer t;
-    Label time = new Label("3", 50);
+    Label time = new Label("3", 70);
     public Showdown(string level, bool first)
     {
         World = new World(level);
         World.player1.EnableSword();
         World.player2.EnableSword();
+        World.player1.States.SetWalking();
+        World.player2.States.SetWalking();
+
+        World.player2.Dir = -1;
+        World.player1.Dir = 1;
+
         if (first)
             World.player2.lives = 2;
         else World.player1.lives = 2;
@@ -45,10 +51,16 @@ class Showdown : UI.State
         }
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
-        if (World.player1.lives < 1)
-            Program.Manager.NextState = new GameOver("PLAYER2");
-        if (World.player2.lives < 1)
-            Program.Manager.NextState = new GameOver("PLAYER1");
+        if (World.player1.lives < 1 || World.player2.lives < 1)
+        {
+            string s = "PLAYER" + (World.player1.lives < 1 ? "2" : "1");
+
+            Texture tex = new Texture(RenderState.Width, RenderState.Height);
+            RenderState.BeginTexture(tex);
+            Render();
+            RenderState.EndTexture();
+            Program.Manager.NextState = new GameOver(s, tex);
+        }
     }
     public override void KeyDown(Key key)
     {

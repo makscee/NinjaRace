@@ -16,7 +16,7 @@ class Program
     static void Main()
     {
         font.Smooth = false;
-        Manager = new MyManager(new MainMenu());
+        Manager = new MyManager(new Showdown("FIRST_S", true));
         App.Fullscreen = false;
         App.VSync = VSync;
         App.Run(Manager);
