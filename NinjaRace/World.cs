@@ -93,8 +93,7 @@ class World : IUpdateable
 
     private void UpdateForPlayer(double dt, Player player)
     {
-        if (!(player.States.current.GetType() == typeof(Win)))
-            Time += dt;
+        Time += dt;
         player.CalculateCollisions();
         player.Update(dt);
         Camera cam = (player == player1) ? cam1 : cam2;

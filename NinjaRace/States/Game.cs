@@ -19,14 +19,14 @@ class Game : State
     public override void Update(double dt)
     {
         dt = Math.Min(dt, 1.0 / 60);
-        if (World.player1.States.current is Win || World.player2.States.current is Win)
-        {
-            Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S", 
-                World.player1.States.current is Win ? true : false));
-            Close();
-        }
         World.Update(dt);
         TimerContainer.Update(dt);
+    }
+    public void Finish(Player player)
+    {
+        Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S",
+                World.player1 == player ? true : false));
+        Close();
     }
     public override void KeyDown(Key key)
     {

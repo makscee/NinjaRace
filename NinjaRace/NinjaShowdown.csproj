@@ -114,7 +114,6 @@
     <Compile Include="Player\States\impl\Jump.cs" />
     <Compile Include="Player\States\impl\SwordHit.cs" />
     <Compile Include="Player\States\States.cs" />
-    <Compile Include="Player\States\impl\Win.cs" />
     <Compile Include="Player\Sword.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
