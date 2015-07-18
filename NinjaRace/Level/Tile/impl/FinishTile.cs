@@ -12,7 +12,7 @@ class FinishTile : Tile
 
     public override void Effect(Player player, Side side)
     {
-        if (Program.Manager.CurrentState is Game)
+        if (Program.Manager.CurrentState is Game && !player.States.IsDead)
         {
             ((Game)Program.Manager.CurrentState).Finish(player);
         }

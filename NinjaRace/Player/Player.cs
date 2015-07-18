@@ -12,11 +12,11 @@ partial class Player : IUpdateable, IRenderable
     public States States;
     public Action Bonus = () => { };
     public int Lives = 3;
-    public double Speed = 250,
+    public double Speed = 280,
         Acc = 2700,
-        Gravity = 700,
-        GAcc = 1200,
-        JumpForce = 275,
+        Gravity = 1200,
+        GAcc = 1800,
+        JumpForce = 365,
         SlideSpeed = 50,
         SlideAcc = 1200,
         SpeedUp = 1;

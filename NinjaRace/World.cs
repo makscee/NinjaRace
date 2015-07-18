@@ -17,10 +17,10 @@ class World : IUpdateable
 
     private void Init()
     {
-        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position, Color.White).SetControls(new ControllerPlayer1());
-        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position, new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
-        player1.States.Set(new SwordHit(player1));
-        //EffectsTop.Add(new ParticlesAroundPlayer(-1, Color.White, player1));
+        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position,
+            Color.White).SetControls(new ControllerPlayer1());
+        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position,
+            new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
     }
 
     public World(string level)
