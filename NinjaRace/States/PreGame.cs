@@ -22,35 +22,76 @@ class PreGame : VitPro.Engine.UI.State
     {
         base.Update(dt);
         if (T - dt < 0)
+        {
+            TexP1.Dispose();
+            TexP2.Dispose();
             Close();
+        }
         else
         {
             T -= dt;
             Time.Text = Math.Ceiling(T).ToString();
         }
     }
-    Camera cam = new Camera(180);
+    Camera cam = new Camera(220);
+    Texture TexP1, TexP2;
     void Player1()
     {
+        if (TexP1 == null)
+        {
+            TexP1 = new Texture(App.Width, App.Height);
+            RenderState.BeginTexture(TexP1);
+            cam.Position = World.player1.Position;
+            cam.Apply();
+            World.Render(World.player1);
+            RenderState.EndTexture();
+        }
         double a = T - 2;
-        cam.Position = World.player1.Position + new Vec2(40, 10 - a * 20);
-        cam.Apply();
         Time.Anchor = new Vec2(0.7, 0.5);
-        //RenderState.Color = new Color(1, 1, 1, a);
-        World.Render(World.player1);
+        RenderState.Translate(new Vec2(-0.3, 1.0 / 8 - a / 4));
+        RenderState.Color = new Color(1, 1, 1, Math.Min(1, (0.5 - Math.Abs(a - 0.5)) * 3));
+        RenderState.Scale(1.5);
+        Draw.Texture(TexP1, new Vec2(-1, -1), new Vec2(1, 1));
     }
     void Player2()
     {
+        if (TexP2 == null)
+        {
+            TexP2 = new Texture(App.Width, App.Height);
+            RenderState.BeginTexture(TexP2);
+            cam.Position = World.player2.Position;
+            cam.Apply();
+            World.Render(World.player2);
+            RenderState.EndTexture();
+        }
         double a = T - 1;
-        cam.Position = World.player2.Position - new Vec2(40, 10 - a * 20);
-        cam.Apply();
         Time.Anchor = new Vec2(0.3, 0.5);
-        //RenderState.Color = new Color(1, 1, 1, a);
-        World.Render(World.player2);
+        RenderState.Translate(new Vec2(0.3, - 1.0 / 8 + a / 4));
+        RenderState.Color = new Color(1, 1, 1, Math.Min(1, (0.5 - Math.Abs(a - 0.5)) * 3));
+        RenderState.Scale(1.5);
+        Draw.Texture(TexP2, new Vec2(-1, -1), new Vec2(1, 1));
     }
     void All()
     {
+        RenderState.Color = new Color(1, 1, 1, Math.Min(1, (0.5 - Math.Abs(T - 0.5)) * 3));
         Time.Anchor = new Vec2(0.5, 0.5);
+        RenderState.Push();
+        RenderState.BeginArea(new Vec2i(0, RenderState.Height / 2),
+            new Vec2i(RenderState.Width, RenderState.Height / 2));
+        RenderState.Translate(-0.5, 0);
+        RenderState.Scale(2.5, 5);
+        Draw.Texture(TexP1, new Vec2(-1, -1), new Vec2(1, 1));
+        RenderState.EndArea();
+        RenderState.Pop();
+
+        RenderState.Push();
+        RenderState.BeginArea(new Vec2i(0, 0),
+            new Vec2i(RenderState.Width, RenderState.Height / 2));
+        RenderState.Translate(0.5, 0);
+        RenderState.Scale(2.5, 5);
+        Draw.Texture(TexP2, new Vec2(-1, -1), new Vec2(1, 1));
+        RenderState.EndArea();
+        RenderState.Pop();
     }
 
     public override void Render()

@@ -20,7 +20,7 @@ class Walking : PlayerState
     }
     public override AnimatedTexture GetTexture()
     {
-        if (player.Controller.NeedVel().X == 0)
+        if (player.Controller == null || player.Controller.NeedVel().X == 0)
         {
             return idle;
         }

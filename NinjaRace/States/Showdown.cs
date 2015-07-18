@@ -6,9 +6,7 @@ using System;
 class Showdown : UI.State
 {
     World World;
-    bool started = false, finished = false;
-    Timer t;
-    Label Time = new Label("3", 70);
+    bool finished = false;
     public Showdown(string level, bool first)
     {
         World = new World(level);
@@ -26,9 +24,6 @@ class Showdown : UI.State
         World.EffectsScreen.Add(new Hearts(World.player1));
         World.EffectsScreen.Add(new Hearts(World.player2));
         World.RenderScreenEffects = false;
-        t = new Timer(2, () => { started = true; Frame.Remove(Time); World.RenderScreenEffects = true; });
-        Time.Anchor = new Vec2(0.5, 0.5);
-        Frame.Add(Time);
 
         World.player1.Update(0);
         World.player2.Update(0);
@@ -54,11 +49,6 @@ class Showdown : UI.State
         }
         base.Update(dt);
 
-        if (!started)
-        {
-            Time.Text = Math.Round(3 - t.Elapsed).ToString();
-            return;
-        }
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
         if ((World.player1.Lives < 1 || World.player2.Lives < 1) && !finished)

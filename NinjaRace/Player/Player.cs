@@ -44,6 +44,8 @@ partial class Player : IUpdateable, IRenderable
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
         Respawn();
+        States.SetWalking();
+        CollisionHits();
     }
 
     public Player SetControls(IController controller)

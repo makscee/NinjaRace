@@ -21,6 +21,9 @@ class World : IUpdateable
             Color.White).SetControls(new ControllerPlayer1());
         player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position,
             new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
+        player2.Dir = -1;
+        cam1.Position = player1.Position;
+        cam2.Position = player2.Position;
     }
 
     public World(string level)
@@ -28,7 +31,6 @@ class World : IUpdateable
         Program.World = this;
         this.level = DBUtils.GetLevel(level);
         Init();
-        cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 
     public bool RenderScreenEffects = true;
