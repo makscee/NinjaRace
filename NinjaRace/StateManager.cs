@@ -21,7 +21,7 @@ class MyManager : State.Manager
         }
         if (t == 0)
             base.Update(dt);
-        t -= 5 * dt;
+        t -= 3 * dt;
         if (t < 0)
             t = 0;
     }
@@ -29,13 +29,13 @@ class MyManager : State.Manager
     public override void StateChanged()
     {
         base.StateChanged();
-        t = 1;
+        Previous = Current;
+        Current = CurrentState;
+        t = 2;
         if (tex != null)
         {
             back = tex.Copy();
         }
-        Previous = Current;
-        Current = CurrentState;
     }
 
     Texture tex = null, back = null;
@@ -46,15 +46,18 @@ class MyManager : State.Manager
     {
 		RenderState.Push();
 		RenderState.Push();
-		RenderState.Scale(2 + t);
+		RenderState.Scale(2);
 		RenderState.Origin(0.5, 0.5);
+        var a = Math.Max(0, 1 - t);
+        RenderState.Color = new Color(a, a, a, a);
         tex.Render();
 		RenderState.Pop();
-		RenderState.Scale(3 - t);
+		RenderState.Scale(2);
 		RenderState.Origin(0.5, 0.5);
         if (back != null)
         {
-			RenderState.Color = new Color(1, 1, 1, t);
+            a = Math.Max(0, t - 1);
+			RenderState.Color = new Color(a, a, a, a);
             back.Render();
         }
 		RenderState.Pop();

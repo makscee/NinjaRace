@@ -31,6 +31,8 @@ class World : IUpdateable
         cam.Position = new Vec2(cam.FOV / 2, cam.FOV / 3);
     }
 
+    public bool RenderScreenEffects = true;
+
     public void Render(Player player = null)
     {
         EffectsBot.Render();
@@ -51,7 +53,8 @@ class World : IUpdateable
         Render();
 		RenderState.Push();
         screenCam.Apply();
-        EffectsScreen.Render();
+        if(RenderScreenEffects)
+            EffectsScreen.Render();
 		RenderState.Pop();
     }
 
@@ -87,7 +90,8 @@ class World : IUpdateable
 
 		RenderState.Push();
         screenCam.Apply();
-        EffectsScreen.Render();
+        if(RenderScreenEffects)
+            EffectsScreen.Render();
 		RenderState.Pop();
     }
 

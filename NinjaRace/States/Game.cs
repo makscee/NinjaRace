@@ -9,6 +9,8 @@ class Game : State
     public Game(string level)
     {
         World = new World(level);
+        Program.Manager.PushState(this);
+        Program.Manager.PushState(new PreGame(World));
     }
 
     public override void Render()
@@ -24,8 +26,7 @@ class Game : State
     }
     public void Finish(Player player)
     {
-        Program.Manager.PushState(new Showdown(World.level.name.Trim() + "_S",
-                World.player1 == player ? true : false));
+        new Showdown(World.level.name.Trim() + "_S", World.player1 == player ? true : false);
         Close();
     }
     public override void KeyDown(Key key)

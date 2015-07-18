@@ -1,33 +1,68 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
-using System.Collections.Generic;
 
-class PreGame : Menu
+class PreGame : VitPro.Engine.UI.State
 {
-    List<string> levels = new List<string>();
-    int levelNum = 0;
-    Label current;
-
-    public PreGame()
+    World World;
+    Label Time;
+    public PreGame(World world)
     {
-        levels.AddRange(DBUtils.GetLevelNames());
+        World = world;
+        Time = new Label("3", 240);
+        Time.BackgroundColor = Color.TransparentBlack;
+        Time.TextColor = Color.Yellow;
+        Time.Anchor = new Vec2(0.5, 0.5);
+        Frame.Add(Time);
+    }
 
-        current = new Label(levels[levelNum], 50);
-        current.Anchor = new Vec2(0.5, 0.5);
+    double T = 3;
 
-        Button left = new Button("<", () => { levelNum = (levelNum - 1 + levels.Count) % levels.Count; current.Text = levels[levelNum]; }, 50);
-        left.Anchor = new Vec2(0.2, 0.5);
+    public override void Update(double dt)
+    {
+        base.Update(dt);
+        if (T - dt < 0)
+            Close();
+        else
+        {
+            T -= dt;
+            Time.Text = Math.Ceiling(T).ToString();
+        }
+    }
+    Camera cam = new Camera(180);
+    void Player1()
+    {
+        double a = T - 2;
+        cam.Position = World.player1.Position + new Vec2(40, 10 - a * 20);
+        cam.Apply();
+        Time.Anchor = new Vec2(0.7, 0.5);
+        //RenderState.Color = new Color(1, 1, 1, a);
+        World.Render(World.player1);
+    }
+    void Player2()
+    {
+        double a = T - 1;
+        cam.Position = World.player2.Position - new Vec2(40, 10 - a * 20);
+        cam.Apply();
+        Time.Anchor = new Vec2(0.3, 0.5);
+        //RenderState.Color = new Color(1, 1, 1, a);
+        World.Render(World.player2);
+    }
+    void All()
+    {
+        Time.Anchor = new Vec2(0.5, 0.5);
+    }
 
-        Button right = new Button(">", () => { levelNum = (levelNum + 1) % levels.Count; current.Text = levels[levelNum]; }, 50);
-        right.Anchor = new Vec2(0.8, 0.5);
-
-        Button start = new Button("START", () => { Program.Manager.NextState = new Game(levels[levelNum]); }, 60);
-        start.Anchor = new Vec2(0.5, 0.2);
-
-        Frame.Add(start);
-        Frame.Add(current);
-        Frame.Add(left);
-        Frame.Add(right);
+    public override void Render()
+    {
+        RenderState.Push();
+        Draw.Clear(Color.Black);
+        if (T > 2)
+            Player1();
+        else if (T > 1)
+            Player2();
+        else All();
+        RenderState.Pop();
+        base.Render();
     }
 }

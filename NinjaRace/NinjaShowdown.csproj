@@ -153,6 +153,7 @@
     <Compile Include="Level\Tile\Tile.cs" />
     <Compile Include="Level\Tiles.cs" />
     <Compile Include="States\PreGame.cs" />
+    <Compile Include="States\PreGameMenu.cs" />
     <Compile Include="States\Showdown.cs" />
     <Compile Include="Timer\Timer.cs" />
     <Compile Include="Timer\TimerContainer.cs" />

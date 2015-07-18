@@ -6,7 +6,7 @@ class Dash : PlayerState
 {
     Vec2 dir = Vec2.Zero;
     static AnimatedTexture down, side;
-    double speed, t = 0, mt = 0.05, accFactor = 4;
+    double speed, t = 0, mt = 0.05, accFactor = 3;
 
     public Dash(Player player, Vec2 dir) : base(player) 
     {

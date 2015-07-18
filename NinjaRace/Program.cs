@@ -7,7 +7,6 @@ class Program
 {
     public static Random Random = new Random();
     public static MyManager Manager;
-    //public static Font font = new Font("./Data/font.TTF", 30, Font.Style.Bold);
     public static Font font = new Font(new System.IO.FileStream("./Data/font.TTF", FileMode.Open, FileAccess.Read), 30, Font.Style.Bold);
     public static bool VSync = false;
 

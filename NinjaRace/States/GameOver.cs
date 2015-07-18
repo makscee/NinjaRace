@@ -31,6 +31,6 @@ class GameOver : Menu
     public override void Update(double dt)
     {
         base.Update(dt);
-        cam.FOV = Math.Sin((double)System.DateTime.Now.Ticks / 1e8) + 1.1;
+        cam.FOV = Math.Sin((double)System.DateTime.Now.Ticks / 1e8) / 2 + 1.6;
     }
 }
