@@ -7,7 +7,9 @@ partial class Player : IUpdateable, IRenderable
 {
     public int Dir = 1;
     public Vec2 Position, Size;
-    private Vec2 _Velocity, _StartPosition;
+    private Vec2 _Velocity;
+    public Vec2 StartPosition;
+
     public Color Color;
     public States States;
     public Action Bonus = () => { };
@@ -36,13 +38,21 @@ partial class Player : IUpdateable, IRenderable
     public Player(Vec2 StartPosition, Color color)
     {
         Color = color;
-        _StartPosition = StartPosition;
+        this.StartPosition = StartPosition;
         States = new States(this);
         Size = new Vec2(12, 19);
         collisions.Add(Side.Left, new List<Tile>());
         collisions.Add(Side.Right, new List<Tile>());
         collisions.Add(Side.Up, new List<Tile>());
         collisions.Add(Side.Down, new List<Tile>());
+        Respawn = () =>
+        {
+            Velocity = Vec2.Zero;
+            Position = this.StartPosition;
+            States.SetFalling();
+            CalculateCollisions();
+            SpeedUp = 1;
+        };
         Respawn();
         States.SetWalking();
         CollisionHits();
@@ -79,14 +89,8 @@ partial class Player : IUpdateable, IRenderable
         States.Render();
     }
 
-    public void Respawn()
-    {
-        Velocity = Vec2.Zero;
-        Position = _StartPosition;
-        States.SetFalling();
-        CalculateCollisions();
-        SpeedUp = 1;
-    }
+
+    public Action Respawn;
 
     public void RenderTex(Texture tex)
     {

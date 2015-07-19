@@ -6,7 +6,7 @@ partial class Player
 {
     double Delay = 0.3;
     Timer t = new Timer(0, () => {});
-    bool _EnableSword = false;
+    bool _EnableSword = true;
 
     public Player EnableSword()
     {

@@ -1,6 +1,7 @@
 ﻿using VitPro;
 using VitPro.Engine;
 using System;
+using System.Collections.Generic;
 
 class World : IUpdateable
 {
@@ -17,9 +18,12 @@ class World : IUpdateable
 
     private void Init()
     {
-        player1 = new Player(this.level.tiles.GetStartTiles().Item1.Position,
+        List<StartTile> starts = level.tiles.GetStartTiles();
+        Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
+
+        player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
             Color.White).SetControls(new ControllerPlayer1());
-        player2 = new Player(this.level.tiles.GetStartTiles().Item2.Position,
+        player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
             new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
         player2.Dir = -1;
         cam1.Position = player1.Position;

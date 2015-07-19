@@ -56,6 +56,8 @@ class Dash : PlayerState
             player.Velocity = Vec2.Zero;
             t = 0;
         }
+        if(dir.Y != 0 && player.Box.Collide(player.GetOpponent().Box) != Side.None)
+                player.GetOpponent().States.current.Die(player.Position);
     }
 
     public override void Jump() { }

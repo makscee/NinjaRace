@@ -2,6 +2,7 @@
 using VitPro.Engine;
 using UI = VitPro.Engine.UI;
 using System;
+using System.Collections.Generic;
 
 class Showdown : UI.State
 {
@@ -10,10 +11,6 @@ class Showdown : UI.State
     public Showdown(string level, bool first)
     {
         World = new World(level);
-        World.player1.EnableSword();
-        World.player2.EnableSword();
-        World.player1.States.SetWalking();
-        World.player2.States.SetWalking();
 
         World.player2.Dir = -1;
         World.player1.Dir = 1;
@@ -23,10 +20,24 @@ class Showdown : UI.State
         else World.player1.Lives = 2;
         World.EffectsScreen.Add(new Hearts(World.player1));
         World.EffectsScreen.Add(new Hearts(World.player2));
-        World.RenderScreenEffects = false;
+
+        World.player1.Respawn += () =>
+        {
+            List<StartTile> l = World.level.tiles.GetStartTiles();
+            World.player1.StartPosition = l[Program.Random.Next(l.Count)].Position;
+        };
+
+        World.player2.Respawn += () =>
+        {
+            List<StartTile> l = World.level.tiles.GetStartTiles();
+            World.player2.StartPosition = l[Program.Random.Next(l.Count)].Position;
+        };
 
         World.player1.Update(0);
         World.player2.Update(0);
+
+        World.player1.Respawn();
+        World.player2.Respawn();
 
         Program.Manager.PushState(this);
         Program.Manager.PushState(new PreGame(World));

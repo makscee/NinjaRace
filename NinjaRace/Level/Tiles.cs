@@ -21,35 +21,16 @@ class Tiles : IRenderable, IUpdateable
         movingTiles = new Group<Tile>();
     }
 
-    public Tuple<StartTile, StartTile> GetStartTiles()
+    public List<StartTile> GetStartTiles()
     {
-        StartTile left, right;
-        left = right = null;
+        List<StartTile> l = new List<StartTile>();
         foreach (var a in tiles)
             if (a != null && a.GetType() == typeof(StartTile))
             {
                 StartTile t = (StartTile)a;
-                if (left == null)
-                {
-                    left = t;
-                    continue;
-                }
-                else
-                {
-                    if (left.Position.X < t.Position.X)
-                    {
-                        if (right == null || right.Position.X < t.Position.X)
-                            right = t;
-                        continue;
-                    }
-                    else
-                    {
-                        right = left;
-                        left = t;
-                    }
-                }
+                l.Add(t);
             }
-        return new Tuple<StartTile,StartTile>(left, right);
+            return l;
     }
 
     public void AddTile(Vec2i v, Tile t) { AddTile(v.X, v.Y, t); }
