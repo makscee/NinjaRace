@@ -34,8 +34,8 @@ class SwordHit : PlayerState
     public override void Update(double dt)
     {
         base.Update(dt);
-        if (new CollisionBox(player.Position + new Vec2(player.Size.X * 1.5, 0) * player.Dir,
-            new Vec2(player.Size.X * 3, player.Size.Y / 2))
+        if (new CollisionBox(player.Position + new Vec2(player.Size.X * 2, 0) * player.Dir,
+            new Vec2(player.Size.X * 2, player.Size.Y / 2))
             .Collide(player.GetOpponent().Box) != Side.None)
         {
             player.GetOpponent().States.current.Die(player.Position);
