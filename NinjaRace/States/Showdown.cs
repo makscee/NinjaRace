@@ -21,23 +21,8 @@ class Showdown : UI.State
         World.EffectsScreen.Add(new Hearts(World.player1));
         World.EffectsScreen.Add(new Hearts(World.player2));
 
-        World.player1.Respawn += () =>
-        {
-            List<StartTile> l = World.level.tiles.GetStartTiles();
-            World.player1.StartPosition = l[Program.Random.Next(l.Count)].Position;
-        };
-
-        World.player2.Respawn += () =>
-        {
-            List<StartTile> l = World.level.tiles.GetStartTiles();
-            World.player2.StartPosition = l[Program.Random.Next(l.Count)].Position;
-        };
-
-        World.player1.Update(0);
-        World.player2.Update(0);
-
-        World.player1.Respawn();
-        World.player2.Respawn();
+        World.player1.Respawn = World.player1.ChangeSpawn + World.player1.Respawn;
+        World.player2.Respawn = World.player2.ChangeSpawn + World.player2.Respawn;
 
         Program.Manager.PushState(this);
         Program.Manager.PushState(new PreGame(World));

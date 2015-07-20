@@ -92,6 +92,18 @@ partial class Player : IUpdateable, IRenderable
 
     public Action Respawn;
 
+    public void ChangeSpawn()
+    {
+        List<StartTile> l = Program.World.level.tiles.GetStartTiles();
+        Vec2 t;
+        do
+        {
+            t = l[Program.Random.Next(l.Count)].Position;
+        }
+        while (t.Equals(StartPosition));
+        StartPosition = t;
+    }
+
     public void RenderTex(Texture tex)
     {
         RenderState.Push();
