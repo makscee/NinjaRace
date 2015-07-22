@@ -43,7 +43,7 @@ class World : IUpdateable
     {
         EffectsBot.Render();
         if (player != null)
-            level.RenderArea(player.Position, new Vec2(340, 130));
+            level.RenderArea(player.Position, new Vec2(360, 140));
         else level.Render();
         EffectsMid.Render();
         player2.Render();
@@ -109,15 +109,6 @@ class World : IUpdateable
         Camera cam = (player == player1) ? cam1 : cam2;
         cam.Position += (player.Position - cam.Position) * dt * 10;
         player.Position += player.Velocity * dt;
-
-        foreach (var a in player.collisions[Side.Left])
-            a.Effect(player, Side.Left);
-        foreach (var a in player.collisions[Side.Down])
-            a.Effect(player, Side.Down);
-        foreach (var a in player.collisions[Side.Right])
-            a.Effect(player, Side.Right);
-        foreach (var a in player.collisions[Side.Up])
-            a.Effect(player, Side.Up);
         level.Update(dt);
     }
 

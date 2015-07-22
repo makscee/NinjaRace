@@ -20,9 +20,9 @@ partial class Player
                 if (t != null && CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
                 {
                     Side s = Box.Collide(t.Box);
+                    t.Effect(this, s);
                     if (t.IsMark)
                     {
-                        t.Effect(this, s);
                         continue;
                     }
                     collisions[s].Add(t);
@@ -32,9 +32,9 @@ partial class Player
             if (CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
             {
                 Side s = Box.Collide(t.Box);
+                t.Effect(this, s);
                 if (t.IsMark)
                 {
-                    t.Effect(this, s);
                     continue;
                 }
                 collisions[s].Add(t);
