@@ -26,7 +26,7 @@ class Game : State
     }
     public void Finish(Player player)
     {
-        new Showdown(World.level.name.Trim() + "_S", World.player1 == player ? true : false);
+        new Showdown(World.level.Name.Trim() + "_S", World.player1 == player ? true : false);
         Close();
     }
     public override void KeyDown(Key key)

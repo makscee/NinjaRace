@@ -7,7 +7,7 @@ partial class Player
 {
     public void CalculateCollisions()
     {
-        Tiles tiles = Program.World.level.tiles;
+        Tiles tiles = Program.World.level.Tiles;
         collisions[Side.Left].Clear();
         collisions[Side.Right].Clear();
         collisions[Side.Up].Clear();

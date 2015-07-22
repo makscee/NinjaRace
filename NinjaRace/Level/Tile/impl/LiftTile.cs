@@ -26,7 +26,7 @@ class LiftTile : Tile
                 near = new List<Tile>();
                 Vec2i coords = Tiles.GetCoords(ID);
                 int x = coords.X + 1;
-                Tiles tiles = Program.World.level.tiles;
+                Tiles tiles = Program.World.level.Tiles;
                 while (tiles.GetTile(x, coords.Y) != null &&
                     tiles.GetTile(x, coords.Y).GetType() == typeof(LiftTile))
                 {

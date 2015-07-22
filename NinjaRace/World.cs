@@ -18,7 +18,7 @@ class World : IUpdateable
 
     private void Init()
     {
-        List<StartTile> starts = level.tiles.GetStartTiles();
+        List<StartTile> starts = level.Tiles.GetStartTiles();
         Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
 
         player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
@@ -53,7 +53,9 @@ class World : IUpdateable
 
     public void RenderSingle()
     {
-        cam.FOV = Math.Max(360, Math.Abs(player1.Position.X - player2.Position.X) + 15);
+        cam.FOV = Math.Max(360, Math.Max(
+            Math.Abs(player1.Position.X - player2.Position.X) + 15, 
+            Math.Abs(player1.Position.Y - player2.Position.Y) + 60));
         cam.Position = (player2.Position - player1.Position) / 2 + player1.Position;
         cam.Apply();
         Render();

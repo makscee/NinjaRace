@@ -4,25 +4,25 @@ using VitPro.Engine;
 
 class Level : IRenderable, IUpdateable
 {
-    public Tiles tiles;
-    public string name;
+    public Tiles Tiles;
+    public string Name;
 
     public Level(Tiles tiles, string name)
     {
-        this.tiles = tiles;
-        this.name = name;
+        this.Tiles = tiles;
+        this.Name = name;
     }
 
     public void Render() 
     {
-        tiles.Render();
+        Tiles.Render();
     }
     public void RenderArea (Vec2 pos, Vec2 size)
     {
-        tiles.RenderArea(pos, size);
+        Tiles.RenderArea(pos, size);
     }
     public void Update(double dt) 
     {
-        tiles.Update(dt);
+        Tiles.Update(dt);
     }
 }

@@ -24,7 +24,7 @@ class LevelEditor : UI.State
     {
         TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
-        Button done = new Button("DONE", () => { level.name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
+        Button done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
         done.Anchor = new Vec2(0.95, 0.05);
         Frame.Add(done);
     }
@@ -84,7 +84,7 @@ class LevelEditor : UI.State
                 vecForSaw2 = Tiles.GetID(GetX(), GetY());
                 Saw s = new Saw();
                 s.Link = vecForSaw2;
-                level.tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
+                level.Tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
                 vecForSaw1 = vecForSaw2 = -1;
             }
         }
@@ -149,24 +149,24 @@ class LevelEditor : UI.State
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
         if(MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
-            level.tiles.AddTile(GetX(), GetY(), currentTile);
+            level.Tiles.AddTile(GetX(), GetY(), currentTile);
         level.Update(dt);
     }
 
     void RenderTiles()
     {
-        for (int y = 1; y < level.tiles.GetLength(0); y++)
-            for (int x = 1; x < level.tiles.GetLength(1); x++)
+        for (int y = 1; y < level.Tiles.GetLength(0); y++)
+            for (int x = 1; x < level.Tiles.GetLength(1); x++)
             {
-				if (level.tiles.GetTile(x, y) == null) {
+				if (level.Tiles.GetTile(x, y) == null) {
 					RenderState.Push();
 					RenderState.Color = new Color(0.1, 0.1, 0.1);
 					Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9);
 					RenderState.Pop();
 				}
-                else if (level.tiles.GetTile(x, y) != null &&
-                    level.tiles.GetTile(x, y).GetType() == typeof(StartTile))
+                else if (level.Tiles.GetTile(x, y) != null &&
+                    level.Tiles.GetTile(x, y).GetType() == typeof(StartTile))
                     Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9, new Color(0, 0.2, 0));
             }

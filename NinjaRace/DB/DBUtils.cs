@@ -60,7 +60,7 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
-                "SELECT * FROM Tiles where level='" + level.name + "';",
+                "SELECT * FROM Tiles where level='" + level.Name + "';",
                 connection);
             connection.Open();
 
@@ -76,7 +76,7 @@ class DBUtils
                     t.ID = reader.GetInt32(0);
                     if(!reader.IsDBNull(1))
                         t.Link = reader.GetInt32(1);
-                    level.tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
+                    level.Tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
                 }
             }
             else
@@ -93,19 +93,19 @@ class DBUtils
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             connection.Open();
-            string name = level.name.ToUpper();
-            new SqlCommand("delete from Tiles where Level='" + level.name + "';", connection).ExecuteNonQuery();
-            new SqlCommand("delete from Levels where Name='" + level.name + "';", connection).ExecuteNonQuery();
+            string name = level.Name.ToUpper();
+            new SqlCommand("delete from Tiles where Level='" + level.Name + "';", connection).ExecuteNonQuery();
+            new SqlCommand("delete from Levels where Name='" + level.Name + "';", connection).ExecuteNonQuery();
             SqlCommand command = new SqlCommand("insert into Levels ([Name], [WIDTH], [HEIGHT])"
                 + "values (@name, @width, @height);", connection);
-            command.Parameters.AddWithValue("@name", level.name);
-            command.Parameters.AddWithValue("@width", level.tiles.GetLength(1));
-            command.Parameters.AddWithValue("@height", level.tiles.GetLength(0));
+            command.Parameters.AddWithValue("@name", level.Name);
+            command.Parameters.AddWithValue("@width", level.Tiles.GetLength(1));
+            command.Parameters.AddWithValue("@height", level.Tiles.GetLength(0));
             command.ExecuteNonQuery();
-            for (int y = 1; y < level.tiles.GetLength(0); y++)
-                for (int x = 1; x < level.tiles.GetLength(1); x++)
+            for (int y = 1; y < level.Tiles.GetLength(0); y++)
+                for (int x = 1; x < level.Tiles.GetLength(1); x++)
                 {
-                    Tile t = level.tiles.GetTile(x, y);
+                    Tile t = level.Tiles.GetTile(x, y);
                     if(t == null)
                         continue;
 
@@ -116,12 +116,12 @@ class DBUtils
                     command.Parameters.AddWithValue("@id", Tiles.GetID(x, y));
                     command.Parameters.AddWithValue("@x_position", x);
                     command.Parameters.AddWithValue("@y_position", y);
-                    command.Parameters.AddWithValue("@level", level.name);
+                    command.Parameters.AddWithValue("@level", level.Name);
                     command.Parameters.AddWithValue("@type", t.GetType().ToString());
                     command.ExecuteNonQuery();
                 }
             connection.Close();
-            UpdateLinks(level.tiles);
+            UpdateLinks(level.Tiles);
         }
     }
 

@@ -94,7 +94,7 @@ partial class Player : IUpdateable, IRenderable
 
     public void ChangeSpawn()
     {
-        List<StartTile> l = Program.World.level.tiles.GetStartTiles();
+        List<StartTile> l = Program.World.level.Tiles.GetStartTiles();
         Vec2 t;
         do
         {

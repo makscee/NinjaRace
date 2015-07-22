@@ -14,7 +14,7 @@ class BonusTile : Tile
 
     public override void Effect(Player player, Side side)
     {
-        Program.World.level.tiles.DeleteTile(ID);
+        Program.World.level.Tiles.DeleteTile(ID);
         Program.World.EffectsTop.Add(new BonusGet(Position, player));
         bonuses[Program.Random.Next(bonuses.Count)].Get(player);
     }

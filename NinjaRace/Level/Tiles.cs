@@ -65,8 +65,10 @@ class Tiles : IRenderable, IUpdateable
 
     public Tile GetTile(int x, int y)
     {
-        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1) || x < 0 || y < 0)
-            return null;
+        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1) || x <= 0 || y <= 0)
+        {
+            return new Ground().SetPosition(new Vec2(Tile.Size.X * x * 2, Tile.Size.Y * y * 2));
+        }
         return tiles[y, x];
     }
 
