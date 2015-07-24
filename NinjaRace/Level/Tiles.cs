@@ -77,6 +77,11 @@ class Tiles : IRenderable, IUpdateable
         return tiles.GetLength(d);
     }
 
+    private void RenderBackground()
+    {
+        Draw.Rect(Tile.Size, new Vec2(tiles.GetLength(1) * Tile.Size.X * 2, tiles.GetLength(0) * Tile.Size.Y * 2) - Tile.Size, new Color(0.1, 0.1, 0.1));
+    }
+
     public void Render()
     {
         foreach (var a in tiles)
@@ -89,6 +94,7 @@ class Tiles : IRenderable, IUpdateable
 
     public void RenderArea(Vec2 pos, Vec2 size)
     {
+        RenderBackground();
         IEnumerable<Tile> t = PosTiles.Query(pos - size, pos + size);
         foreach (var a in t)
             a.Render();
