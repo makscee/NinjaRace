@@ -11,9 +11,22 @@ class DBUtils
     static string connectionString = 
         ConfigurationManager.ConnectionStrings["NinjaRace.Properties.Settings.DatabaseConnectionString"].ConnectionString;
 
-    public static List<string> GetLevelNames()
+    public static void Init()
     {
-        List<string> levels = new List<string>();
+        LoadLevelNames();
+    }
+    private static List<string> LevelNames;
+
+    public static List<string> GetLevelNames() 
+    {
+        if (LevelNames == null)
+            LoadLevelNames();
+        return LevelNames; 
+    }
+
+    private static void LoadLevelNames()
+    {
+        LevelNames = new List<string>();
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
@@ -23,10 +36,9 @@ class DBUtils
             SqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                levels.Add(reader.GetString(0));
+                LevelNames.Add(reader.GetString(0));
             }
         }
-        return levels;
     }
 
     public static Level GetLevel(String name)

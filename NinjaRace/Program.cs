@@ -18,6 +18,7 @@ class Program
         Manager = new MyManager(new MainMenu());
         App.Fullscreen = false;
         App.VSync = VSync;
+        DBUtils.Init();
         App.Run(Manager);
     }
 
