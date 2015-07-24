@@ -94,7 +94,7 @@
     <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Bonus\Bonus.cs" />
-    <Compile Include="Bonus\BonusTile.cs" />
+    <Compile Include="Level\Tile\impl\BonusTile.cs" />
     <Compile Include="Bonus\impl\FreezeBonus.cs" />
     <Compile Include="Bonus\impl\SlowDown.cs" />
     <Compile Include="Bonus\impl\SpeedUp.cs" />
