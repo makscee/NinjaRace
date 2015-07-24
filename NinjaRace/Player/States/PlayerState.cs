@@ -38,6 +38,7 @@ class PlayerState : IRenderable, IUpdateable
         player.States.SetDead();
         player.Velocity += (player.Position - position).Unit * player.JumpForce;
         player.Lives--;
+        Program.World.SlowTime = 0;
     }
 
     public void AddTime(double dt)

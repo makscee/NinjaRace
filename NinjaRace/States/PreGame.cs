@@ -106,4 +106,9 @@ class PreGame : VitPro.Engine.UI.State
         RenderState.Pop();
         base.Render();
     }
+    public override void KeyDown(Key key)
+    {
+        if (key == Key.Escape)
+            Close();
+    }
 }

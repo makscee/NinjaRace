@@ -67,8 +67,11 @@ partial class Player : IUpdateable, IRenderable
     public void Update(double dt)
     {
         CollisionHits();
-        Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
-        Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
+        if (!States.IsDead)
+        {
+            Dir = Controller.NeedVel().X > 0 ? 1 : Dir;
+            Dir = Controller.NeedVel().X < 0 ? -1 : Dir;
+        }
         Vec2 nd = Controller.NeedDash();
         if (!nd.Equals(Vec2.Zero))
         {

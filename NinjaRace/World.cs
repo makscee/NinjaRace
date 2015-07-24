@@ -114,8 +114,13 @@ class World : IUpdateable
         level.Update(dt);
     }
 
+    public double SlowTime = 1;
     public void Update(double dt)
     {
+        if (SlowTime < 0.5)
+            SlowTime += dt / 2;
+        else SlowTime = 1;
+        dt = SlowTime * dt;
         UpdateForPlayer(dt, player1);
         UpdateForPlayer(dt, player2);
         EffectsTop.Update(dt);
