@@ -91,7 +91,9 @@
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
-    <Compile Include="Level\Level Editor\LevelEditorMenu.cs" />
+    <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
+    <Compile Include="States\Menu\LevelEditor\EditLevel.cs" />
+    <Compile Include="States\Menu\LevelEditor\LevelEditorMenu.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Bonus\Bonus.cs" />
     <Compile Include="Level\Tile\impl\BonusTile.cs" />
@@ -107,7 +109,7 @@
     <Compile Include="Player\Controllers\IController.cs" />
     <Compile Include="Player\Controllers\Player1.cs" />
     <Compile Include="Player\Controllers\Player2.cs" />
-    <Compile Include="Level\Level Editor\LevelEditor.cs" />
+    <Compile Include="States\LevelEditor.cs" />
     <Compile Include="Player\Controllers\PlayerController.cs" />
     <Compile Include="Player\States\impl\Dash.cs" />
     <Compile Include="Player\States\impl\DoubleJump.cs" />
@@ -140,9 +142,9 @@
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StateManager.cs" />
-    <Compile Include="States\Game.cs" />
-    <Compile Include="States\GameOver.cs" />
-    <Compile Include="States\MainMenu.cs" />
+    <Compile Include="States\Game\Game.cs" />
+    <Compile Include="States\Menu\GameOver.cs" />
+    <Compile Include="States\Menu\MainMenu.cs" />
     <Compile Include="Level\Tile\impl\FinishTile.cs" />
     <Compile Include="Level\Tile\impl\Ground.cs" />
     <Compile Include="Level\Tile\impl\JumpTile.cs" />
@@ -152,9 +154,9 @@
     <Compile Include="Level\Tile\impl\StartTile.cs" />
     <Compile Include="Level\Tile\Tile.cs" />
     <Compile Include="Level\Tiles.cs" />
-    <Compile Include="States\PreGame.cs" />
-    <Compile Include="States\PreGameMenu.cs" />
-    <Compile Include="States\Showdown.cs" />
+    <Compile Include="States\Game\PreGame.cs" />
+    <Compile Include="States\Menu\PreGameMenu.cs" />
+    <Compile Include="States\Game\Showdown.cs" />
     <Compile Include="Timer\Timer.cs" />
     <Compile Include="Timer\TimerContainer.cs" />
     <Compile Include="World.cs" />
@@ -416,6 +418,7 @@
       <Name>VPE</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

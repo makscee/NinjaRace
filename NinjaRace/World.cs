@@ -43,7 +43,7 @@ class World : IUpdateable
     {
         EffectsBot.Render();
         if (player != null)
-            level.RenderArea(player.Position, new Vec2(360, 140));
+            level.RenderArea(player.Position, new Vec2(360, 160));
         else level.Render();
         EffectsMid.Render();
         player2.Render();

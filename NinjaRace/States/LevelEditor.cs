@@ -11,7 +11,6 @@ class LevelEditor : UI.State
     Camera cam = new Camera(240);
     bool dragging = false;
     Vec2 draggingVec;
-    //Button done;
     int vecForSaw1 = -1, vecForSaw2 = -1;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
@@ -38,6 +37,7 @@ class LevelEditor : UI.State
 
     public LevelEditor(string name, bool showdown)
     {
+        name = name.Trim();
         level = DBUtils.GetLevel(name + (showdown ? "_S" : ""));
         init();
         showdown = false;
@@ -182,7 +182,6 @@ class LevelEditor : UI.State
             Draw.Rect(Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) + Tile.Size,
                 Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) - Tile.Size, Color.Green);
         new Camera(240).Apply();
-        //done.Render();
         RenderTileMenu();
         base.Render();
     }

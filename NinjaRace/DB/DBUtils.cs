@@ -135,6 +135,7 @@ class DBUtils
             connection.Close();
             UpdateLinks(level.Tiles);
         }
+        LoadLevelNames();
     }
 
     private static void UpdateLinks(Tiles tiles)

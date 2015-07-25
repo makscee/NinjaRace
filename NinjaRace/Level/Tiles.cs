@@ -84,6 +84,7 @@ class Tiles : IRenderable, IUpdateable
 
     public void Render()
     {
+        RenderBackground();
         foreach (var a in tiles)
             if (a != null && !(a.GetType() == typeof(Saw)))
                 a.Render();
