@@ -12,6 +12,8 @@ class LevelEditor : UI.State
     bool dragging = false;
     Vec2 draggingVec;
     int vecForSaw1 = -1, vecForSaw2 = -1;
+    CheckBox mirror = new CheckBox(20);
+    Button done;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
         "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile", "CrackedTile" };
@@ -23,9 +25,11 @@ class LevelEditor : UI.State
     {
         TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
-        Button done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
+        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
         done.Anchor = new Vec2(0.95, 0.05);
+        mirror.Anchor = new Vec2(0.1, 0.95);
         Frame.Add(done);
+        Frame.Add(mirror);
     }
 
     public LevelEditor(int sizex, int sizey, string name, bool showdown)
@@ -151,9 +155,20 @@ class LevelEditor : UI.State
         level.Update(dt);
         if (MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
         {
-            level.Tiles.DeleteTile(Tiles.GetID(GetX(), GetY()));
+            if (done.Hovered || mirror.Hovered)
+                return;
+            int x = GetX(), y = GetY();
+            level.Tiles.DeleteTile(Tiles.GetID(x, y));
             if(currentTile != null)
-                level.Tiles.AddTile(GetX(), GetY(), currentTile);
+                level.Tiles.AddTile(x, y, currentTile);
+            if (mirror.Checked)
+            {
+                int x2 = level.Tiles.GetLength(1) - x;
+                int y2 = y;
+                level.Tiles.DeleteTile(Tiles.GetID(x2, y2));
+                if (currentTile != null)
+                    level.Tiles.AddTile(x2, y2, currentTile);
+            }
         }
     }
 

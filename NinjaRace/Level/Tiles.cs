@@ -134,6 +134,10 @@ class Tiles : IRenderable, IUpdateable
     public void DeleteTile(int id)
     {
         Vec2i coords = GetCoords(id);
+        if (coords.X <= 0 || coords.Y <= 0)
+            return;
+        if (coords.Y >= tiles.GetLength(0) || coords.X >= tiles.GetLength(1))
+            return;
         Tile t = tiles[coords.Y, coords.X];
         if (t == null)
             return;
