@@ -41,6 +41,7 @@ class World : IUpdateable
 
     public void Render(Player player = null)
     {
+        level.Tiles.RenderBackground();
         EffectsBot.Render();
         if (player != null)
             level.RenderArea(player.Position, new Vec2(360, 160));

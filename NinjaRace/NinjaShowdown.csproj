@@ -91,6 +91,7 @@
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
+    <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
     <Compile Include="States\Menu\LevelEditor\EditLevel.cs" />
     <Compile Include="States\Menu\LevelEditor\LevelEditorMenu.cs" />

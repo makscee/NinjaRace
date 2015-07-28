@@ -14,7 +14,7 @@ class LevelEditor : UI.State
     int vecForSaw1 = -1, vecForSaw2 = -1;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
-        "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile" };
+        "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile", "CrackedTile" };
     List<string>.Enumerator TTenum;
 
     bool showdown;
@@ -148,9 +148,13 @@ class LevelEditor : UI.State
             cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
             draggingVec = Program.MousePosition() * cam.FOV / 240;
         }
-        if(MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
-            level.Tiles.AddTile(GetX(), GetY(), currentTile);
         level.Update(dt);
+        if (MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
+        {
+            level.Tiles.DeleteTile(Tiles.GetID(GetX(), GetY()));
+            if(currentTile != null)
+                level.Tiles.AddTile(GetX(), GetY(), currentTile);
+        }
     }
 
     void RenderTiles()

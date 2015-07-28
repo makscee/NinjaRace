@@ -77,25 +77,21 @@ class Tiles : IRenderable, IUpdateable
         return tiles.GetLength(d);
     }
 
-    private void RenderBackground()
+    public void RenderBackground()
     {
         Draw.Rect(Tile.Size, new Vec2(tiles.GetLength(1) * Tile.Size.X * 2, tiles.GetLength(0) * Tile.Size.Y * 2) - Tile.Size, new Color(0.1, 0.1, 0.1));
     }
 
     public void Render()
     {
-        RenderBackground();
         foreach (var a in tiles)
-            if (a != null && !(a.GetType() == typeof(Saw)))
+            if (a != null && !(a.IsMoving))
                 a.Render();
-        foreach (var a in tiles)
-            if (a != null && a.GetType() == typeof(Saw))
-                a.Render();
+        movingTiles.Render();
     }
 
     public void RenderArea(Vec2 pos, Vec2 size)
     {
-        RenderBackground();
         IEnumerable<Tile> t = PosTiles.Query(pos - size, pos + size);
         foreach (var a in t)
             a.Render();
@@ -138,7 +134,12 @@ class Tiles : IRenderable, IUpdateable
     public void DeleteTile(int id)
     {
         Vec2i coords = GetCoords(id);
-        PosTiles.Remove(tiles[coords.Y, coords.X]);
+        Tile t = tiles[coords.Y, coords.X];
+        if (t == null)
+            return;
+        PosTiles.Remove(t);
         tiles[coords.Y, coords.X] = null;
+        movingTiles.Remove(t);
+        movingTiles.Refresh();
     }
 }

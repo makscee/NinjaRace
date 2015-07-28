@@ -23,9 +23,4 @@ class BonusTile : Tile
     {
         tex = new AnimatedTexture(new Texture("./Data/img/tiles/bonus.png"));
     }
-
-    public override void Render()
-    {
-        base.Render();
-    }
 }
