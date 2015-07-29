@@ -16,10 +16,10 @@ class LevelEditorMenu : Menu
     public LevelEditorMenu()
     {
         Create.Anchor = new Vec2(0.5, 0.8);
-        Create.FixedWidth = 400;
+        AddExpandElement(Create, 400);
         Frame.Add(Create);
         Edit.Anchor = new Vec2(0.5, 0.4);
-        Edit.FixedWidth = 400;
+        AddExpandElement(Edit, 400);
         Frame.Add(Edit);
     }
 }
