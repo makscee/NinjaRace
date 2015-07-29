@@ -33,7 +33,7 @@ class PreGame : VitPro.Engine.UI.State
             Time.Text = Math.Ceiling(T).ToString();
         }
     }
-    Camera cam = new Camera(220);
+    View cam = new View(220);
     Texture TexP1, TexP2;
     void Player1()
     {

@@ -8,7 +8,7 @@ class LevelEditor : UI.State
 {
     Level level;
     Tile currentTile;
-    Camera cam = new Camera(240);
+    View cam = new View(240);
     bool dragging = false;
     Vec2 draggingVec;
     int vecForSaw1 = -1, vecForSaw2 = -1;

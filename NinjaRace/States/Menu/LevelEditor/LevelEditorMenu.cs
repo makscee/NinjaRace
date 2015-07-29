@@ -10,14 +10,16 @@ class LevelEditorMenu : Menu
     CheckBox showdown = new CheckBox(20);
 
     Button Create = new Button("CREATE LEVEL",
-        () => { Program.Manager.NextState = new CreateLevel(false); }, 70);
+        () => { Program.Manager.NextState = new CreateLevel(false); }, 50);
     Button Edit = new Button("EDIT LEVEL",
-        () => { Program.Manager.NextState = new EditLevel(); }, 70);
+        () => { Program.Manager.NextState = new EditLevel(); }, 50);
     public LevelEditorMenu()
     {
-        Create.Anchor = new Vec2(0.5, 0.7);
+        Create.Anchor = new Vec2(0.5, 0.8);
+        Create.FixedWidth = 400;
         Frame.Add(Create);
-        Edit.Anchor = new Vec2(0.5, 0.3);
+        Edit.Anchor = new Vec2(0.5, 0.4);
+        Edit.FixedWidth = 400;
         Frame.Add(Edit);
     }
 }

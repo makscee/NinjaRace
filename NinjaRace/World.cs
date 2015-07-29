@@ -11,7 +11,7 @@ class World : IUpdateable
     public Group<Effect> EffectsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
-    Camera cam1 = new Camera(240), cam2 = new Camera(240), cam = new Camera(360), screenCam = new Camera(120);
+    View cam1 = new View(240), cam2 = new View(240), cam = new View(360), screenCam = new View(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
     public Texture background;
@@ -74,7 +74,7 @@ class World : IUpdateable
             new Vec2i(RenderState.Width, RenderState.Height / 2));
         Draw.Clear(Color.Black);
         RenderState.Translate(Vec2.OrtY * 0.5);
-        Camera camt = new Camera(cam1.FOV);
+        View camt = new View(cam1.FOV);
         camt.Position = cam1.Position + camOffset;
         camt.Apply();
         RenderState.Translate(Vec2.OrtY * cam1.FOV / 2);
@@ -88,7 +88,7 @@ class World : IUpdateable
             new Vec2i(RenderState.Width, RenderState.Height / 2));
         Draw.Clear(Color.Black);
         RenderState.Translate(Vec2.OrtY * 0.5);
-        camt = new Camera(cam1.FOV);
+        camt = new View(cam1.FOV);
         camt.Position = cam2.Position + camOffset;
         camt.Apply();
         RenderState.Translate(Vec2.OrtY * cam2.FOV / 2);
@@ -109,7 +109,7 @@ class World : IUpdateable
         Time += dt;
         player.CalculateCollisions();
         player.Update(dt);
-        Camera cam = (player == player1) ? cam1 : cam2;
+        View cam = (player == player1) ? cam1 : cam2;
         cam.Position += (player.Position - cam.Position) * dt * 10;
         player.Position += player.Velocity * dt;
         level.Update(dt);
