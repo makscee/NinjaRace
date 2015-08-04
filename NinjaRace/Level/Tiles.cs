@@ -77,6 +77,11 @@ class Tiles : IRenderable, IUpdateable
         return tiles.GetLength(d);
     }
 
+    public Vec2i GetSize()
+    {
+        return new Vec2i((GetLength(1) - 1) * (int)Tile.Size.X * 2, (GetLength(0) - 1) * (int)Tile.Size.Y * 2);
+    }
+
     public void RenderBackground()
     {
         Draw.Rect(Tile.Size, new Vec2(tiles.GetLength(1) * Tile.Size.X * 2, tiles.GetLength(0) * Tile.Size.Y * 2) - Tile.Size, new Color(0.1, 0.1, 0.1));
