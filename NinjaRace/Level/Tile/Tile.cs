@@ -14,6 +14,7 @@ abstract class Tile : IRenderable, IUpdateable
     protected bool Mark = false;
     protected bool Moving = false;
     public int Link = -1;
+    protected Color color = Color.White;
 
     public Vec2 Position 
     {
@@ -50,7 +51,10 @@ abstract class Tile : IRenderable, IUpdateable
     {
         if(tex == null)
             LoadTexture();
+        RenderState.Push();
+        RenderState.Color = color;
         Draw.Texture(tex.GetCurrent(), Position - Size, Position + Size);
+        RenderState.Pop();
     }
 
     public virtual void Effect(Player player, Side side) { }
