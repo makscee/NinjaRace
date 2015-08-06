@@ -253,7 +253,8 @@ class LevelEditor : UI.State
         if (world != null)
             world.Dispose();
         Vec2i v = level.Tiles.GetSize();
-        world = new Texture(App.Width, App.Height);
+        int mult = Math.Max(v.X / App.Width, v.Y / App.Height);
+        world = new Texture(App.Width * mult, App.Height * mult);
         RenderState.BeginTexture(world);
         View t = new View(Math.Max((double)v.Y, (double)v.X / 1.3333));
         t.Position = new Vec2(v.X / 2, t.FOV / 2) + Tile.Size;
