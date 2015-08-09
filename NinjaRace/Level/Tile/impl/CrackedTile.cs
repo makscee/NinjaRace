@@ -4,6 +4,10 @@ using System;
 
 class CrackedTile : Tile
 {
+    public CrackedTile()
+    {
+        Colorable = true;
+    }
     public override void Effect(Player player, Side side)
     {
         new Timer(0.5, () => { Program.World.level.Tiles.DeleteTile(ID); });

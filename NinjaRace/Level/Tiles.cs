@@ -10,6 +10,7 @@ class Tiles : IRenderable, IUpdateable
     private PosGroup<Tile> PosTiles;
     private Group<Tile> movingTiles;
     public static Vec2i MaxSize = new Vec2i(500, 150);
+    private Color Color { get; set; }
 
     public Tiles(int sizex, int sizey)
     {
@@ -19,6 +20,7 @@ class Tiles : IRenderable, IUpdateable
         PosTiles = new PosGroup<Tile>(0, 0, sizex * Tile.Size.X * 2, sizey * Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
 
         movingTiles = new Group<Tile>();
+        Color = Color.White;
     }
 
     public List<StartTile> GetStartTiles()
@@ -91,16 +93,52 @@ class Tiles : IRenderable, IUpdateable
     {
         foreach (var a in tiles)
             if (a != null && !(a.IsMoving))
+            {
+                if (a.Colorable)
+                {
+                    RenderState.Push();
+                    RenderState.Color = Color;
+                    a.Render();
+                    RenderState.Pop();
+                }
+                else
+                    a.Render();
+            }
+        foreach (var a in movingTiles)
+            if (a.Colorable)
+            {
+                RenderState.Push();
+                RenderState.Color = Color;
                 a.Render();
-        movingTiles.Render();
+                RenderState.Pop();
+            }
+            else
+                a.Render();
     }
 
     public void RenderArea(Vec2 pos, Vec2 size)
     {
         IEnumerable<Tile> t = PosTiles.Query(pos - size, pos + size);
         foreach (var a in t)
-            a.Render();
-        movingTiles.Render();
+            if (a.Colorable)
+            {
+                RenderState.Push();
+                RenderState.Color = Color;
+                a.Render();
+                RenderState.Pop();
+            }
+            else
+                a.Render();
+        foreach (var a in movingTiles)
+            if (a.Colorable)
+            {
+                RenderState.Push();
+                RenderState.Color = Color;
+                a.Render();
+                RenderState.Pop();
+            }
+            else
+                a.Render();
     }
 
     public void Update(double dt)

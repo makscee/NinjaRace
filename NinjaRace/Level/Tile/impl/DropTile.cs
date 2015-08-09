@@ -10,6 +10,7 @@ class DropTile : Tile
     public DropTile()
     {
         Moving = true;
+        Colorable = true;
     }
 
     double speed = 100;

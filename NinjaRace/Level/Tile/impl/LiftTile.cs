@@ -8,6 +8,7 @@ class LiftTile : Tile
     public LiftTile()
     {
         Moving = true;
+        Colorable = true;
     }
 
     double speed = 100;
