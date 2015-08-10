@@ -374,6 +374,9 @@
     <Content Include="Data\img\tiles\ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\img\tiles\lift.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\img\tiles\saw.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -11,6 +11,12 @@ class LiftTile : Tile
         Colorable = true;
     }
 
+    protected override void LoadTexture()
+    {
+        Texture t = new Texture("./Data/img/tiles/lift.png");
+        tex = new AnimatedTexture(t);
+    }
+
     double speed = 100;
     bool lifting = false;
     Player player;
@@ -67,14 +73,4 @@ class LiftTile : Tile
         player.Position = new Vec2(player.Position.X, Position.Y + Size.Y + player.Size.Y);
         lifting = player.collisions[Side.Down].Contains(this);
     }
-
-    public override void Render()
-    {
-		RenderState.Push();
-		RenderState.Color = Color.Magenta;
-        Draw.Rect(Position + Size, Position - Size);
-		RenderState.Pop();
-    }
-
-
 }
