@@ -47,7 +47,7 @@ class Frozen : PlayerState
     public override void Render()
     {
 		RenderState.Push();
-		RenderState.Color = new Color(0.5, 0.5, 1);
+		RenderState.Color = new Color(0.5, 0.7, 1);
         RenderState.Translate(player.Position - player.Size);
         RenderState.Scale(player.Size * 2);
         if (player.Dir == -1)

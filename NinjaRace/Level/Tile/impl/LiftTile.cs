@@ -10,11 +10,23 @@ class LiftTile : Tile
         Moving = true;
         Colorable = true;
     }
+    AnimatedTexture idle, moving;
 
     protected override void LoadTexture()
     {
+        Shader s = new Shader(NinjaRace.Shaders.Glow);
         Texture t = new Texture("./Data/img/tiles/lift.png");
-        tex = new AnimatedTexture(t);
+        idle = new AnimatedTexture(t.Copy());
+        RenderState.Push();
+        RenderState.Set("texture", t);
+        RenderState.Set("doX", 1);
+        RenderState.Set("size", new Vec2(150, 150));
+        t.ApplyShader(s);
+        RenderState.Set("doX", 0);
+        t.ApplyShader(s);
+        RenderState.Pop();
+        moving = new AnimatedTexture(t);
+        tex = idle;
     }
 
     double speed = 100;
@@ -27,6 +39,7 @@ class LiftTile : Tile
         if (side == Side.Down)
         {
             lifting = true;
+            tex = moving;
             this.player = player;
             if (near == null)
             {
@@ -55,9 +68,10 @@ class LiftTile : Tile
     {
         if (!lifting)
             return;
-        if (player.States.IsFlying || player.States.IsDead)
+        if ((player.States.IsFlying || player.States.IsDead) && lifting)
         {
             lifting = false;
+            tex = idle;
             return;
         }
         if (player.collisions[Side.Up].Count > 0)

@@ -8,16 +8,12 @@ class CrackedTile : Tile
     {
         Colorable = true;
     }
+    protected override void LoadTexture()
+    {
+        tex = new AnimatedTexture(new Texture("./Data/img/tiles/cracked.png"));
+    }
     public override void Effect(Player player, Side side)
     {
         new Timer(0.5, () => { Program.World.level.Tiles.DeleteTile(ID); });
-    }
-
-    public override void Render()
-    {
-        RenderState.Push();
-        RenderState.Color = Color.Yellow;
-        Draw.Rect(Position - Size, Position + Size);
-        RenderState.Pop();
     }
 }

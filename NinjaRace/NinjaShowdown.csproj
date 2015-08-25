@@ -368,6 +368,9 @@
     <Content Include="Data\img\tiles\bonus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\img\tiles\cracked.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\img\tiles\FinishTile.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

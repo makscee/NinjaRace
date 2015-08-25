@@ -13,7 +13,7 @@ class LevelEditor : UI.State
     Vec2 draggingVec;
     int vecForSaw1 = -1, vecForSaw2 = -1;
     CheckBox mirror = new CheckBox(20);
-    Button done;
+    Button done, clear;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
         "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile", "CrackedTile" };
@@ -27,9 +27,16 @@ class LevelEditor : UI.State
         cam.Position = new Vec2(100, 100);
         done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
         done.Anchor = new Vec2(0.95, 0.05);
+        clear = new Button("CLEAR", () => 
+        {
+            level = new Level(new Tiles(level.Tiles.GetLength(1), level.Tiles.GetLength(0)), level.Name);
+            RefreshTexture();
+        }, 20);
+        clear.Anchor = new Vec2(0.80, 0.05);
         mirror.Anchor = new Vec2(0.1, 0.95);
         Frame.Add(done);
         Frame.Add(mirror);
+        Frame.Add(clear);
         RefreshTexture();
     }
 
@@ -253,7 +260,7 @@ class LevelEditor : UI.State
         if (world != null)
             world.Dispose();
         Vec2i v = level.Tiles.GetSize();
-        int mult = Math.Max(v.X / App.Width, v.Y / App.Height);
+        int mult = Math.Max(1, Math.Max(v.X / App.Width, v.Y / App.Height));
         world = new Texture(App.Width * mult, App.Height * mult);
         RenderState.BeginTexture(world);
         View t = new View(Math.Max((double)v.Y, (double)v.X / 1.3333));

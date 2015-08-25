@@ -16,7 +16,7 @@ class Program
     {
         font.Smooth = false;
         Manager = new MyManager(new MainMenu());
-        new Game("TEST");
+        //new Game("TEST");
         App.Fullscreen = false;
         App.VSync = VSync;
         DBUtils.Init();

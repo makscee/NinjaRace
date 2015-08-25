@@ -78,22 +78,15 @@ class DBUtils
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if (reader.HasRows)
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    String sType = reader.GetString(5).Trim();
-                    Type type = Type.GetType(sType);
-                    Tile t = (Tile)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
-                    t.ID = reader.GetInt32(0);
-                    if(!reader.IsDBNull(1))
-                        t.Link = reader.GetInt32(1);
-                    level.Tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
-                }
-            }
-            else
-            {
-                throw new Exception("DB: Objects not found.");
+                String sType = reader.GetString(5).Trim();
+                Type type = Type.GetType(sType);
+                Tile t = (Tile)type.GetConstructor(new Type[] { }).Invoke(new object[] { });
+                t.ID = reader.GetInt32(0);
+                if(!reader.IsDBNull(1))
+                    t.Link = reader.GetInt32(1);
+                level.Tiles.AddTile(reader.GetInt32(2), reader.GetInt32(3), t);
             }
             reader.Close();
         }
