@@ -264,6 +264,17 @@ class LevelEditor : UI.State
 		RenderState.Pop();
     }
 
+    void RenderSawsVectors()
+    {
+        foreach (var a in level.Tiles.GetMovingTiles())
+            if (a.GetType() == typeof(Saw))
+            {
+                RenderState.Color = Color.Blue;
+                Draw.Line(a.Position, Tiles.GetPosition(a.Link), 3);
+            }
+        
+    }
+
     Texture world;
     void RefreshTexture()
     {
@@ -277,6 +288,7 @@ class LevelEditor : UI.State
         t.Position = new Vec2(v.X / 2, t.FOV / 2) + Tile.Size;
         t.Apply();
         RenderTiles();
+        RenderSawsVectors();
         RenderState.EndTexture();
     }
 }

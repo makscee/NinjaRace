@@ -174,6 +174,11 @@ class Tiles : IRenderable, IUpdateable
         return new Vec2(Coords.X * Tile.Size.X * 2, Coords.Y * Tile.Size.Y * 2);
     }
 
+    public static Vec2 GetPosition(int id)
+    {
+        return GetPosition(GetCoords(id));
+    }
+
     public void DeleteTile(int id)
     {
         Vec2i coords = GetCoords(id);
