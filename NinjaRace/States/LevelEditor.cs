@@ -20,7 +20,6 @@ class LevelEditor : UI.State
     List<string>.Enumerator TTenum;
 
     bool showdown;
-
     void init()
     {
         TTenum = TileTypes.GetEnumerator();
@@ -61,7 +60,7 @@ class LevelEditor : UI.State
         if (button == MouseButton.Right)
         {
             dragging = true;
-            draggingVec = Program.MousePosition() * cam.FOV / 240;
+            draggingVec = cam.FromWH(Mouse.Position, App.Width, App.Height);
         }
         if (button == MouseButton.Left)
         {
@@ -74,13 +73,13 @@ class LevelEditor : UI.State
 
     int GetY()
     {
-        double t = Program.MousePosition().Y * cam.FOV / 240 + cam.Position.Y;
+        double t = cam.FromWH(Mouse.Position, App.Width, App.Height).Y;
         return (int)Math.Round(t / Tile.Size.Y / 2);
     }
 
     int GetX()
     {
-        double t = Program.MousePosition().X * cam.FOV / 240 + cam.Position.X;
+        double t = cam.FromWH(Mouse.Position, App.Width, App.Height).X;
         return (int)Math.Round(t / Tile.Size.X / 2);
     }
 
@@ -168,8 +167,8 @@ class LevelEditor : UI.State
         base.Update(dt);
         if (dragging)
         {
-            cam.Position += draggingVec - Program.MousePosition() * cam.FOV / 240;
-            draggingVec = Program.MousePosition() * cam.FOV / 240;
+            cam.Position += draggingVec - cam.FromWH(Mouse.Position, App.Width, App.Height);
+            draggingVec = cam.FromWH(Mouse.Position, App.Width, App.Height);
         }
         //level.Update(dt);
         if (MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
@@ -237,7 +236,7 @@ class LevelEditor : UI.State
         Draw.Clear(Color.Black);
         //RenderTiles();
         Vec2 v = level.Tiles.GetSize();
-        Draw.Texture(world, Tile.Size, Tile.Size + new Vec2(v.X, v.X / 1.333));
+        Draw.Texture(world, Tile.Size, Tile.Size + new Vec2(v.X, v.X / (1.0 * App.Width / App.Height)));
         if (vecForSaw1 != -1)
             Draw.Rect(Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) + Tile.Size,
                 Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) - Tile.Size, Color.Green);
@@ -271,10 +270,10 @@ class LevelEditor : UI.State
         if (world != null)
             world.Dispose();
         Vec2i v = level.Tiles.GetSize();
-        int mult = Math.Max(1, Math.Max(v.X / App.Width, v.Y / App.Height));
+        int mult = Math.Min(Math.Max(1, Math.Max(v.X / App.Width, v.Y / App.Height)), 5);
         world = new Texture(App.Width * mult, App.Height * mult);
         RenderState.BeginTexture(world);
-        View t = new View(Math.Max((double)v.Y, (double)v.X / 1.3333));
+        View t = new View(Math.Max((double)v.Y, (double)v.X / (1.0 * App.Width / App.Height)));
         t.Position = new Vec2(v.X / 2, t.FOV / 2) + Tile.Size;
         t.Apply();
         RenderTiles();
