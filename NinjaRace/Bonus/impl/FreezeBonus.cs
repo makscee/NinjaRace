@@ -15,8 +15,13 @@ class FreezeBonus : Bonus
         player.Bonus = () => 
         {
             Player op = player.GetOpponent();
+            if (op.States.IsDead)
+            {
+                e.Dispose();
+                return;
+            }
             op.States.Set(new Frozen(op));
-            Timer t = new Timer(2, () => { op.States.SetFalling(); });
+            Timer t = new Timer(2, () => { if(!op.States.IsDead) op.States.SetFalling(); });
             player.Bonus = () => { };
             e.Dispose();
         };
@@ -25,10 +30,12 @@ class FreezeBonus : Bonus
 
 class Frozen : PlayerState
 {
+    int Dir;
     public Frozen(Player player)
         : base(player)
     {
         player.Velocity = Vec2.Zero;
+        Dir = player.Dir;
     }
 
     AnimatedTexture tex;
@@ -50,7 +57,7 @@ class Frozen : PlayerState
 		RenderState.Color = new Color(0.5, 0.7, 1);
         RenderState.Translate(player.Position - player.Size);
         RenderState.Scale(player.Size * 2);
-        if (player.Dir == -1)
+        if (Dir == -1)
             RenderState.SetOrts(-Vec2.OrtX, Vec2.OrtY, new Vec2(1, 0));
         GetTexture().Render();
 		RenderState.Pop();

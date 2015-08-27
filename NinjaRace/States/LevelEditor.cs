@@ -93,10 +93,21 @@ class LevelEditor : UI.State
         {
             if (currentTile != null && currentTile.GetType() == typeof(Saw))
             {
-                vecForSaw2 = Tiles.GetID(GetX(), GetY());
+                int x1 = Tiles.GetCoords(vecForSaw1).X, x2 = GetX(),
+                    y1 = Tiles.GetCoords(vecForSaw1).Y, y2 = GetY();
+                vecForSaw2 = Tiles.GetID(x2, y2);
                 Saw s = new Saw();
                 s.Link = vecForSaw2;
-                level.Tiles.AddTile(Tiles.GetCoords(vecForSaw1), s);
+                level.Tiles.AddTile(new Vec2i(x1, y1), s);
+
+                if (mirror.Checked)
+                {
+                    s = new Saw();
+                    s.Link = Tiles.GetID(level.Tiles.GetLength(1) - x2, y2);
+                    level.Tiles.AddTile(new Vec2i(level.Tiles.GetLength(1) - x1, y1), s);
+                }
+
+                RefreshTexture();
                 vecForSaw1 = vecForSaw2 = -1;
             }
         }

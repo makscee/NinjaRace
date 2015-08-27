@@ -81,9 +81,7 @@ partial class Player : IUpdateable, IRenderable
         }
         States.Update(dt);
         UpdateSword(dt);
-        if (Position.Y < -50)
-            States.current.Die(Position - Vec2.OrtY);
-        if (Controller.NeedBonus())
+        if (Controller.NeedBonus() && !States.IsDead)
             Bonus.Apply();
     }
 
