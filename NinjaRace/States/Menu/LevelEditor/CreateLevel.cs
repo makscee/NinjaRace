@@ -53,7 +53,7 @@ class CreateLevel : Menu
                 Program.Manager.PushState(
                     new LevelEditor(int.Parse(xInput.Value), int.Parse(yInput.Value), 
                         showdown ? name : Name.Value, showdown));
-            }, 50);
+            }, 50, 120);
         done.Anchor = new Vec2(0.5, 0.1);
         Frame.Add(done);
     }

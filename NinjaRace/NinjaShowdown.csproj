@@ -420,12 +420,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\VPE2\VPE\VPE\VPE.csproj">
+    <ProjectReference Include="..\..\VPE3\VPE\VPE\VPE.csproj">
       <Project>{c11c0612-d2e4-4881-afea-8db29aff5afd}</Project>
       <Name>VPE</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

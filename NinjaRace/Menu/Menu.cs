@@ -11,19 +11,26 @@ class Menu : UI.State
 
     public override void Render()
     {
+        Zoom = 1.0 * App.Height / 480;
         Draw.Clear(Color.Black);
         RenderBackground();
         base.Render();
     }
 
-    private Group<Tuple<UI.Element, int>> ExpandEffect = new Group<Tuple<UI.Element, int>>();
+    private Group<Tuple<UI.Element, double>> ExpandEffect = new Group<Tuple<UI.Element, double>>();
 
-    protected void AddExpandElement(UI.Element element, int width)
+    protected void AddExpandElement(UI.Element element)
     {
-        ExpandEffect.Add(new Tuple<UI.Element, int>(element, width));
+        ExpandEffect.Add(new Tuple<UI.Element, double>(element, (double)element.FixedWidth));
         ExpandEffect.Refresh();
         element.FixedWidth = 50;
         element.TextColor = Color.MultAlpha(element.TextColor, 0);
+        AddElement(element);
+    }
+
+    protected void AddElement(UI.Element element)
+    {
+        Frame.Add(element);
     }
 
     public override void Update(double dt)

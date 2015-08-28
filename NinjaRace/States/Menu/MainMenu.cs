@@ -7,14 +7,12 @@ class MainMenu : Menu
 {
     public MainMenu()
     {
-        Button start = new Button("START", () => { Program.Manager.PushState(new PreGameMenu()); }, 50);
-        AddExpandElement(start, 400);
+        Button start = new Button("START", () => { Program.Manager.PushState(new PreGameMenu()); }, 50, 400);
         start.Anchor = new Vec2(0.5, 0.8);
-        Frame.Add(start);
+        AddExpandElement(start);
 
-        Button le = new Button("LEVEL EDITOR", () => { Program.Manager.PushState(new LevelEditorMenu()); }, 50);
-        AddExpandElement(le, 400);
+        Button le = new Button("LEVEL EDITOR", () => { Program.Manager.PushState(new LevelEditorMenu()); }, 50, 400);
         le.Anchor = new Vec2(0.5, 0.4);
-        Frame.Add(le);
+        AddExpandElement(le);
     }
 }

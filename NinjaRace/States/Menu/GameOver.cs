@@ -10,9 +10,9 @@ class GameOver : Menu
     {
         end = endScreen;
 
-        Button done = new Button("DONE", () => Program.Manager.NextState = new MainMenu(), 50);
+        Button done = new Button("DONE", () => Program.Manager.NextState = new MainMenu(), 50, 200);
         done.Anchor = new Vec2(0.5, 0.2);
-        Frame.Add(done);
+        AddExpandElement(done);
 
         Label congrats = new Label("CONGRATULATIONS " + player + "!", 45);
         congrats.Anchor = new Vec2(0.5, 0.7);

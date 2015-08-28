@@ -24,13 +24,13 @@ class LevelEditor : UI.State
     {
         TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
-        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20);
+        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20, 50);
         done.Anchor = new Vec2(0.95, 0.05);
         clear = new Button("CLEAR", () => 
         {
             level = new Level(new Tiles(level.Tiles.GetLength(1), level.Tiles.GetLength(0)), level.Name);
             RefreshTexture();
-        }, 20);
+        }, 20, 60);
         clear.Anchor = new Vec2(0.80, 0.05);
         mirror.Anchor = new Vec2(0.1, 0.95);
         Frame.Add(done);
