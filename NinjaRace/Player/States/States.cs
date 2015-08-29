@@ -68,6 +68,8 @@ class States : IRenderable, IUpdateable
     public void SetDead()
     {
         Set(dead);
+        player.NextDeath.Apply();
+        player.NextDeath = () => { };
     }
 
     public void SetWalking()

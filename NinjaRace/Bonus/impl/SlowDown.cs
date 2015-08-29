@@ -14,11 +14,11 @@ class SlowDown : Bonus
             {
                 player.GetOpponent().SpeedUp -= 0.25;
                 int lives = player.GetOpponent().Lives;
-                new Timer(5, () =>
+                Timer t = new Timer(5, () =>
                 {
-                    if (player.Lives == lives)
-                        player.SpeedUp += 0.25;
+                    player.GetOpponent().SpeedUp += 0.25;
                 });
+                player.NextDeath += t.Complete;
                 player.Bonus = () => { };
                 e.Dispose();
             };

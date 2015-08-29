@@ -12,9 +12,9 @@ class SpeedUp : Bonus
         Program.World.EffectsTop.Add(e);
         Timer t = new Timer(5, () => 
         {
-            if(player.Lives == lives)
-                player.SpeedUp -= 0.5;
+            player.SpeedUp -= 0.5;
             Program.World.EffectsTop.Remove(e);
         });
+        player.NextDeath += t.Complete;
     }
 }

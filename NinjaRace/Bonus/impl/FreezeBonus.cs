@@ -21,6 +21,7 @@ class FreezeBonus : Bonus
             op.States.Set(new Frozen(op));
             Timer t = new Timer(2, () => { if(!op.States.IsDead) op.States.SetFalling(); });
             player.Bonus = () => { };
+            player.NextDeath += t.Drop;
             e.Dispose();
         };
     }

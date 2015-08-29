@@ -5,15 +5,13 @@ using System.Collections.Generic;
 
 partial class Player : IUpdateable, IRenderable
 {
-    public int Dir = 1;
-    public Vec2 Position, Size;
+    public int Dir = 1, Lives = 3;
+    public Vec2 Position, Size, StartPosition;
     private Vec2 _Velocity;
-    public Vec2 StartPosition;
 
     public Color Color;
     public States States;
     public Action Bonus = () => { };
-    public int Lives = 3;
     public double Speed = 280,
         Acc = 2700,
         Gravity = 1200,
@@ -25,6 +23,7 @@ partial class Player : IUpdateable, IRenderable
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
+    public Action Respawn, NextDeath = () => { };
 
     public Vec2 Velocity
     {
@@ -51,7 +50,6 @@ partial class Player : IUpdateable, IRenderable
             Position = this.StartPosition;
             States.SetFalling();
             CalculateCollisions();
-            SpeedUp = 1;
         };
         Respawn();
         States.SetWalking();
@@ -89,9 +87,6 @@ partial class Player : IUpdateable, IRenderable
     {
         States.Render();
     }
-
-
-    public Action Respawn;
 
     public void ChangeSpawn()
     {
