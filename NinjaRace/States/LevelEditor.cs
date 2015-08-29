@@ -16,7 +16,7 @@ class LevelEditor : UI.State
     Button done, clear;
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
-        "FinishTile", "Saw", "DropTile", "LiftTile", "BonusTile", "CrackedTile" };
+        "FinishTile", "Saw", "BonusTile", "CrackedTile" };
     List<string>.Enumerator TTenum;
 
     bool showdown;
@@ -24,7 +24,7 @@ class LevelEditor : UI.State
     {
         TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
-        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreTiles(level); this.Close(); }, 20, 50);
+        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreLevel(level); this.Close(); }, 20, 50);
         done.Anchor = new Vec2(0.95, 0.05);
         clear = new Button("CLEAR", () => 
         {
@@ -33,6 +33,7 @@ class LevelEditor : UI.State
         }, 20, 60);
         clear.Anchor = new Vec2(0.80, 0.05);
         mirror.Anchor = new Vec2(0.1, 0.95);
+        mirror.Checked = true;
         Frame.Add(done);
         Frame.Add(mirror);
         Frame.Add(clear);
@@ -119,7 +120,7 @@ class LevelEditor : UI.State
             Close();
         if (key == Key.Enter)
         {
-            DBUtils.StoreTiles(level);
+            DBUtils.StoreLevel(level);
             Close();
         }
         if (key == Key.E)

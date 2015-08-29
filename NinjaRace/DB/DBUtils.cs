@@ -93,7 +93,7 @@ class DBUtils
         return level;
     }
 
-    public static void StoreTiles(Level level)
+    public static void StoreLevel(Level level)
     {
         using (SqlConnection connection = new SqlConnection(connectionString))
         {

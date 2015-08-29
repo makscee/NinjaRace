@@ -32,7 +32,7 @@ class EditLevel : Menu
         {
             Close();
             Program.Manager.PushState(new LevelEditor(Levels[LevelNum], Showdown.Checked));
-        }, 60, 120);
+        }, 60, 150);
         Done.Anchor = new Vec2(0.5, 0.2);
 
         Frame.Add(Done);
