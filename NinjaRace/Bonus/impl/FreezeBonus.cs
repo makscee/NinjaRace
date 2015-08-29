@@ -5,12 +5,10 @@ using System.Timers;
 
 class FreezeBonus : Bonus
 {
-    public void Get(Player player)
+    public override void Get(Player player)
     {
         Effect e = new BonusOnScreen(new Texture("./Data/img/bonuses/freeze.png"), player);
-        foreach (var a in Program.World.EffectsScreen)
-            if (a.GetType() == typeof(BonusOnScreen) && ((BonusOnScreen)a).player == player)
-                a.Dispose();
+        RemoveBonusOnScreen(player);
         Program.World.EffectsScreen.Add(e);
         player.Bonus = () => 
         {

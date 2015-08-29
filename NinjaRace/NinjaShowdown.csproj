@@ -91,6 +91,10 @@
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
+    <Compile Include="Effects\impl\SpeedUpEffect.cs" />
+    <Compile Include="Effects\Particle.cs" />
+    <Compile Include="Effects\ParticleEngine.cs" />
+    <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
     <Compile Include="States\Menu\LevelEditor\EditLevel.cs" />
