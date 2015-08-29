@@ -91,6 +91,7 @@
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
+    <Compile Include="Effects\impl\SlowDownEffect.cs" />
     <Compile Include="Effects\impl\SpeedUpEffect.cs" />
     <Compile Include="Effects\Particle.cs" />
     <Compile Include="Effects\ParticleEngine.cs" />

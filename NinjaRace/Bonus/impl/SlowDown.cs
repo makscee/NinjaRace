@@ -12,13 +12,17 @@ class SlowDown : Bonus
         Program.World.EffectsScreen.Add(e);
         player.Bonus = () =>
             {
-                player.GetOpponent().SpeedUp -= 0.25;
-                int lives = player.GetOpponent().Lives;
+                Player op = player.GetOpponent();
+                op.SpeedUp -= 0.25;
+                int lives = op.Lives;
+                Effect sd = new SlowDownEffect(op);
+                Program.World.EffectsTop.Add(sd);
                 Timer t = new Timer(5, () =>
                 {
-                    player.GetOpponent().SpeedUp += 0.25;
+                    op.SpeedUp += 0.25;
+                    Program.World.EffectsTop.Remove(sd);
                 });
-                player.NextDeath += t.Complete;
+                op.NextDeath += t.Complete;
                 player.Bonus = () => { };
                 e.Dispose();
             };

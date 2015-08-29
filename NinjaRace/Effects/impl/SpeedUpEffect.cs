@@ -14,7 +14,7 @@ class SpeedUpEffect : Effect
         .SetParticleInitAction((PixelParticle p) => 
             {
                 p.NeedVel = Vec2.Rotate(new Vec2(-player.Dir, 0), Program.Random.NextDouble(-Math.PI / 6, Math.PI / 6));
-                p.Color = Color.Orange;
+                p.Color = Color.Green;
                 p.Acc = 1200;
                 p.Speed = 300;
             })
