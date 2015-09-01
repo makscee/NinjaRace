@@ -19,7 +19,7 @@ class SlowDown : Bonus
                 Program.World.EffectsTop.Add(sd);
                 Timer t = new Timer(5, () =>
                 {
-                    op.SpeedUp += 0.25;
+                    op.SpeedUp += 0.25;  
                     Program.World.EffectsTop.Remove(sd);
                 });
                 op.NextDeath += t.Complete;

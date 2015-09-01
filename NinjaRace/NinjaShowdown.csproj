@@ -40,11 +40,52 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -97,6 +138,9 @@
     <Compile Include="Effects\ParticleEngine.cs" />
     <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="States\Menu\EditControls.cs" />
+    <Compile Include="States\Menu\KeyPress.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
     <Compile Include="States\Menu\LevelEditor\EditLevel.cs" />
     <Compile Include="States\Menu\LevelEditor\LevelEditorMenu.cs" />
@@ -113,8 +157,6 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\TextInput.cs" />
     <Compile Include="Player\Controllers\IController.cs" />
-    <Compile Include="Player\Controllers\Player1.cs" />
-    <Compile Include="Player\Controllers\Player2.cs" />
     <Compile Include="States\LevelEditor.cs" />
     <Compile Include="Player\Controllers\PlayerController.cs" />
     <Compile Include="Player\States\impl\Dash.cs" />
@@ -163,6 +205,7 @@
     <Compile Include="States\Game\PreGame.cs" />
     <Compile Include="States\Menu\PreGameMenu.cs" />
     <Compile Include="States\Game\Showdown.cs" />
+    <Compile Include="States\Menu\SettingsMenu.cs" />
     <Compile Include="Timer\Timer.cs" />
     <Compile Include="Timer\TimerContainer.cs" />
     <Compile Include="World.cs" />

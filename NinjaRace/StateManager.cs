@@ -63,6 +63,15 @@ class MyManager : State.Manager
 		RenderState.Pop();
     }
 
+    void NoAnimationRender()
+    {
+        RenderState.Push();
+        RenderState.Scale(2);
+        RenderState.Origin(0.5, 0.5);
+        tex.Render();
+        RenderState.Pop();
+    }
+
     double fps = 0;
     Stopwatch sw = new Stopwatch();
 
@@ -74,7 +83,9 @@ class MyManager : State.Manager
         base.Render();
 		RenderState.EndTexture();
         tex.RemoveAlpha();
-        DefaultRender();
+        if (!((Previous != null && Previous.GetType() == typeof(KeyPress)) || (Current != null && Current.GetType() == typeof(KeyPress))))
+            DefaultRender();
+        else NoAnimationRender();
         RenderState.Push();
         Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
         RenderState.Color = (Color.Yellow);

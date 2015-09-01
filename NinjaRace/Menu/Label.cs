@@ -10,4 +10,10 @@ class Label : UI.Label
         BackgroundColor = new Color(0.2, 0.2, 0.2);
         Font = Program.font;
     }
+
+    public Label(string text, double size, double width)
+        : this(text, size)
+    {
+        FixedWidth = width;
+    }
 }

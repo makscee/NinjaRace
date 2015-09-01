@@ -14,7 +14,6 @@ class World : IUpdateable
     View cam1 = new View(240), cam2 = new View(240), cam = new View(360), screenCam = new View(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
-    public Texture background;
 
     private void Init()
     {
@@ -22,9 +21,9 @@ class World : IUpdateable
         Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
 
         player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
-            Color.White).SetControls(new ControllerPlayer1());
+            Color.White).SetControls(Program.Settings.GetPlayer1Controller());
         player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
-            new Color(0.5, 0.7, 0.7)).SetControls(new ControllerPlayer2());
+            new Color(0.5, 0.7, 0.7)).SetControls(Program.Settings.GetPlayer2Controller());
         player2.Dir = -1;
         cam1.Position = player1.Position;
         cam2.Position = player2.Position;
@@ -146,19 +145,19 @@ class World : IUpdateable
 
     private void DrawBackground(Player player)
     {
-        if (background == null)
-            return;
-		RenderState.Push();
-        new Camera(360).Apply();
-        Vec2 offset = new Vec2(player.Position.X / 3, 0);
-        offset = new Vec2(offset.X - App.Width * Math.Floor(offset.X / App.Width), 0);
-		RenderState.Translate(-offset);
-		RenderState.Scale(App.Width / 2, App.Height / 3);
-		RenderState.Scale(2);
-		RenderState.Origin(0.5, 0.5);
-        background.Render();
-		RenderState.Translate(new Vec2(1, 0));
-        background.Render();
-		RenderState.Pop();
+        //if (background == null)
+        //    return;
+        //RenderState.Push();
+        //new Camera(360).Apply();
+        //Vec2 offset = new Vec2(player.Position.X / 3, 0);
+        //offset = new Vec2(offset.X - App.Width * Math.Floor(offset.X / App.Width), 0);
+        //RenderState.Translate(-offset);
+        //RenderState.Scale(App.Width / 2, App.Height / 3);
+        //RenderState.Scale(2);
+        //RenderState.Origin(0.5, 0.5);
+        //background.Render();
+        //RenderState.Translate(new Vec2(1, 0));
+        //background.Render();
+        //RenderState.Pop();
     }
 }
