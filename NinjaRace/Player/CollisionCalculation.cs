@@ -7,6 +7,7 @@ partial class Player
 {
     public void CalculateCollisions()
     {
+        List<Tuple<Tile, Side>> Effects = new List<Tuple<Tile, Side>>();
         Tiles tiles = Program.World.level.Tiles;
         collisions[Side.Left].Clear();
         collisions[Side.Right].Clear();
@@ -20,7 +21,7 @@ partial class Player
                 if (t != null && CollisionBox.Collide(Box, t.Box) && ((t.Position - Position).Length < (Tile.Size + Size).Length - 1))
                 {
                     Side s = Box.Collide(t.Box);
-                    t.Effect(this, s);
+                    Effects.Add(new Tuple<Tile, Side>(t, s));
                     if (t.IsMark)
                     {
                         continue;
@@ -39,6 +40,8 @@ partial class Player
                 }
                 collisions[s].Add(t);
             }
+        foreach (var a in Effects)
+            a.Item1.Effect(this, a.Item2);
     }
 
     public void CollisionHits()

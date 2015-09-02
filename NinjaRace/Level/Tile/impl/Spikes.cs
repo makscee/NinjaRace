@@ -5,6 +5,7 @@ using System;
 [Serializable]
 class Spikes : Tile
 {
+    
     protected override void LoadTexture()
     {
         tex = new AnimatedTexture(new Texture("./Data/img/tiles/spikes.png"));
@@ -12,6 +13,16 @@ class Spikes : Tile
 
     public override void Effect(Player player, Side side)
     {
-        player.States.current.Die(Position);
+        if (!player.collisions[Side.Down].Contains(this))
+            player.States.current.Die(Position);
+        else
+        {
+            foreach (var a in player.collisions[Side.Down])
+            {
+                if (a.GetType() == typeof(Ground))
+                    return;
+            }
+            player.States.current.Die(Position);
+        }
     }
 }
