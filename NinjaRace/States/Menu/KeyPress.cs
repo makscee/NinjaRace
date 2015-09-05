@@ -18,6 +18,7 @@ class KeyPress : Menu
     public override void KeyDown(Key key)
     {
         KeySet.Apply(key);
+        Program.Settings.Apply();
         Close();
     }
 

@@ -16,9 +16,9 @@ class Settings
         P2Left = Key.Left,
         P2Right = Key.Right,
         P2Down = Key.Down,
-        P2Jump = Key.Number1,
-        P2Bonus = Key.Number2,
-        P2Sword = Key.Number3;
+        P2Jump = Key.Keypad1,
+        P2Bonus = Key.Keypad2,
+        P2Sword = Key.Keypad3;
 
     public void Apply()
     {
