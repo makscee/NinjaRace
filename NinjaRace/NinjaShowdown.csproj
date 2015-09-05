@@ -129,6 +129,7 @@
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\impl\BonusGet.cs" />
     <Compile Include="Effects\impl\BonusOnScreen.cs" />
+    <Compile Include="Effects\impl\ExplosionEffect.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Effects\impl\SpeedUpEffect.cs" />
     <Compile Include="Effects\Particle.cs" />
     <Compile Include="Effects\ParticleEngine.cs" />
+    <Compile Include="Effects\ParticleExplosion.cs" />
     <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="Settings.cs" />
@@ -219,6 +221,9 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="Data\img\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\bonuses\fast.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\bonuses\freeze.png">

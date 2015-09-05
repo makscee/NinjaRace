@@ -4,6 +4,7 @@ using System;
 
 abstract class Bonus
 {
+    public abstract Texture GetTexture();
     public abstract void Get(Player player);
     protected void RemoveBonusOnScreen(Player player)
     {

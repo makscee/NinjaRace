@@ -5,41 +5,25 @@ using System.Collections.Generic;
 
 class BonusGet : Effect
 {
-    Group<GlowingParticle> particles = new Group<GlowingParticle>();
-    Player player;
-
-    public BonusGet(Vec2 pos, Player player)
+    Texture Tex;
+    Timer Timer;
+    public BonusGet(Vec2 pos, Bonus bonus)
         : base(pos)
     {
-        this.player = player;
-        for (int i = 0; i < 15; i++)
-        {
-            particles.Add(new GlowingParticle(pos, new Vec2(15, 15), Color.Green)
-                .SetVelocity(Vec2.Rotate(Vec2.OrtX * 500 * Program.Random.NextDouble(1, 2), Math.PI / 15 * i))
-                .SetSpeed(2000)
-                .SetAcc(50));
-        }
+        Tex = bonus.GetTexture().Copy();
+        Timer = new Timer(1, () => { this.Dispose(); Program.World.EffectsMid.Add(new ExplosionEffect(pos)); });
     }
 
     public override void Update(double dt)
     {
-        foreach (var a in particles)
-        {
-            a.SetNeedVelocity(player.Position - a.Position);
-            a.Update(dt);
-            if ((a.Position - player.Position).Length < 20)
-            {
-                a.Dispose();
-                particles.Remove(a);
-            }
-        }
-        particles.Refresh();
-        if (particles.Count == 0)
-            Dispose();
+        Position = Position + new Vec2(0, 30 * dt);
     }
 
     public override void Render()
     {
-        particles.Render();
+        RenderState.Push();
+        RenderState.Color = new Color(1, 1, 1, 1 - Timer.Elapsed * Timer.Elapsed);
+        Draw.Texture(Tex, Position - Tile.Size, Position + Tile.Size);
+        RenderState.Pop();
     }
 }

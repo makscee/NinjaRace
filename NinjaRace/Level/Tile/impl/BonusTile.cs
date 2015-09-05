@@ -15,8 +15,9 @@ class BonusTile : Tile
     {
         Program.World.level.Tiles.DeleteTile(ID);
         new Timer(4, () => { Program.World.level.Tiles.AddTile(Tiles.GetCoords(ID), new BonusTile()); });
-        Program.World.EffectsTop.Add(new BonusGet(Position, player));
-        bonuses[Program.Random.Next(bonuses.Count)].Get(player);
+        Bonus b = bonuses[Program.Random.Next(bonuses.Count)];
+        Program.World.EffectsTop.Add(new BonusGet(Position, b));
+        b.Get(player);
     }
 
     protected override void LoadTexture()

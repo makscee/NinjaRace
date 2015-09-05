@@ -1,13 +1,17 @@
 ﻿using System;
-using System.Timers;
 using VitPro;
 using VitPro.Engine;
 
 class SlowDown : Bonus
 {
+    static Texture Tex = new Texture("./Data/img/bonuses/slow.png");
+    public override Texture GetTexture()
+    {
+        return Tex;
+    }
     public override void Get(Player player)
     {
-        Effect e = new BonusOnScreen(new Texture("./Data/img/bonuses/slow.png"), player);
+        Effect e = new BonusOnScreen(Tex.Copy(), player);
         RemoveBonusOnScreen(player);
         Program.World.EffectsScreen.Add(e);
         player.Bonus = () =>

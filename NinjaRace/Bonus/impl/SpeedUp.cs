@@ -4,6 +4,11 @@ using VitPro;
 
 class SpeedUp : Bonus
 {
+    static Texture Tex = new Texture("./Data/img/bonuses/fast.png");
+    public override Texture GetTexture()
+    {
+        return Tex;
+    }
     public override void Get(Player player)
     {
         player.SpeedUp += 0.5;

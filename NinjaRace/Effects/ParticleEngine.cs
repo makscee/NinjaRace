@@ -9,7 +9,7 @@ class ParticleEngine<T> : IUpdateable, IRenderable where T : Particle
     Group<T> Particles = new Group<T>();
     double Frequency, Life;
     double Time = 0;
-    int ProduceAmount = 1;
+    protected int ProduceAmount = 1;
 
     public ParticleEngine(double frequency, double life, Vec2 position)
     {
@@ -23,7 +23,7 @@ class ParticleEngine<T> : IUpdateable, IRenderable where T : Particle
         Life = life;
         EngineUpdateAction = engineUpdate;
     }
-    public void Update(double dt)
+    public virtual void Update(double dt)
     {
         Time += dt;
         if (ParticleUpdateAction != null)
@@ -72,7 +72,7 @@ class ParticleEngine<T> : IUpdateable, IRenderable where T : Particle
         ParticleUpdateAction = a;
         return this;
     }
-    private void AddParticle(T p)
+    protected void AddParticle(T p)
     {
         Particles.Add(p);
         if (ParticleInitAction != null)
