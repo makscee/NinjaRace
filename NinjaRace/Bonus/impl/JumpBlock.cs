@@ -20,7 +20,7 @@ class JumpBlock : Bonus
             op.States.CanJump = false;
             Effect jb = new JumpBlockEffect(op);
             Program.World.EffectsTop.Add(jb);
-            Timer t = new Timer(5, () =>
+            Timer t = new Timer(3, () =>
             {
                 op.States.CanJump = true;
                 Program.World.EffectsTop.Remove(jb);

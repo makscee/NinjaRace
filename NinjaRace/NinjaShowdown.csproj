@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bonus\impl\JumpBlock.cs" />
+    <Compile Include="Bonus\impl\Missle.cs" />
     <Compile Include="Collision\CollisionBox.cs" />
     <Compile Include="DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -134,6 +135,7 @@
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\JumpBlockEffect.cs" />
+    <Compile Include="Effects\impl\MissleEffect.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Effects\impl\SlowDownEffect.cs" />
     <Compile Include="Effects\impl\SpeedUpEffect.cs" />
@@ -232,6 +234,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\bonuses\jumpblock.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\bonuses\missle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\bonuses\slow.png">
