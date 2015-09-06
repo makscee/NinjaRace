@@ -11,7 +11,7 @@ class BonusGet : Effect
         : base(pos)
     {
         Tex = bonus.GetTexture().Copy();
-        Timer = new Timer(1, () => { this.Dispose(); Program.World.EffectsMid.Add(new ExplosionEffect(pos)); });
+        Timer = new Timer(1, () => { this.Dispose(); Program.World.EffectsMid.Add(new ExplosionEffect(Position)); });
     }
 
     public override void Update(double dt)

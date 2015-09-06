@@ -18,7 +18,6 @@ class SlowDown : Bonus
             {
                 Player op = player.GetOpponent();
                 op.SpeedUp -= 0.25;
-                int lives = op.Lives;
                 Effect sd = new SlowDownEffect(op);
                 Program.World.EffectsTop.Add(sd);
                 Timer t = new Timer(5, () =>

@@ -77,8 +77,12 @@ class States : IRenderable, IUpdateable
         Set(walking);
     }
 
+    public bool CanJump = true;
+
     public void Jump()
     {
+        if (!CanJump)
+            return;
         if (current == walking)
         {
             Set(jump);
