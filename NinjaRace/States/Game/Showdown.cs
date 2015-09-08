@@ -38,7 +38,6 @@ class Showdown : UI.State
     }
     public override void Update(double dt)
     {
-        TimerContainer.Update(dt);
         if (finished)
         {
             dt /= 7;

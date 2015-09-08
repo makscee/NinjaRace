@@ -12,6 +12,7 @@ class Dead : PlayerState
         tex = new AnimatedTexture();
         for(int i = 1; i <= 7; i++)
             tex.Add(new Texture("./Data/img/player/death/death" + i + ".png"), 0.04);
+        tex.Loopable = false;
     }
     public override AnimatedTexture GetTexture()
     {
@@ -32,8 +33,7 @@ class Dead : PlayerState
     }
     public override void Update(double dt)
     {
-        if (!tex.HasLooped)
-            tex.Update(dt);
+        tex.Update(dt);
         player.Velocity -= Vec2.Clamp(new Vec2(0, player.Velocity.Y + player.Gravity), player.GAcc * dt);
         bool touch = false;
         if (GetTime() > DeathTime)

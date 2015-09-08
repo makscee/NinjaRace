@@ -22,7 +22,6 @@ class Game : State
     {
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
-        TimerContainer.Update(dt);
     }
     public void Finish(Player player)
     {

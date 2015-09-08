@@ -149,6 +149,7 @@ class World : IUpdateable
     public double SlowTime = 1;
     public void Update(double dt)
     {
+        TimerContainer.Update(dt);
         if (SlowTime < 0.5)
             SlowTime += dt / 2;
         else SlowTime = 1;
