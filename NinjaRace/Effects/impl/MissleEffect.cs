@@ -4,8 +4,8 @@ using System;
 
 class MissleEffect : Effect
 {
-    Player Player;
-    PixelParticle MainParticle;
+    public Player Player;
+    public PixelParticle MainParticle;
     ParticleEngine<PixelParticle> Engine;
     public MissleEffect(Player player)
         : base(player.Position)
@@ -13,7 +13,7 @@ class MissleEffect : Effect
         Player = player.GetOpponent();
         MainParticle = new PixelParticle();
         MainParticle.Acc = 2400;
-        MainParticle.Speed = 1000;
+        MainParticle.Speed = 800;
         MainParticle.Size = new Vec2(2, 2);
         MainParticle.Position = player.Position;
         MainParticle.Color = Color.Red;

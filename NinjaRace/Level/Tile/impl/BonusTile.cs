@@ -10,7 +10,7 @@ class BonusTile : Tile
         Mark = true;
     }
 
-    List<Bonus> bonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(), new JumpBlock(), new Missle() };
+    List<Bonus> bonuses = new List<Bonus>() { /*new SpeedUp(), new FreezeBonus(), new SlowDown(), new JumpBlock(),*/ new Missle() };
     public override void Effect(Player player, Side side)
     {
         Program.World.level.Tiles.DeleteTile(ID);

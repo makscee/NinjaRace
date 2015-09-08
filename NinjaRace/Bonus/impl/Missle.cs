@@ -16,8 +16,9 @@ class Missle : Bonus
         Program.World.EffectsScreen.Add(e);
         player.Bonus = () =>
         {
-            Effect m = new MissleEffect(player);
+            MissleEffect m = new MissleEffect(player);
             Program.World.EffectsTop.Add(m);
+            Program.World.CurrentMissle = m;
             player.Bonus = () => { };
             e.Dispose();
         };

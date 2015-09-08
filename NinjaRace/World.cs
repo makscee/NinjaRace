@@ -11,6 +11,8 @@ class World : IUpdateable
     public Group<Effect> EffectsScreen = new Group<Effect>();
     public Player player1, player2;
     public Level level;
+    public MissleEffect CurrentMissle = null;
+    Label MissleDistance = new Label("123", 40);
     View cam1 = new View(240), cam2 = new View(240), cam = new View(360), screenCam = new View(120);
     Vec2 camOffset = new Vec2(0, 120);
     public double Time = 0;
@@ -27,6 +29,8 @@ class World : IUpdateable
         player2.Dir = -1;
         cam1.Position = player1.Position;
         cam2.Position = player2.Position;
+        MissleDistance.BackgroundColor = Color.White;
+        MissleDistance.Anchor = new Vec2(0.7, 0.5);
     }
 
     public World(string level)
@@ -96,6 +100,34 @@ class World : IUpdateable
         RenderState.EndArea();
         RenderState.Pop();
 
+        
+        if (EffectsTop.Contains(CurrentMissle))
+        {
+            RenderState.Push();
+            Vec2i WindowSize = new Vec2i(RenderState.Height / 6, RenderState.Height / 6);
+            RenderState.BeginArea(new Vec2i(RenderState.Width / 2, RenderState.Height / 2) - WindowSize / 2,
+                WindowSize);
+            View m = new View(120);
+            m.Position = CurrentMissle.MainParticle.Position;
+            m.Apply();
+            level.Tiles.RenderBackground();
+            EffectsBot.Render();
+            level.RenderArea(CurrentMissle.MainParticle.Position, new Vec2(150, 150));
+            EffectsMid.Render();
+            player2.Render();
+            player1.Render();
+            EffectsTop.Render();
+            RenderState.EndArea();
+            RenderState.Pop();
+            RenderState.Push();
+            RenderState.View2d(0, 0, RenderState.Width, RenderState.Height);
+            RenderState.Translate(RenderState.Width / 1.7, RenderState.Height / 2);
+            RenderState.Scale(RenderState.Height / 15);
+            RenderState.Origin(0.5, 0.5);
+            Program.font.Render(Math.Floor((CurrentMissle.MainParticle.Position - CurrentMissle.Player.Position).Length).ToString());
+            RenderState.Pop();
+        }
+
 		RenderState.Push();
         screenCam.Apply();
         if(RenderScreenEffects)
@@ -135,7 +167,7 @@ class World : IUpdateable
     public void KeyDown(Key key)
     {
         player1.Controller.KeyDown(key);
-        player2.Controller.KeyDown(key);
+        player2.Controller.KeyDown(key); 
     }
     public void KeyUp(Key key)
     {
