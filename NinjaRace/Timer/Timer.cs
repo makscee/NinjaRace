@@ -43,24 +43,24 @@ class Timer : IUpdateable
 
     public bool IsDone
     {
-        get { return elapsed > life; }
+        get { return elapsed >= life; }
     }
 
     public void Update(double dt)
     {
         if (!Alive)
             return;
-        if (elapsed > life)
-        {
-            TimerContainer.Timers.Remove(this);
-            return;
-        }
         elapsed += dt;
         elapsedPart += dt;
         if (elapsedPart > period)
         {
             Callback.Invoke();
             elapsedPart = 0;
+        }
+        if (elapsed > life)
+        {
+            TimerContainer.Timers.Remove(this);
+            return;
         }
     }
 

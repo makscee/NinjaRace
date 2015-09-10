@@ -8,12 +8,6 @@ partial class Player
     Timer t = new Timer(0, () => {});
     bool _EnableSword = true;
 
-    public Player EnableSword()
-    {
-        _EnableSword = true;
-        return this;
-    }
-
     public Player GetOpponent()
     {
         return (Program.World.player1 == this) ? Program.World.player2 : Program.World.player1;
@@ -27,7 +21,7 @@ partial class Player
 
     public void UpdateSword(double dt)
     {
-        if (Controller.NeedSwing() && _EnableSword && t.IsDone)
+        if (Controller.NeedSwing() && t.IsDone)
         {
             t = new Timer(Delay, DoSwing);
         }
