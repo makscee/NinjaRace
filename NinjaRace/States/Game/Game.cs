@@ -26,13 +26,17 @@ class Game : State
     public void Finish(Player player)
     {
         new Showdown(World.level.Name.Trim() + "_S", World.player1 == player ? true : false);
+        TimerContainer.Clear();
         Close();
     }
     public override void KeyDown(Key key)
     {
         World.KeyDown(key);
         if (key == Key.Escape)
+        {
             Close();
+            TimerContainer.Clear();
+        }
     }
 
     public override void KeyUp(Key key)

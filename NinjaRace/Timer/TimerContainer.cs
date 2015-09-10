@@ -12,4 +12,10 @@ static class TimerContainer
         Timers.Update(dt);
         Timers.Refresh();
     }
+
+    public static void Clear()
+    {
+        Timers.Clear();
+        Timers.Refresh();
+    }
 }

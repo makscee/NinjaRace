@@ -59,6 +59,7 @@ class Showdown : UI.State
                 Render();
                 RenderState.EndTexture();
                 Program.Manager.NextState = new GameOver(s, tex);
+                TimerContainer.Clear();
             });
         }
     }
@@ -66,7 +67,10 @@ class Showdown : UI.State
     {
         World.KeyDown(key);
         if (key == Key.Escape)
+        {
+            TimerContainer.Clear();
             Close();
+        }
     }
 
     public override void KeyUp(Key key)
