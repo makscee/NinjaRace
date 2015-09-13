@@ -103,29 +103,7 @@ class World : IUpdateable
         
         if (EffectsTop.Contains(CurrentMissle))
         {
-            RenderState.Push();
-            Vec2i WindowSize = new Vec2i(RenderState.Height / 6, RenderState.Height / 6);
-            RenderState.BeginArea(new Vec2i(RenderState.Width / 2, RenderState.Height / 2) - WindowSize / 2,
-                WindowSize);
-            View m = new View(120);
-            m.Position = CurrentMissle.MainParticle.Position;
-            m.Apply();
-            level.Tiles.RenderBackground();
-            EffectsBot.Render();
-            level.RenderArea(CurrentMissle.MainParticle.Position, new Vec2(150, 150));
-            EffectsMid.Render();
-            player2.Render();
-            player1.Render();
-            EffectsTop.Render();
-            RenderState.EndArea();
-            RenderState.Pop();
-            RenderState.Push();
-            RenderState.View2d(0, 0, RenderState.Width, RenderState.Height);
-            RenderState.Translate(RenderState.Width / 1.7, RenderState.Height / 2);
-            RenderState.Scale(RenderState.Height / 15);
-            RenderState.Origin(0.5, 0.5);
-            Program.font.Render(Math.Floor((CurrentMissle.MainParticle.Position - CurrentMissle.Player.Position).Length).ToString());
-            RenderState.Pop();
+            MissleEffectRender();
         }
 
 		RenderState.Push();
@@ -133,6 +111,39 @@ class World : IUpdateable
         if(RenderScreenEffects)
             EffectsScreen.Render();
 		RenderState.Pop();
+    }
+
+    private void MissleEffectRender()
+    {
+        RenderState.Push();
+        Vec2i WindowSize = new Vec2i(RenderState.Height / 6, RenderState.Height / 6);
+        RenderState.BeginArea(new Vec2i(RenderState.Width / 2, RenderState.Height / 2) - WindowSize / 2,
+            WindowSize);
+        View m = new View(120);
+        m.Position = CurrentMissle.MainParticle.Position;
+        m.Apply();
+        level.Tiles.RenderBackground();
+        EffectsBot.Render();
+        level.RenderArea(CurrentMissle.MainParticle.Position, new Vec2(150, 150));
+        EffectsMid.Render();
+        player2.Render();
+        player1.Render();
+        EffectsTop.Render();
+        RenderState.EndArea();
+        RenderState.Pop();
+        RenderState.Push();
+        RenderState.View2d(0, 0, RenderState.Width, RenderState.Height);
+        RenderState.Translate(RenderState.Width / 1.6, RenderState.Height / 2);
+        double t = (CurrentMissle.MainParticle.Position - CurrentMissle.Player.Position).Length;
+        RenderState.Scale(RenderState.Height / 15);
+        if (t < 1500)
+        {
+            RenderState.Color = new Color(1, t / 750, t / 1500);
+            RenderState.Scale(2 - t / 1500);
+        }
+        RenderState.Origin(0.5, 0.5);
+        Program.font.Render(Math.Floor(t).ToString());
+        RenderState.Pop();
     }
 
     private void UpdateForPlayer(double dt, Player player)
