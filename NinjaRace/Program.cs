@@ -25,7 +25,7 @@ class Program
         Settings.Apply();
         font.Smooth = false;
         Manager = new MyManager(new MainMenu());
-        //new Game("TEST");
+        new Showdown("FIRST_S", true);
         DBUtils.Init();
         App.Run(Manager);
     }

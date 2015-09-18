@@ -8,6 +8,7 @@ class Menu : UI.State
 {
     public Group<Effect> EffectsTop = new Group<Effect>();
     public Group<Effect> EffectsBot = new Group<Effect>();
+    bool KeyboardMode = false;
 
     public override void Render()
     {
@@ -55,10 +56,81 @@ class Menu : UI.State
     {
     }
 
+    UI.Element Selected = null;
     public override void KeyDown(Key key)
     {
         base.KeyDown(key);
         if (key == Key.Escape)
             Close();
+        if (key == Key.Down)
+        {
+            KeyboardMode = true;
+            SelectNext(-Vec2.OrtY);
+        }
+    }
+
+    void SelectNext(Vec2 dir)
+    {
+        if (Selected == null)
+        {
+            
+        }
+        double y = Selected.Anchor.Value.Y;
+        UI.Element Next = null;
+        foreach (var a in Frame.Children)
+        {
+            if (a is Label)
+                continue;
+            Vec2 v;
+            if (a.Anchor == null)
+                continue;
+            else v = a.Anchor.Value;
+            if (Selected == null)
+            {
+                Selected = a;
+                continue;
+            }
+            if (Next == null)
+            {
+                Next = a;
+                continue;
+            }
+        }
+    }
+    bool IsBot(Vec2 p)
+    {
+        foreach (var a in Frame.Children)
+        {
+            if (a.Anchor != null && a.Anchor.Value.Y < p.Y)
+                return false;
+        }
+        return true;
+    }
+    bool IsTop(Vec2 p)
+    {
+        foreach (var a in Frame.Children)
+        {
+            if (a.Anchor != null && a.Anchor.Value.Y > p.Y)
+                return false;
+        }
+        return true;
+    }
+    bool IsLeft(Vec2 p)
+    {
+        foreach (var a in Frame.Children)
+        {
+            if (a.Anchor != null && a.Anchor.Value.X < p.X)
+                return false;
+        }
+        return true;
+    }
+    bool IsRight(Vec2 p)
+    {
+        foreach (var a in Frame.Children)
+        {
+            if (a.Anchor != null && a.Anchor.Value.X > p.X)
+                return false;
+        }
+        return true;
     }
 }

@@ -145,6 +145,7 @@
     <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="States\Game\PreShowdown.cs" />
     <Compile Include="States\Menu\EditControls.cs" />
     <Compile Include="States\Menu\KeyPress.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
@@ -426,6 +427,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\player\wallgrab\wallgrab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\showdown.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\tiles\bonus.png">

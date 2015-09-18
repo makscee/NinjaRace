@@ -22,7 +22,7 @@ class Showdown : UI.State
         World.player2.Respawn = World.player2.ChangeSpawn + World.player2.Respawn;
 
         Program.Manager.PushState(this);
-        Program.Manager.PushState(new PreGame(World));
+        Program.Manager.PushState(new PreShowdown(World));
     }
 
     public override void Render()
