@@ -17,9 +17,9 @@ class PreShowdown : VitPro.Engine.UI.State
     void Sign()
     {
         double T1, T2 = 1;
-        if (Time < 3)
+        if (Time < 2)
             return;
-        else T1 = Time - 3;
+        else T1 = Time - 2;
         if (Time > 4)
             T2 = 5 - Time;
         RenderState.Push();

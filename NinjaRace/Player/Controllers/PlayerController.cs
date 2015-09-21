@@ -20,6 +20,7 @@ class PlayerController : IController
         Bonus = bonus;
         Sword = sword;
     }
+    public PlayerController() { }
     public bool NeedJump()
     {
         bool t = _NeedJump;

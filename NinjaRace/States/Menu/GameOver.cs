@@ -4,33 +4,35 @@ using System;
 
 class GameOver : Menu
 {
-    Texture end;
-    Camera cam = new Camera(1);
-    public GameOver(string player, Texture endScreen)
+    View cam = new View(80);
+    Player Winner;
+    public GameOver(Player player)
     {
-        end = endScreen;
-
         Button done = new Button("DONE", () => Program.Manager.NextState = new MainMenu(), 50, 200);
-        done.Anchor = new Vec2(0.5, 0.2);
+        done.Anchor = new Vec2(0.6, 0.2);
         AddExpandElement(done);
 
-        Label congrats = new Label("CONGRATULATIONS " + player + "!", 45);
-        congrats.Anchor = new Vec2(0.5, 0.7);
-        Frame.Add(congrats);
+        Label Gameover = new Label("GAME OVER", 45);
+        Gameover.Anchor = new Vec2(0.6, 0.7);
+        Frame.Add(Gameover);
+        Winner = player;
+        Winner.Controller = new PlayerController();
+        Winner.Position = Vec2.Zero;
     }
 
     public override void RenderBackground()
     {
         RenderState.Push();
+        cam.Position = Winner.Position + new Vec2(35, 0);
         cam.Apply();
-        RenderState.Color = new Color(1, 1, 1, 0.5);
-        Draw.Texture(end, -new Vec2(1, 1), new Vec2(1, 1));
+        Winner.Render();
         RenderState.Pop();
         base.RenderBackground();
     }
     public override void Update(double dt)
     {
         base.Update(dt);
-        cam.FOV = Math.Sin((double)System.DateTime.Now.Ticks / 1e8) / 2 + 1.6;
+        Winner.Update(dt / 2);
+        //cam.FOV = Math.Sin((double)System.DateTime.Now.Ticks / 1e8) / 2 + 1.6;
     }
 }
