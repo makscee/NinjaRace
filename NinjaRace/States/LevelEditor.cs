@@ -219,7 +219,7 @@ class LevelEditor : UI.State
 				if (level.Tiles.GetTile(x, y) == null) {
 					RenderState.Push();
 					RenderState.Color = new Color(0.1, 0.1, 0.1);
-					Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
+                    Draw.Rect(new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) - Tile.Size * 0.9
                         , new Vec2(x * Tile.Size.X * 2, y * Tile.Size.Y * 2) + Tile.Size * 0.9);
 					RenderState.Pop();
 				}
@@ -237,7 +237,9 @@ class LevelEditor : UI.State
         Draw.Clear(Color.Black);
         //RenderTiles();
         Vec2 v = level.Tiles.GetSize();
-        Draw.Texture(world, Tile.Size, Tile.Size + new Vec2(v.X, v.X / (1.0 * App.Width / App.Height)));
+        if(App.Width / App.Height < v.X / v.Y)
+            Draw.Texture(world, Tile.Size, Tile.Size + new Vec2(v.X, v.X / (1.0 * App.Width / App.Height)));
+        else Draw.Texture(world, Tile.Size, Tile.Size + new Vec2(v.Y * App.Width / App.Height, v.Y));
         if (vecForSaw1 != -1)
             Draw.Rect(Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) + Tile.Size,
                 Tiles.GetPosition(Tiles.GetCoords(vecForSaw1)) - Tile.Size, Color.Green);
@@ -286,7 +288,7 @@ class LevelEditor : UI.State
         world = new Texture(App.Width * mult, App.Height * mult);
         RenderState.BeginTexture(world);
         View t = new View(Math.Max((double)v.Y, (double)v.X / (1.0 * App.Width / App.Height)));
-        t.Position = new Vec2(v.X / 2, t.FOV / 2) + Tile.Size;
+        t.Position = new Vec2(t.FOV * App.Width / App.Height / 2, t.FOV / 2) + Tile.Size;
         t.Apply();
         RenderTiles();
         RenderSawsVectors();
