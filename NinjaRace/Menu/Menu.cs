@@ -8,7 +8,6 @@ class Menu : UI.State
 {
     public Group<Effect> EffectsTop = new Group<Effect>();
     public Group<Effect> EffectsBot = new Group<Effect>();
-    bool KeyboardMode = false;
 
     public override void Render()
     {
@@ -80,11 +79,24 @@ class Menu : UI.State
         }
         if (key == Key.Enter && Selected != null)
         {
-            Selected.Click();
+            if (Focus != null)
+            {
+                Focus.LoseFocus();
+                Focus = null;
+                SelectNext(-Vec2.OrtY);
+                return;
+            }
+            if (Selected.Focusable)
+            {
+                Focus = Selected;
+                Focus.Focus();
+            }
+            else Selected.Click();
         }
     }
 
     List<UI.Element> Elements = new List<UI.Element>();
+    UI.Element Next;
     void SelectNext(Vec2 dir)
     {
         if (Elements.Count == 0)
@@ -101,9 +113,13 @@ class Menu : UI.State
         if (Selected == null)
         {
             Selected = Elements[0];
-            Selected.Hovered = true;
+            if (Selected.Focusable)
+                Selected.Focused = true;
+            else Selected.Hovered = true;
             return;
         }
+        if (Focus != null)
+            return;
         Vec2 SelectedVec = Selected.Position;
         if (dir.X == 1)
         {
@@ -117,12 +133,9 @@ class Menu : UI.State
             
             int result = t.BinarySearch(Selected, Comparer<UI.Element>.Create(
                 delegate(UI.Element e1, UI.Element e2) { return e2.Position.Y.CompareTo(e1.Position.Y); }));
-            if (result == -1)
-                return;
-            Selected.Hovered = false;
-            Selected = t[result];
-            Selected.Hovered = true;
-            return;
+            if (result < 0)
+                result = ~result == t.Count ? ~result - 1 : ~result;
+            Next = t[result];
         }
         if (dir.X == -1)
         {
@@ -136,59 +149,65 @@ class Menu : UI.State
 
             int result = t.BinarySearch(Selected, Comparer<UI.Element>.Create(
                 delegate(UI.Element e1, UI.Element e2) { return e2.Position.Y.CompareTo(e1.Position.Y); }));
-            if (result == -1)
-                return;
-            Selected.Hovered = false;
-            Selected = t[result];
-            Selected.Hovered = true;
-            return;
+            if (result < 0)
+                result = ~result == t.Count ? ~result - 1 : ~result;
+            Next = t[result];
         }
         if (dir.Y == 1)
         {
             if (IsTop(SelectedVec))
                 SelectedVec = new Vec2(SelectedVec.X, 0);
-            List<UI.Element> t = Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y >= SelectedVec.Y &&
-                Elem != Selected &&
-                !(Elem.Position.Y == SelectedVec.Y && Elem.Position.X > SelectedVec.X)));
+            List<UI.Element> t = Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y > SelectedVec.Y));
             t.Sort(new Comparison<UI.Element>(
                 delegate(UI.Element e1, UI.Element e2) { return e1.Position.Y.CompareTo(e2.Position.Y); }));
             t = t.FindAll(new Predicate<UI.Element>(
                 Elem => Elem.Position.Y == t[0].Position.Y));
-            t.Sort(new Comparison<UI.Element>(
-                delegate(UI.Element e1, UI.Element e2) { return e2.Position.X.CompareTo(e1.Position.X); }));
-            Selected.Hovered = false;
-            Selected = t[0];
-            Selected.Hovered = true;
-            return;
+            int result = t.BinarySearch(Selected, Comparer<UI.Element>.Create(
+                delegate(UI.Element e1, UI.Element e2) { return e1.Position.X.CompareTo(e2.Position.X); }));
+            if (result < 0)
+                result = ~result == t.Count ? ~result - 1 : ~result;
+            Next = t[result];
         }
         if (dir.Y == -1)
         {
             if (IsBot(SelectedVec))
                 SelectedVec = new Vec2(SelectedVec.X, App.Height);
-            List<UI.Element> t = Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y <= SelectedVec.Y &&
-                Elem != Selected &&
-                !(Elem.Position.Y == SelectedVec.Y && Elem.Position.X < SelectedVec.X)));
+            List<UI.Element> t = Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y < SelectedVec.Y));
             t.Sort(new Comparison<UI.Element>(
                 delegate(UI.Element e1, UI.Element e2) { return e2.Position.Y.CompareTo(e1.Position.Y); }));
             t = t.FindAll(new Predicate<UI.Element>(
                 Elem => Elem.Position.Y == t[0].Position.Y));
-            t.Sort(new Comparison<UI.Element>(
+            int result = t.BinarySearch(Selected, Comparer<UI.Element>.Create(
                 delegate(UI.Element e1, UI.Element e2) { return e1.Position.X.CompareTo(e2.Position.X); }));
-            Selected.Hovered = false;
-            Selected = t[0];
-            Selected.Hovered = true;
-            return;
+            if (result < 0)
+                result = ~result == t.Count ? ~result - 1 : ~result;
+            Next = t[result];
         }
+        if (Selected.Focusable)
+            Selected.Focused = false;
+        else Selected.Hovered = false;
+        if (Next.Focusable)
+            Next.Focused = true;
+        else Next.Hovered = true;
+        Selected = Next;
     }
     bool IsBot(Vec2 p)
     {
-        return Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y < p.Y ||
-            (Elem.Position.Y == p.Y && Elem.Position.X > p.X))).Count == 0;
+        foreach (var a in Elements)
+        {
+            if (a.Position.Y < p.Y)
+                return false;
+        }
+        return true;
     }
     bool IsTop(Vec2 p)
     {
-        return Elements.FindAll(new Predicate<UI.Element>(Elem => Elem.Position.Y > p.Y ||
-            (Elem.Position.Y == p.Y && Elem.Position.X < p.X))).Count == 0;
+        foreach (var a in Elements)
+        {
+            if (a.Position.Y > p.Y)
+                return false;
+        }
+        return true;
     }
     bool IsLeft(Vec2 p)
     {
