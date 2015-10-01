@@ -14,9 +14,9 @@ using VitPro.Engine;
      bool left;
 
      public Hearts(Player player) 
-         : base(player == Program.World.player1 ? new Vec2(-70, 50) : new Vec2(70, 50)) 
+         : base(player == Program.World.Player1 ? new Vec2(-70, 50) : new Vec2(70, 50)) 
      {
-         left = player == Program.World.player1;
+         left = player == Program.World.Player1;
          this.player = player;
      }
 

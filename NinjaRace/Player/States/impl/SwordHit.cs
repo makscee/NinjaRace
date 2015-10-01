@@ -34,11 +34,19 @@ class SwordHit : PlayerState
     public override void Update(double dt)
     {
         base.Update(dt);
-        if (new CollisionBox(player.Position + new Vec2(player.Size.X * 2, 0) * player.Dir,
-            new Vec2(player.Size.X * 2, player.Size.Y / 2))
-            .Collide(player.GetOpponent().Box) != Side.None)
+        if (!Program.IsCopy(player))
         {
-            player.GetOpponent().States.current.Die(player.Position);
+            foreach (var a in player.GetAllOpponents())
+            {
+                if (!a.States.IsDead && new CollisionBox(player.Position + new Vec2(player.Size.X * 2, 0) * player.Dir,
+                new Vec2(player.Size.X * 2, player.Size.Y / 2))
+                .Collide(a.Box) != Side.None)
+                {
+                    if(!Program.IsCopy(a))
+                        Program.Statistics.Kills[Program.WhichPlayer(player)]++;
+                    a.States.current.Die(player.Position);
+                }
+            }
         }
         if (GetTime() > 0.08)
             player.States.SetFalling(false);

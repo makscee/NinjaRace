@@ -8,7 +8,7 @@ partial class Player
     public void CalculateCollisions()
     {
         List<Tuple<Tile, Side>> Effects = new List<Tuple<Tile, Side>>();
-        Tiles tiles = Program.World.level.Tiles;
+        Tiles tiles = Program.World.Level.Tiles;
         collisions[Side.Left].Clear();
         collisions[Side.Right].Clear();
         collisions[Side.Up].Clear();

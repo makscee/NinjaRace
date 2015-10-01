@@ -57,11 +57,25 @@ class Dash : PlayerState
             player.Velocity = Vec2.Zero;
             t = 0;
         }
-        if (dir.Y != 0 && player.Box.Collide(player.GetOpponent().Box) != Side.None)
-            player.GetOpponent().States.current.Die(player.Position);
+        if (!Program.IsCopy(player))
+        {
+            foreach (var a in player.GetAllOpponents())
+            {
+                if (!a.States.IsDead && dir.Y != 0 && player.Box.Collide(a.Box) != Side.None)
+                {
+                    if(!Program.IsCopy(a))
+                        Program.Statistics.Kills[Program.WhichPlayer(player)]++;
+                    a.States.current.Die(player.Position);
+                }
+            }
+        }
     }
 
     public override void Jump() { }
 
-    public override void Die(Vec2 position) { }
+    public override void Die(Vec2 position) 
+    {
+        if (Program.IsCopy(player))
+            base.Die(position);
+    }
 }

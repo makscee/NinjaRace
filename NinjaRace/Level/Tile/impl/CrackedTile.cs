@@ -14,6 +14,6 @@ class CrackedTile : Tile
     }
     public override void Effect(Player player, Side side)
     {
-        new Timer(0.5, () => { Program.World.level.Tiles.DeleteTile(ID); });
+        new Timer(0.5, () => { Program.World.Level.Tiles.DeleteTile(ID); });
     }
 }

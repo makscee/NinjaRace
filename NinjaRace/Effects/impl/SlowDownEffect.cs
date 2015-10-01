@@ -11,14 +11,14 @@ class SlowDownEffect : Effect
     {
         Player = player;
         Engine = new ParticleEngine<PixelParticle>(0.05, 0.3, (ParticleEngine<PixelParticle> e) => { e.SetPosition(player.Position); })
-        .SetParticleInitAction((PixelParticle p) =>
+        .AddParticleInitAction((PixelParticle p) =>
         {
             p.NeedVel = Vec2.Rotate(new Vec2(player.Dir, 0), Program.Random.NextDouble(-Math.PI / 6, Math.PI / 6));
             p.Color = Color.Yellow;
             p.Acc = 1200;
             p.Speed = 300;
         })
-        .SetParticleUpdateAction((PixelParticle p) =>
+        .AddParticleUpdateAction((PixelParticle p) =>
         {
             p.NeedVel = player.Dir * p.NeedVel.X > 0 ? p.NeedVel : -p.NeedVel;
             if (p.Time < 0.05)

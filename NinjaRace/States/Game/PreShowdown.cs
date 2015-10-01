@@ -44,32 +44,32 @@ class PreShowdown : VitPro.Engine.UI.State
 
     void Players()
     {
-        Vec2 PlayersMed = World.player2.Position - World.player1.Position;
+        Vec2 PlayersMed = World.Player2.Position - World.Player1.Position;
         if (Time < 1)
         {
-            cam.Position = World.player1.Position + PlayersMed / 2;
+            cam.Position = World.Player1.Position + PlayersMed / 2;
             cam.FOV = 240 + 200 * Time;
         }
         else if (Time < 2)
         {
-            cam.Position = World.player1.Position + PlayersMed * Math.Pow((1 - (Time - 1)), 2) / 2;
+            cam.Position = World.Player1.Position + PlayersMed * Math.Pow((1 - (Time - 1)), 2) / 2;
             if (Time < 1.8)
                 cam.FOV = 440 - (Time - 1) * 400;
         }
         else if (Time < 4)
         {
-            cam.Position = World.player2.Position - PlayersMed * Math.Pow((4 - Time) / 2, 2);
+            cam.Position = World.Player2.Position - PlayersMed * Math.Pow((4 - Time) / 2, 2);
         }
         else
         {
-            cam.Position = World.player1.Position + PlayersMed / 2 + PlayersMed * Math.Pow((1 - (Time - 4)), 2) / 2;
+            cam.Position = World.Player1.Position + PlayersMed / 2 + PlayersMed * Math.Pow((1 - (Time - 4)), 2) / 2;
             cam.FOV = 120 + (Time - 4) * 400;
         }
         RenderState.Push();
         cam.Apply();
-        World.level.Render();
-        World.player1.Render();
-        World.player2.Render();
+        World.Level.Render();
+        World.Player1.Render();
+        World.Player2.Render();
         RenderState.Pop();
     }
 

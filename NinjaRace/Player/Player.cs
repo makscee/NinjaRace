@@ -20,6 +20,7 @@ partial class Player : IUpdateable, IRenderable
         SlideSpeed = 50,
         SlideAcc = 1200,
         SpeedUp = 1;
+    public bool DoRender = true;
     public IController Controller;
     public CollisionBox Box { get { return new CollisionBox(Position, Size); } }
     public Dictionary<Side, List<Tile>> collisions = new Dictionary<Side,List<Tile>>();
@@ -51,9 +52,9 @@ partial class Player : IUpdateable, IRenderable
             States.SetFalling();
             CalculateCollisions();
         };
-        Respawn();
+        Velocity = Vec2.Zero;
+        Position = this.StartPosition;
         States.SetWalking();
-        CollisionHits();
     }
 
     public Player SetControls(IController controller)
@@ -85,12 +86,13 @@ partial class Player : IUpdateable, IRenderable
 
     public void Render()
     {
-        States.Render();
+        if(DoRender)
+            States.Render();
     }
 
     public void ChangeSpawn()
     {
-        List<StartTile> l = Program.World.level.Tiles.GetStartTiles();
+        List<StartTile> l = Program.World.Level.Tiles.GetStartTiles();
         Vec2 t;
         do
         {

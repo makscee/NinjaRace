@@ -1,5 +1,6 @@
 ﻿using VitPro;
 using VitPro.Engine;
+using System.Collections.Generic;
 using System;
 
 partial class Player
@@ -9,7 +10,14 @@ partial class Player
 
     public Player GetOpponent()
     {
-        return (Program.World.player1 == this) ? Program.World.player2 : Program.World.player1;
+        return (Program.World.Player1 == this) ? Program.World.Player2 : Program.World.Player1;
+    }
+
+    public List<Player> GetAllOpponents()
+    {
+        List<Player> result = new List<Player>(Program.World.Copies[GetOpponent()]);
+        result.Add(GetOpponent());
+        return result;
     }
 
     void DoSwing()

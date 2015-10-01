@@ -23,7 +23,7 @@ class BonusOnScreen : Effect
     Texture tex;
 
     public BonusOnScreen(Texture tex, Player player)
-        : base(Program.World.player1 == player ? new Vec2(-70, 40) : new Vec2(70, -40))
+        : base(Program.World.Player1 == player ? new Vec2(-70, 40) : new Vec2(70, -40))
     {
         this.tex = tex;
         this.player = player;

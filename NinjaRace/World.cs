@@ -9,26 +9,31 @@ class World : IUpdateable
     public Group<Effect> EffectsMid = new Group<Effect>();
     public Group<Effect> EffectsBot = new Group<Effect>();
     public Group<Effect> EffectsScreen = new Group<Effect>();
-    public Player player1, player2;
-    public Level level;
+    public Player Player1, Player2;
+    public Dictionary<Player, Group<Player>> Copies = new Dictionary<Player, Group<Player>>();
+    public Level Level;
     public MissleEffect CurrentMissle = null;
     Label MissleDistance = new Label("123", 40);
     View cam1 = new View(240), cam2 = new View(240), cam = new View(360), screenCam = new View(120);
-    Vec2 camOffset = new Vec2(0, 120);
+    Vec2 CamOffset = new Vec2(0, 120);
     public double Time = 0;
 
     private void Init()
     {
-        List<StartTile> starts = level.Tiles.GetStartTiles();
+        List<StartTile> starts = Level.Tiles.GetStartTiles();
         Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
 
-        player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
+        Player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
             Color.White).SetControls(Program.Settings.GetPlayer1Controller());
-        player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
+        Player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
             new Color(0.5, 0.7, 0.7)).SetControls(Program.Settings.GetPlayer2Controller());
-        player2.Dir = -1;
-        cam1.Position = player1.Position;
-        cam2.Position = player2.Position;
+        Copies.Add(Player1, new Group<Player>());
+        Copies.Add(Player2, new Group<Player>());
+        Player1.CalculateCollisions();
+        Player2.CalculateCollisions();
+        Player2.Dir = -1;
+        cam1.Position = Player1.Position;
+        cam2.Position = Player2.Position;
         MissleDistance.BackgroundColor = Color.White;
         MissleDistance.Anchor = new Vec2(0.7, 0.5);
     }
@@ -36,7 +41,7 @@ class World : IUpdateable
     public World(string level)
     {
         Program.World = this;
-        this.level = DBUtils.GetLevel(level);
+        this.Level = DBUtils.GetLevel(level);
         Init();
     }
 
@@ -44,23 +49,25 @@ class World : IUpdateable
 
     public void Render(Player player = null)
     {
-        level.Tiles.RenderBackground();
+        Level.Tiles.RenderBackground();
         EffectsBot.Render();
         if (player != null)
-            level.RenderArea(player.Position, new Vec2(360, 160));
-        else level.Render();
+            Level.RenderArea(player.Position, new Vec2(360, 160));
+        else Level.Render();
         EffectsMid.Render();
-        player2.Render();
-        player1.Render();
+        Player2.Render();
+        Player1.Render();
+        Copies[Player1].Render();
+        Copies[Player2].Render();
         EffectsTop.Render();
     }
 
     public void RenderSingle()
     {
         cam.FOV = Math.Max(360, Math.Max(
-            Math.Abs(player1.Position.X - player2.Position.X) + 15, 
-            Math.Abs(player1.Position.Y - player2.Position.Y) + 60));
-        cam.Position = (player2.Position - player1.Position) / 2 + player1.Position;
+            Math.Abs(Player1.Position.X - Player2.Position.X) + 15, 
+            Math.Abs(Player1.Position.Y - Player2.Position.Y) + 60));
+        cam.Position = (Player2.Position - Player1.Position) / 2 + Player1.Position;
         cam.Apply();
         Render();
 		RenderState.Push();
@@ -78,11 +85,11 @@ class World : IUpdateable
         Draw.Clear(Color.Black);
         RenderState.Translate(Vec2.OrtY * 0.5);
         View camt = new View(cam1.FOV);
-        camt.Position = cam1.Position + camOffset;
+        camt.Position = cam1.Position + CamOffset;
         camt.Apply();
         RenderState.Translate(Vec2.OrtY * cam1.FOV / 2);
-        DrawBackground(player1);
-        Render(player1);
+        DrawBackground(Player1);
+        Render(Player1);
         RenderState.EndArea();
         RenderState.Pop();
 
@@ -92,11 +99,11 @@ class World : IUpdateable
         Draw.Clear(Color.Black);
         RenderState.Translate(Vec2.OrtY * 0.5);
         camt = new View(cam1.FOV);
-        camt.Position = cam2.Position + camOffset;
+        camt.Position = cam2.Position + CamOffset;
         camt.Apply();
         RenderState.Translate(Vec2.OrtY * cam2.FOV / 2);
-        DrawBackground(player2);
-        Render(player2);
+        DrawBackground(Player2);
+        Render(Player2);
         RenderState.EndArea();
         RenderState.Pop();
 
@@ -122,12 +129,12 @@ class World : IUpdateable
         View m = new View(120);
         m.Position = CurrentMissle.MainParticle.Position;
         m.Apply();
-        level.Tiles.RenderBackground();
+        Level.Tiles.RenderBackground();
         EffectsBot.Render();
-        level.RenderArea(CurrentMissle.MainParticle.Position, new Vec2(150, 150));
+        Level.RenderArea(CurrentMissle.MainParticle.Position, new Vec2(150, 150));
         EffectsMid.Render();
-        player2.Render();
-        player1.Render();
+        Player2.Render();
+        Player1.Render();
         EffectsTop.Render();
         RenderState.EndArea();
         RenderState.Pop();
@@ -148,25 +155,35 @@ class World : IUpdateable
 
     private void UpdateForPlayer(double dt, Player player)
     {
-        Time += dt;
         player.CalculateCollisions();
         player.Update(dt);
-        View cam = (player == player1) ? cam1 : cam2;
+        View cam = (player == Player1) ? cam1 : cam2;
         cam.Position += (player.Position - cam.Position) * dt * 10;
         player.Position += player.Velocity * dt;
-        level.Update(dt);
+    }
+
+    private void UpdateCopy(double dt, Player player)
+    {
+        player.CalculateCollisions();
+        player.Update(dt);
+        player.Position += player.Velocity * dt;
     }
 
     public double SlowTime = 1;
     public void Update(double dt)
     {
-        TimerContainer.Update(dt);
         if (SlowTime < 0.5)
             SlowTime += dt / 2;
         else SlowTime = 1;
         dt = SlowTime * dt;
-        UpdateForPlayer(dt, player1);
-        UpdateForPlayer(dt, player2);
+        TimerContainer.Update(dt);
+        Time += dt;
+        UpdateForPlayer(dt, Player1);
+        UpdateForPlayer(dt, Player2);
+        foreach (var l in Copies)
+            foreach(var p in l.Value)
+                UpdateCopy(dt, p);
+        Level.Update(dt);
         EffectsTop.Update(dt);
         EffectsTop.Refresh();
         EffectsMid.Update(dt);
@@ -175,16 +192,26 @@ class World : IUpdateable
         EffectsBot.Refresh();
         EffectsScreen.Update(dt);
         EffectsScreen.Refresh();
+        Copies[Player1].Refresh();
+        Copies[Player2].Refresh();
     }
     public void KeyDown(Key key)
     {
-        player1.Controller.KeyDown(key);
-        player2.Controller.KeyDown(key); 
+        Player1.Controller.KeyDown(key);
+        Player2.Controller.KeyDown(key);
+        foreach (var l in Copies)
+            foreach (var p in l.Value)
+                p.Controller.KeyDown(key);
+        if (key == Key.R)
+            new ShadowCopy().Get(Player1);
     }
     public void KeyUp(Key key)
     {
-        player1.Controller.KeyUp(key);
-        player2.Controller.KeyUp(key);
+        Player1.Controller.KeyUp(key);
+        Player2.Controller.KeyUp(key);
+        foreach (var l in Copies)
+            foreach (var p in l.Value)
+                p.Controller.KeyUp(key);
     }
 
     private void DrawBackground(Player player)

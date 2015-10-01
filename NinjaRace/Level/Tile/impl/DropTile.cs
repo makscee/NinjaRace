@@ -28,7 +28,7 @@ class DropTile : Tile
                 near = new List<Tile>();
                 Vec2i coords = Tiles.GetCoords(ID);
                 int x = coords.X + 1;
-                Tiles tiles = Program.World.level.Tiles;
+                Tiles tiles = Program.World.Level.Tiles;
                 while (tiles.GetTile(x, coords.Y) != null && 
                     tiles.GetTile(x, coords.Y).GetType() == typeof(DropTile))
                 {

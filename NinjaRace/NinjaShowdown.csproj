@@ -121,6 +121,7 @@
   <ItemGroup>
     <Compile Include="Bonus\impl\JumpBlock.cs" />
     <Compile Include="Bonus\impl\Missle.cs" />
+    <Compile Include="Bonus\impl\ShadowCopy.cs" />
     <Compile Include="Collision\CollisionBox.cs" />
     <Compile Include="DatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -131,13 +132,14 @@
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\impl\BonusGet.cs" />
     <Compile Include="Effects\impl\BonusOnScreen.cs" />
-    <Compile Include="Effects\impl\ExplosionEffect.cs" />
+    <Compile Include="Effects\impl\BonusGetExplosionEffect.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\JumpBlockEffect.cs" />
     <Compile Include="Effects\impl\MissleEffect.cs" />
     <Compile Include="Effects\impl\ParticlesAroundPlayer.cs" />
     <Compile Include="Effects\impl\SlowDownEffect.cs" />
+    <Compile Include="Effects\impl\SmokeExplosionEffect.cs" />
     <Compile Include="Effects\impl\SpeedUpEffect.cs" />
     <Compile Include="Effects\Particle.cs" />
     <Compile Include="Effects\ParticleEngine.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="States\Game\CopyChose.cs" />
     <Compile Include="States\Game\PreShowdown.cs" />
     <Compile Include="States\Menu\EditControls.cs" />
     <Compile Include="States\Menu\KeyPress.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="States\Menu\PreGameMenu.cs" />
     <Compile Include="States\Game\Showdown.cs" />
     <Compile Include="States\Menu\SettingsMenu.cs" />
+    <Compile Include="Statistics.cs" />
     <Compile Include="Timer\Timer.cs" />
     <Compile Include="Timer\TimerContainer.cs" />
     <Compile Include="World.cs" />
@@ -226,6 +230,9 @@
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
     <Content Include="Data\img\background.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\img\bonuses\copy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\img\bonuses\fast.png">

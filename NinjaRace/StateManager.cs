@@ -2,6 +2,7 @@
 using VitPro.Engine;
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 class MyManager : State.Manager
 {
@@ -31,7 +32,8 @@ class MyManager : State.Manager
         base.StateChanged();
         Previous = Current;
         Current = CurrentState;
-        t = 2;
+        if (!((Previous != null && NoAnimationStates.Contains(Previous.GetType())) || (Current != null && NoAnimationStates.Contains(Current.GetType()))))
+            t = 2;
         if (tex != null)
         {
             back = tex.Copy();
@@ -63,18 +65,20 @@ class MyManager : State.Manager
 		RenderState.Pop();
     }
 
-    void NoAnimationRender()
-    {
-        RenderState.Push();
-        RenderState.Scale(2);
-        RenderState.Origin(0.5, 0.5);
-        tex.Render();
-        RenderState.Pop();
-    }
+    //void NoAnimationRender()
+    //{
+    //    RenderState.Push();
+    //    RenderState.Scale(2);
+    //    RenderState.Origin(0.5, 0.5);
+    //    tex.Render();
+    //    RenderState.Pop();
+    //}
 
     double fps = 0;
     Stopwatch sw = new Stopwatch();
 
+
+    List<Type> NoAnimationStates = new List<Type>() { typeof(KeyPress), typeof(CopyChose) };
     public override void Render()
     {
 		if (tex == null || tex.Width != RenderState.Width || tex.Height != RenderState.Height)
@@ -83,9 +87,7 @@ class MyManager : State.Manager
         base.Render();
 		RenderState.EndTexture();
         tex.RemoveAlpha();
-        if (!((Previous != null && Previous.GetType() == typeof(KeyPress)) || (Current != null && Current.GetType() == typeof(KeyPress))))
-            DefaultRender();
-        else NoAnimationRender();
+        DefaultRender();
         RenderState.Push();
         Texture t = Program.font.MakeTexture(Math.Truncate(fps).ToString());
         RenderState.Color = (Color.Yellow);

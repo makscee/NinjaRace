@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using VitPro;
 using VitPro.Engine;
 
@@ -7,7 +6,6 @@ class Effect : IRenderable, IUpdateable, IDisposable
 {
     public Vec2 Position;
     protected double Duration;
-    public Stopwatch sw = new Stopwatch();
 
     public Effect(Vec2 pos)
     {
@@ -16,18 +14,14 @@ class Effect : IRenderable, IUpdateable, IDisposable
 
     public Effect SetDuration(double d)
     {
-        sw.Start();
         Duration = d;
+        new Timer(Duration, Dispose);
         return this;
     }
 
     public virtual void Render() { }
     public virtual void Update(double dt) 
     {
-        if (!sw.IsRunning)
-            return;
-        if (sw.ElapsedMilliseconds / 1000 > Duration)
-            Dispose();
     }
 
     public virtual void Dispose()

@@ -8,6 +8,7 @@ class Game : State
 
     public Game(string level)
     {
+        Program.Statistics = new Statistics();
         World = new World(level);
         Program.Manager.PushState(this);
         Program.Manager.PushState(new PreGame(World));
@@ -25,7 +26,7 @@ class Game : State
     }
     public void Finish(Player player)
     {
-        new Showdown(World.level.Name.Trim() + "_S", World.player1 == player ? true : false);
+        new Showdown(World.Level.Name.Trim() + "_S", World.Player1 == player ? true : false);
         TimerContainer.Clear();
         Close();
     }

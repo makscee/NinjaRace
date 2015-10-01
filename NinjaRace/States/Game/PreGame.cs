@@ -41,9 +41,9 @@ class PreGame : VitPro.Engine.UI.State
         {
             TexP1 = new Texture(App.Width, App.Height);
             RenderState.BeginTexture(TexP1);
-            cam.Position = World.player1.Position;
+            cam.Position = World.Player1.Position;
             cam.Apply();
-            World.Render(World.player1);
+            World.Render(World.Player1);
             RenderState.EndTexture();
         }
         double a = T - 2;
@@ -59,9 +59,9 @@ class PreGame : VitPro.Engine.UI.State
         {
             TexP2 = new Texture(App.Width, App.Height);
             RenderState.BeginTexture(TexP2);
-            cam.Position = World.player2.Position;
+            cam.Position = World.Player2.Position;
             cam.Apply();
-            World.Render(World.player2);
+            World.Render(World.Player2);
             RenderState.EndTexture();
         }
         double a = T - 1;

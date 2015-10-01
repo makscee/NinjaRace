@@ -36,6 +36,19 @@ class PlayerState : IRenderable, IUpdateable
     public virtual void Die(Vec2 position)
     {
         player.States.SetDead();
+        if (Program.IsCopy(player))
+        {
+            Program.World.Copies[Program.World.Player1].Remove(player);
+            Program.World.Copies[Program.World.Player2].Remove(player);
+            Program.World.EffectsTop.Add(new SmokeExplosionEffect(player.Position));
+            return;
+        }
+        else
+        {
+            foreach (var a in Program.World.Copies[player])
+                a.States.current.Die(a.Position);
+        }
+        Program.Statistics.Deaths[Program.WhichPlayer(player)]++;
         player.Velocity += (player.Position - position).Unit * player.JumpForce;
         player.Lives--;
         Program.World.SlowTime = 0;

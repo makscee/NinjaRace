@@ -59,17 +59,17 @@ class ParticleEngine<T> : IUpdateable, IRenderable where T : Particle
         ProduceAmount = amount;
         return this;
     }
-    Action<T> ParticleInitAction = null;
-    Action<T> ParticleUpdateAction = null;
-    Action<ParticleEngine<T>> EngineUpdateAction = null;
-    public ParticleEngine<T> SetParticleInitAction(Action<T> a)
+    Action<T> ParticleInitAction = (T p) => { };
+    Action<T> ParticleUpdateAction = (T p) => { };
+    Action<ParticleEngine<T>> EngineUpdateAction = (ParticleEngine<T> e) => { };
+    public ParticleEngine<T> AddParticleInitAction(Action<T> a)
     {
-        ParticleInitAction = a;
+        ParticleInitAction += a;
         return this;
     }
-    public ParticleEngine<T> SetParticleUpdateAction(Action<T> a)
+    public ParticleEngine<T> AddParticleUpdateAction(Action<T> a)
     {
-        ParticleUpdateAction = a;
+        ParticleUpdateAction += a;
         return this;
     }
     protected void AddParticle(T p)

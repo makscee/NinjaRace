@@ -10,12 +10,20 @@ class BonusTile : Tile
         Mark = true;
     }
 
-    List<Bonus> bonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(), new JumpBlock(), new Missle() };
+    List<Bonus> GameBonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(),
+        new JumpBlock(), new Missle() };
+    List<Bonus> ShowdownBonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(),
+        new JumpBlock(), new Missle(), new ShadowCopy() };
     public override void Effect(Player player, Side side)
     {
-        Program.World.level.Tiles.DeleteTile(ID);
-        new Timer(4, () => { Program.World.level.Tiles.AddTile(Tiles.GetCoords(ID), new BonusTile()); });
-        Bonus b = bonuses[Program.Random.Next(bonuses.Count)];
+        if (Program.IsCopy(player))
+            return;
+        Program.Statistics.Bonuses[Program.WhichPlayer(player)]++;
+        Program.World.Level.Tiles.DeleteTile(ID);
+        new Timer(4, () => { Program.World.Level.Tiles.AddTile(Tiles.GetCoords(ID), new BonusTile()); });
+        Bonus b = Program.Manager.CurrentState is Game ?
+            GameBonuses[Program.Random.Next(GameBonuses.Count)] :
+            ShowdownBonuses[Program.Random.Next(ShowdownBonuses.Count)];
         Program.World.EffectsTop.Add(new BonusGet(Position, b));
         b.Get(player);
     }

@@ -18,7 +18,7 @@ class MissleEffect : Effect
         MainParticle.Position = player.Position;
         MainParticle.Color = Color.Red;
         Engine = new ParticleEngine<PixelParticle>(0.01, 0.3, (ParticleEngine<PixelParticle> e) => { e.SetPosition(MainParticle.Position); })
-         .SetParticleInitAction((PixelParticle p) =>
+         .AddParticleInitAction((PixelParticle p) =>
          {
              p.NeedVel = Vec2.Rotate((Player.Position - MainParticle.Position).Unit
                  , Program.Random.NextDouble(-Math.PI / 3, Math.PI / 3));
@@ -26,7 +26,7 @@ class MissleEffect : Effect
              p.Acc = 1200;
              p.Speed = 800;
          })
-         .SetParticleUpdateAction((PixelParticle p) =>
+         .AddParticleUpdateAction((PixelParticle p) =>
          {
              p.Color = new Color(0.5 + (0.5 - p.Time * 1.6), p.Time * 2.5, p.Color.B, p.Color.A);
              if (p.Time > 0.25)
