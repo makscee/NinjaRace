@@ -6,8 +6,9 @@ using System.Collections.Generic;
 
 class Showdown : UI.State
 {
-    World World;
+    protected World World;
     bool finished = false;
+    public Showdown() { }
     public Showdown(string level, bool first)
     {
         World = new World(level);
@@ -55,7 +56,7 @@ class Showdown : UI.State
             World.RenderScreenEffects = false;
         }
     }
-    private void Finish()
+    protected virtual void Finish()
     {
         Player p = (World.Player1.Lives < 1 ? World.Player2 : World.Player1);
 

@@ -57,7 +57,7 @@ class Timer : IUpdateable
             Callback.Invoke();
             elapsedPart = 0;
         }
-        if (elapsed > life)
+        if (IsDone)
         {
             TimerContainer.Timers.Remove(this);
             return;
@@ -68,6 +68,8 @@ class Timer : IUpdateable
     {
         if (!IsDone)
             Callback.Invoke();
+        Stop();
+        elapsed = life;
         TimerContainer.Timers.Remove(this);
         return;
     }
@@ -75,6 +77,8 @@ class Timer : IUpdateable
     public void Drop()
     {
         TimerContainer.Timers.Remove(this);
+        Stop();
+        elapsed = life;
         return;
     }
 }

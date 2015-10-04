@@ -149,6 +149,8 @@
     <Compile Include="Settings.cs" />
     <Compile Include="States\Game\CopyChose.cs" />
     <Compile Include="States\Game\PreShowdown.cs" />
+    <Compile Include="States\Game\TournamentGame.cs" />
+    <Compile Include="States\Game\TournamentShowdown.cs" />
     <Compile Include="States\Menu\EditControls.cs" />
     <Compile Include="States\Menu\KeyPress.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />
@@ -213,12 +215,16 @@
     <Compile Include="Level\Tile\Tile.cs" />
     <Compile Include="Level\Tiles.cs" />
     <Compile Include="States\Game\PreGame.cs" />
-    <Compile Include="States\Menu\PreGameMenu.cs" />
+    <Compile Include="States\Menu\PlayMenu.cs" />
+    <Compile Include="States\Menu\TournamentMenu.cs" />
+    <Compile Include="States\Menu\VersusMenu.cs" />
     <Compile Include="States\Game\Showdown.cs" />
     <Compile Include="States\Menu\SettingsMenu.cs" />
+    <Compile Include="States\Menu\TournamentGameOver.cs" />
     <Compile Include="Statistics.cs" />
     <Compile Include="Timer\Timer.cs" />
     <Compile Include="Timer\TimerContainer.cs" />
+    <Compile Include="States\Game\Tournament.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <ItemGroup>

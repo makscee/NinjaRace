@@ -12,6 +12,7 @@ class Program
     public static World World;
     public static Settings Settings;
     public static Statistics Statistics;
+    public static Tournament Tournament;
 
     static void Main()
     {
@@ -26,7 +27,6 @@ class Program
         }
         Settings.Apply();
         font.Smooth = false;
-        World = new World("FIRST");
         Manager = new MyManager(new MainMenu());
         DBUtils.Init();
         App.Run(Manager);

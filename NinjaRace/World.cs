@@ -20,13 +20,7 @@ class World : IUpdateable
 
     private void Init()
     {
-        List<StartTile> starts = Level.Tiles.GetStartTiles();
-        Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
-
-        Player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
-            Color.White).SetControls(Program.Settings.GetPlayer1Controller());
-        Player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
-            new Color(0.5, 0.7, 0.7)).SetControls(Program.Settings.GetPlayer2Controller());
+        InitPlayers();
         Copies.Add(Player1, new Group<Player>());
         Copies.Add(Player2, new Group<Player>());
         Player1.CalculateCollisions();
@@ -38,10 +32,35 @@ class World : IUpdateable
         MissleDistance.Anchor = new Vec2(0.7, 0.5);
     }
 
+    private void InitPlayers()
+    {
+        List<StartTile> starts = Level.Tiles.GetStartTiles();
+        Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
+        if (Player1 == null)
+            Player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
+            Color.White).SetControls(Program.Settings.GetPlayer1Controller());
+        else
+            Player1.Reset(pos1.X < pos2.X ? pos1 : pos2);
+        if (Player2 == null)
+            Player2 = new Player(pos1.X > pos2.X ? pos1 : pos2,
+                new Color(0.5, 0.7, 0.7)).SetControls(Program.Settings.GetPlayer2Controller());
+        else
+            Player2.Reset(pos1.X > pos2.X ? pos1 : pos2);
+    }
+
     public World(string level)
     {
         Program.World = this;
         this.Level = DBUtils.GetLevel(level);
+        Init();
+    }
+
+    public World(string level, Player player1, Player player2)
+    {
+        Program.World = this;
+        this.Level = DBUtils.GetLevel(level);
+        Player1 = player1;
+        Player2 = player2;
         Init();
     }
 

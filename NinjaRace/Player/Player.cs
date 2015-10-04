@@ -35,10 +35,10 @@ partial class Player : IUpdateable, IRenderable
         }
     }
 
-    public Player(Vec2 StartPosition, Color color)
+    public Player(Vec2 startPosition, Color color)
     {
         Color = color;
-        this.StartPosition = StartPosition;
+        StartPosition = startPosition;
         States = new States(this);
         Size = new Vec2(12, 19);
         collisions.Add(Side.Left, new List<Tile>());
@@ -55,6 +55,22 @@ partial class Player : IUpdateable, IRenderable
         Velocity = Vec2.Zero;
         Position = this.StartPosition;
         States.SetWalking();
+    }
+
+    public void Reset(Vec2 startPosition)
+    {
+        Velocity = Vec2.Zero;
+        StartPosition = startPosition;
+        Position = StartPosition;
+        States.SetWalking();
+        Respawn = () =>
+        {
+            Velocity = Vec2.Zero;
+            Position = this.StartPosition;
+            States.SetFalling();
+            CalculateCollisions();
+        };
+        SpeedUp = 1;
     }
 
     public Player SetControls(IController controller)

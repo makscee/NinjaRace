@@ -7,8 +7,8 @@ class MainMenu : Menu
 {
     public MainMenu()
     {
-        Button start = new Button("START", 
-            () => { Program.Manager.PushState(new PreGameMenu()); }, 50, 400);
+        Button start = new Button("PLAY", 
+            () => { Program.Manager.PushState(new PlayMenu()); }, 50, 400);
         start.Anchor = new Vec2(0.5, 0.8);
         AddExpandElement(start);
 

@@ -4,7 +4,9 @@ using System;
 
 class Game : State
 {
-    World World;
+    protected World World;
+
+    public Game() { }
 
     public Game(string level)
     {
@@ -24,7 +26,7 @@ class Game : State
         dt = Math.Min(dt, 1.0 / 60);
         World.Update(dt);
     }
-    public void Finish(Player player)
+    public virtual void Finish(Player player)
     {
         new Showdown(World.Level.Name.Trim() + "_S", World.Player1 == player ? true : false);
         TimerContainer.Clear();

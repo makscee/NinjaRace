@@ -3,13 +3,13 @@ using VitPro.Engine;
 using System;
 using System.Collections.Generic;
 
-class PreGameMenu : Menu
+class VersusMenu : Menu
 {
     List<string> Levels = new List<string>();
     int LevelNum = 0;
     Label Current;
 
-    public PreGameMenu()
+    public VersusMenu()
     {
         Levels.AddRange(DBUtils.GetLevelNames());
 

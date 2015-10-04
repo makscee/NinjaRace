@@ -27,7 +27,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
     public virtual void Dispose()
     {
         State current = ((MyManager)((State.Manager)App.State).CurrentState).CurrentState;
-        if (current.GetType() == typeof(Menu))
+        if (current is Menu)
         {
             Menu menu = (Menu)current;
             menu.EffectsTop.Remove(this);
@@ -35,7 +35,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
             menu.EffectsBot.Refresh();
             menu.EffectsTop.Refresh();
         }
-        if (current.GetType() == typeof(Game) || current.GetType() == typeof(Showdown))
+        if (current is Game || current is Showdown)
         {
             Program.World.EffectsBot.Remove(this);
             Program.World.EffectsMid.Remove(this);

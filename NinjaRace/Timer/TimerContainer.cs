@@ -15,7 +15,8 @@ static class TimerContainer
 
     public static void Clear()
     {
-        Timers.Clear();
+        foreach (var a in Timers)
+            a.Complete();
         Timers.Refresh();
     }
 }
