@@ -112,7 +112,7 @@ partial class Player : IUpdateable, IRenderable
         Vec2 t;
         do
         {
-            t = l[Program.Random.Next(l.Count)].Position;
+            t = l[Program.Random.Next(l.Count)].Position + Vec2.OrtY * 4;
         }
         while (t.Equals(StartPosition));
         StartPosition = t;

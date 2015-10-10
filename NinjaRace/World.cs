@@ -35,7 +35,7 @@ class World : IUpdateable
     private void InitPlayers()
     {
         List<StartTile> starts = Level.Tiles.GetStartTiles();
-        Vec2 pos1 = starts[0].Position, pos2 = starts[starts.Count - 1].Position;
+        Vec2 pos1 = starts[0].Position + Vec2.OrtY * 4, pos2 = starts[starts.Count - 1].Position + Vec2.OrtY * 4;
         if (Player1 == null)
             Player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
             Color.White).SetControls(Program.Settings.GetPlayer1Controller());
