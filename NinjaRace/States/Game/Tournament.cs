@@ -27,7 +27,7 @@ class Tournament : VitPro.Engine.UI.State
             public GameNode() 
             {
                 BackgroundColor = Color.White;
-                Size = new Vec2(40, 20);
+                Size = new Vec2(60, 30);
                 Game = new Game();
             }
             public GameNode AddLeft(GameNode node)
@@ -61,14 +61,51 @@ class Tournament : VitPro.Engine.UI.State
                 return this;
             }
 
+            AnimatedTexture p1, p2;
             public override void Render()
             {
+                if (p1 == null && Game.Player1 != null)
+                {
+                    p1 = Game.Player1.States.current.GetTexture();
+                }
+                if (p2 == null && Game.Player2 != null)
+                {
+                    p2 = Game.Player2.States.current.GetTexture();
+                }
                 RenderState.Push();
-                RenderState.Color = Game.Player1 != null ? Game.Player1.Color : Color.Gray;
-                Draw.Rect(BottomLeft, BottomLeft + new Vec2(Size.X / 2, Size.Y));
-                RenderState.Color = Game.Player2 != null ? Game.Player2.Color : Color.Gray;
-                Draw.Rect(BottomLeft + new Vec2(Size.X / 2, 0), TopRight);
+                RenderState.Color = new Color(0.1, 0.1, 0.1);
+                Draw.Rect(BottomLeft - new Vec2(15, 15), TopRight + new Vec2(15, 25));
+                if (Game.Result != Result.Undefiend)
+                    RenderState.Color = Color.Gray;
+                if (p1 != null && Game.Result != Result.P1)
+                {
+                    RenderState.Push();
+                    if (Game.Result == Result.Undefiend)
+                        RenderState.Color = Game.Player1.Color;
+                    RenderState.Translate(-10, 0);
+                    Draw.Texture(p1.GetCurrent(), BottomLeft, BottomLeft + new Vec2(Size.X / 2, Size.Y * 1.58));
+                    RenderState.Pop();
+                }
+                if (p2 != null && Game.Result != Result.P2)
+                {
+                    RenderState.Push();
+                    if (Game.Result == Result.Undefiend)
+                        RenderState.Color = Game.Player2.Color;
+                    RenderState.Translate(10, 0);
+                    Draw.Texture(p2.GetCurrent(), BottomRight, BottomLeft + new Vec2(Size.X / 2, Size.Y * 1.58));
+                    RenderState.Pop();
+                }
                 RenderState.Pop();
+            }
+            public override void Update(double dt)
+            {
+                base.Update(dt);
+                if (Game.Result != Result.Undefiend)
+                    return;
+                if (p1 != null)
+                    p1.Update(dt);
+                if (p2 != null)
+                    p2.Update(dt);
             }
         }
 
