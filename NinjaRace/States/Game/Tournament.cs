@@ -118,6 +118,28 @@ class Tournament : VitPro.Engine.UI.State
             Levels = (int)Math.Ceiling(Math.Log(players, 2));
             Head = new GameNode();
             InitTree(Head);
+            List<Color> Colors = new List<Color>();
+            for (int i = 0; i < players; i++)
+            {
+                Color c = new Color(Program.Random.NextDouble(), Program.Random.NextDouble(),
+                        Program.Random.NextDouble());
+                bool good = true;
+                foreach (var a in Colors)
+                {
+                    if (Math.Abs(a.R - c.R) < 0.3 || Math.Abs(a.G - c.G) < 0.3 || Math.Abs(a.B - c.B) < 0.3)
+                    {
+                        good = false;
+                        break;
+                    }
+                    if (c.R < 0.15 && c.G < 0.15 && c.B < 0.15)
+                    {
+                        good = false;
+                        break;
+                    }
+                }
+                if (!good)
+                    i--;
+            }
             foreach (var a in GetLevel(Head, Levels))
                 a.Game.Player1 = new Player(Vec2.Zero,
                     new Color(Program.Random.NextDouble(), Program.Random.NextDouble(),
