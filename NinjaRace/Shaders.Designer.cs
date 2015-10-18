@@ -113,12 +113,48 @@ namespace NinjaRace {
         
         /// <summary>
         ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///uniform float pulse;
         ///
         ///varying vec3 modelPos;
         ///
         ///void main()
         ///{
-        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1 - pow(min(min(modelPos.x, 1 - modelPos.x), min(modelPos.y, 1 - modelPos.y), 2));
+        ///	float m = 1;
+        ///	m = min(m, 1.0 - modelPos.y);
+        ///	m = min(m, modelPos.y);
+        ///	m = min(m, 1.0 - modelPos.x);
+        ///	m = min(m, modelPos.x);
+        ///	m = min(m, abs(modelPos.y - pulse));
+        ///
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+        ///}.
+        /// </summary>
+        internal static string JumpTile {
+            get {
+                return ResourceManager.GetString("JumpTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///uniform int sides;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1;
+        ///	if(sides &amp; 1)
+        ///		m = min(m, 1.0 - modelPos.y);
+        ///	if(sides &amp; 2)
+        ///		m = min(m, 1.0 - modelPos.x);
+        ///	if(sides &amp; 4)
+        ///		m = min(m, modelPos.y);
+        ///	if(sides &amp; 8)
+        ///		m = min(m, modelPos.x);
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
         ///}.
         /// </summary>
         internal static string TileBorder {

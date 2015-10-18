@@ -469,6 +469,7 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\JumpTile.txt" />
     <None Include="Resources\TileBorder.txt" />
     <None Include="Resources\GlowingParticle.txt" />
     <None Include="Resources\Test.txt" />
