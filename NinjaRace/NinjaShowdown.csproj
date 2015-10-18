@@ -469,6 +469,7 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Spikes.txt" />
     <None Include="Resources\JumpTile.txt" />
     <None Include="Resources\TileBorder.txt" />
     <None Include="Resources\GlowingParticle.txt" />
@@ -477,7 +478,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Shaders.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Shaders.Designer.cs</LastGenOutput>
+      <LastGenOutput>Shaders1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

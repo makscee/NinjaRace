@@ -1,0 +1,14 @@
+uniform vec4 color;
+uniform float size;
+
+varying vec3 modelPos;
+
+void main()
+{
+	float m = 1.0;
+	m = min(m, modelPos.y);
+	m = min(m, abs(modelPos.x * 2 - modelPos.y));
+	m = min(m, abs(2 - modelPos.x * 2 - modelPos.y));
+
+	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+}

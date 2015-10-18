@@ -137,6 +137,15 @@ namespace NinjaRace {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Spikes {
+            get {
+                return ResourceManager.GetString("Spikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to uniform vec4 color;
         ///uniform float size;
         ///uniform int sides;

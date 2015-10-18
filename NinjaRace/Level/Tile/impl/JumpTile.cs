@@ -22,7 +22,7 @@ class JumpTile : Tile
     public override void Update(double dt)
     {
         t += dt;
-        pulse = pulse > 2 ? 0 : pulse + dt * 2;
+        pulse = pulse > 1.1 ? -1.1 : pulse + dt * 3.5;
         colorBlend = colorBlend < 0 ? 0 : colorBlend - dt;
     }
 
