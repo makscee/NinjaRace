@@ -28,7 +28,7 @@ class LevelEditor : UI.State
         done.Anchor = new Vec2(0.95, 0.05);
         clear = new Button("CLEAR", () => 
         {
-            level = new Level(new Tiles(level.Tiles.GetLength(1), level.Tiles.GetLength(0)), level.Name);
+            level.Tiles.Clear();
             RefreshTexture();
         }, 20, 60);
         clear.Anchor = new Vec2(0.80, 0.05);
@@ -43,6 +43,7 @@ class LevelEditor : UI.State
     public LevelEditor(int sizex, int sizey, string name, bool showdown)
     {
         level = new Level(new Tiles(sizex, sizey), name);
+        new World(level);
         init();
         this.showdown = showdown;
     }
@@ -51,6 +52,7 @@ class LevelEditor : UI.State
     {
         name = name.Trim();
         level = DBUtils.GetLevel(name + (showdown ? "_S" : ""));
+        new World(level);
         init();
         showdown = false;
     }
@@ -267,7 +269,7 @@ class LevelEditor : UI.State
 		RenderState.Pop();
     }
 
-    void RenderSawsVectors()
+    void RenderSawVectors()
     {
         foreach (var a in level.Tiles.GetMovingTiles())
             if (a.GetType() == typeof(Saw))
@@ -275,12 +277,12 @@ class LevelEditor : UI.State
                 RenderState.Color = Color.Blue;
                 Draw.Line(a.Position, Tiles.GetPosition(a.Link), 3);
             }
-        
     }
 
     Texture world;
     void RefreshTexture()
     {
+        level.Update(0);
         if (world != null)
             world.Dispose();
         Vec2i v = level.Tiles.GetSize();
@@ -291,7 +293,7 @@ class LevelEditor : UI.State
         t.Position = new Vec2(t.FOV * App.Width / App.Height / 2, t.FOV / 2) + Tile.Size;
         t.Apply();
         RenderTiles();
-        RenderSawsVectors();
+        RenderSawVectors();
         RenderState.EndTexture();
     }
 }

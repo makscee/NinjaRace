@@ -153,6 +153,15 @@ class Tiles : IRenderable, IUpdateable
                 a.Update(dt);
     }
 
+    public void Clear()
+    {
+        tiles = new Tile[GetLength(0), GetLength(1)];
+        PosTiles = new PosGroup<Tile>(0, 0, GetLength(1) * Tile.Size.X * 2, GetLength(0) * 
+            Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
+
+        movingTiles = new Group<Tile>();
+    }
+
     public Group<Tile> GetMovingTiles()
     {
         return movingTiles;

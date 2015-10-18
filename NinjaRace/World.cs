@@ -65,6 +65,13 @@ class World : IUpdateable
         Init();
     }
 
+    public World(Level level)
+    {
+        Program.World = this;
+        Level = level;
+        Init();
+    }
+
     public bool RenderScreenEffects = true;
 
     public void Render(Player player = null)
