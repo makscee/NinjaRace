@@ -30,6 +30,7 @@ class World : IUpdateable
         cam2.Position = Player2.Position;
         MissleDistance.BackgroundColor = Color.White;
         MissleDistance.Anchor = new Vec2(0.7, 0.5);
+        Level.Update(0);
     }
 
     private void InitPlayers()

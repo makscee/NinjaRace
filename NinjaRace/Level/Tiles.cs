@@ -74,6 +74,11 @@ class Tiles : IRenderable, IUpdateable
         return tiles[y, x];
     }
 
+    public Tile GetTile(Vec2i v)
+    {
+        return GetTile(v.X, v.Y);
+    }
+
     public int GetLength(int d)
     {
         return tiles.GetLength(d);
