@@ -7,7 +7,6 @@ using System.Collections.Generic;
 class LevelEditor : UI.State
 {
     Level level;
-    Tile currentTile;
     View cam = new View(240);
     bool dragging = false;
     Vec2 draggingVec;
@@ -17,12 +16,11 @@ class LevelEditor : UI.State
 
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
         "FinishTile", "Saw", "BonusTile", "CrackedTile" };
-    List<string>.Enumerator TTenum;
+    int CurrentTile = -1;
 
     bool showdown;
     void init()
     {
-        TTenum = TileTypes.GetEnumerator();
         cam.Position = new Vec2(100, 100);
         done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreLevel(level); this.Close(); }, 20, 50);
         done.Anchor = new Vec2(0.95, 0.05);
@@ -38,6 +36,11 @@ class LevelEditor : UI.State
         Frame.Add(mirror);
         Frame.Add(clear);
         RefreshTexture();
+        MenuTiles = new List<Tile>();
+        for (int i = 0; i < TileTypes.Count; i++)
+        {
+            MenuTiles.Add((Tile)Type.GetType(TileTypes[i]).GetConstructor(new Type[] { }).Invoke(new object[] { }));
+        }
     }
 
     public LevelEditor(int sizex, int sizey, string name, bool showdown)
@@ -67,7 +70,7 @@ class LevelEditor : UI.State
         }
         if (button == MouseButton.Left)
         {
-            if (currentTile != null && currentTile.GetType() == typeof(Saw))
+            if (CurrentTile != -1 && MenuTiles[CurrentTile].GetType() == typeof(Saw))
             {
                 vecForSaw1 = Tiles.GetID(GetX(), GetY());
             }
@@ -93,7 +96,7 @@ class LevelEditor : UI.State
             dragging = false;
         if (button == MouseButton.Left)
         {
-            if (currentTile != null && currentTile.GetType() == typeof(Saw))
+            if (CurrentTile != -1 && MenuTiles[CurrentTile].GetType() == typeof(Saw))
             {
                 int x1 = Tiles.GetCoords(vecForSaw1).X, x2 = GetX(),
                     y1 = Tiles.GetCoords(vecForSaw1).Y, y2 = GetY();
@@ -127,31 +130,13 @@ class LevelEditor : UI.State
         }
         if (key == Key.E)
         {
-            if (TTenum.MoveNext())
-            {
-                Type t = Type.GetType(TTenum.Current);
-                currentTile = (Tile)t.GetConstructor(new Type[] { }).Invoke(new object[] { });
-            }
-            else
-            {
-                currentTile = null;
-                TTenum = TileTypes.GetEnumerator();
-            }
+            CurrentTile++;
+            CurrentTile = CurrentTile >= MenuTiles.Count ? -1 : CurrentTile;
         }
         if (key == Key.Q)
         {
-            int t = TileTypes.IndexOf(TTenum.Current);
-            if (t == 0)
-            {
-                currentTile = null;
-                TTenum = TileTypes.GetEnumerator();
-                return;
-            }
-            t = t == -1 ? TileTypes.Count : t;
-            TTenum = TileTypes.GetEnumerator();
-            for (int i = 0; i < t; i++)
-                TTenum.MoveNext();
-            currentTile = (Tile)Type.GetType(TTenum.Current).GetConstructor(new Type[] { }).Invoke(new object[] { });
+            CurrentTile--;
+            CurrentTile = CurrentTile <= -2 ? MenuTiles.Count - 1 : CurrentTile;
         }
         if (key == Key.W)
             cam.FOV /= 1.2;
@@ -168,46 +153,47 @@ class LevelEditor : UI.State
     public override void Update(double dt)
     {
         base.Update(dt);
+        MenuTiles.Update(dt);
         if (dragging)
         {
             cam.Position += draggingVec - cam.FromWH(Mouse.Position, App.Width, App.Height);
             draggingVec = cam.FromWH(Mouse.Position, App.Width, App.Height);
         }
         //level.Update(dt);
-        if (MouseButton.Left.Pressed() && !(currentTile != null && currentTile.GetType() == typeof(Saw)))
+        if (MouseButton.Left.Pressed() && !(CurrentTile != -1 && MenuTiles[CurrentTile].GetType() == typeof(Saw)))
         {
             if (done.Hovered || mirror.Hovered)
                 return;
             int x = GetX(), y = GetY();
             Tile t = level.Tiles.GetTile(x, y);
             bool same = false;
-            if (currentTile == null && t == null)
+            if (CurrentTile == -1 && t == null)
                 if (mirror.Checked)
                     same = true;
                 else return;
-            if (currentTile != null && t != null && currentTile.GetType() == t.GetType())
+            if (CurrentTile != -1 && t != null && MenuTiles[CurrentTile].GetType() == t.GetType())
                 if (mirror.Checked)
                     same = true;
                 else return;
             if (!same)
             {
                 level.Tiles.DeleteTile(Tiles.GetID(x, y));
-                if (currentTile != null)
-                    level.Tiles.AddTile(x, y, currentTile);
+                if (CurrentTile != -1)
+                    level.Tiles.AddTile(x, y, MenuTiles[CurrentTile]);
             }
             if (mirror.Checked)
             {
                 int x2 = level.Tiles.GetLength(1) - x;
                 int y2 = y;
                 Tile t2 = level.Tiles.GetTile(x2, y2);
-                if (currentTile == null && t2 == null && same)
+                if (CurrentTile == -1 && t2 == null && same)
                     return;
-                if (currentTile != null &&
-                    t2 != null && currentTile.GetType() == t2.GetType() && same)
+                if (CurrentTile != -1 &&
+                    t2 != null && MenuTiles[CurrentTile].GetType() == t2.GetType() && same)
                     return;
                 level.Tiles.DeleteTile(Tiles.GetID(x2, y2));
-                if (currentTile != null)
-                    level.Tiles.AddTile(x2, y2, currentTile);
+                if (CurrentTile != -1)
+                    level.Tiles.AddTile(x2, y2, MenuTiles[CurrentTile]);
             }
             RefreshTexture();
         }
@@ -249,6 +235,7 @@ class LevelEditor : UI.State
         base.Render();
     }
 
+    List<Tile> MenuTiles = null;
     void RenderTileMenu()
     {
         Vec2 v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1);
@@ -257,14 +244,14 @@ class LevelEditor : UI.State
 		RenderState.Translate(new Vec2(240, 180));
         RenderState.Scale(0.5);
 
-        if (currentTile == null)
+        if (CurrentTile == -1)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-        for (int i = 0; i < TileTypes.Count; i++)
+        foreach(var a in MenuTiles)
         {
             v += new Vec2(0, -Tile.Size.Y * 1.1 * 2);
-            if (currentTile != null && currentTile.GetType() == Type.GetType(TileTypes[i]))
+            if (CurrentTile == MenuTiles.IndexOf(a))
                 Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
-            ((Tile)Type.GetType(TileTypes[i]).GetConstructor(new Type[] { }).Invoke(new object[] { })).SetPosition(v).Render();
+            a.SetPosition(v).Render();
         }
 		RenderState.Pop();
     }

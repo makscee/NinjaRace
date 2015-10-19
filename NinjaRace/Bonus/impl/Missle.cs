@@ -11,16 +11,15 @@ class Missle : Bonus
     }
     public override void Get(Player player)
     {
-        Effect e = new BonusOnScreen(Tex.Copy(), player);
         RemoveBonusOnScreen(player);
-        Program.World.EffectsScreen.Add(e);
+        Program.World.EffectsScreen.Add(new BonusOnScreen(Tex.Copy(), player));
         player.Bonus = () =>
         {
             MissleEffect m = new MissleEffect(player);
             Program.World.EffectsTop.Add(m);
             Program.World.CurrentMissle = m;
             player.Bonus = () => { };
-            e.Dispose();
+            RemoveBonusOnScreen(player);
         };
     }
 }

@@ -12,13 +12,12 @@ class FreezeBonus : Bonus
     }
     public override void Get(Player player)
     {
-        Effect e = new BonusOnScreen(Tex.Copy(), player);
         RemoveBonusOnScreen(player);
-        Program.World.EffectsScreen.Add(e);
+        Program.World.EffectsScreen.Add(new BonusOnScreen(Tex.Copy(), player));
         player.Bonus = () =>
         {
-            e.Dispose();
             Player op = player.GetOpponent();
+            RemoveBonusOnScreen(player);
             if (op.States.IsDead)
             {
                 return;

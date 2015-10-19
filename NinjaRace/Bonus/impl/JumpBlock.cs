@@ -11,9 +11,8 @@ class JumpBlock : Bonus
     }
     public override void Get(Player player)
     {
-        Effect e = new BonusOnScreen(Tex.Copy(), player);
         RemoveBonusOnScreen(player);
-        Program.World.EffectsScreen.Add(e);
+        Program.World.EffectsScreen.Add(new BonusOnScreen(Tex.Copy(), player));
         player.Bonus = () =>
         {
             Player op = player.GetOpponent();
@@ -27,7 +26,7 @@ class JumpBlock : Bonus
             });
             op.NextDeath += t.Complete;
             player.Bonus = () => { };
-            e.Dispose();
+            RemoveBonusOnScreen(player);
         };
     }
 }
