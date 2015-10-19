@@ -21,9 +21,9 @@ class Ground : Tile
         Sides = 15;
         Vec2i pos = Tiles.GetCoords(ID);
         Tiles tiles = Program.World.Level.Tiles;
-        if (pos.Y != tiles.GetLength(0) && tiles.GetTile(pos.X, pos.Y + 1) is Ground)
+        if (pos.Y < tiles.GetLength(0) - 1 && tiles.GetTile(pos.X, pos.Y + 1) is Ground)
             Sides -= 1;
-        if (pos.X != tiles.GetLength(1) && tiles.GetTile(pos.X + 1, pos.Y) is Ground)
+        if (pos.X < tiles.GetLength(1) - 1 && tiles.GetTile(pos.X + 1, pos.Y) is Ground)
             Sides -= 2;
         if (pos.Y > 1 && tiles.GetTile(pos.X, pos.Y - 1) is Ground)
             Sides -= 4;

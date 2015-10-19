@@ -63,6 +63,28 @@ namespace NinjaRace {
         /// <summary>
         ///   Looks up a localized string similar to uniform vec4 color;
         ///uniform float size;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1;
+        ///	m = min(m, 1.0 - modelPos.y);
+        ///	m = min(m, 1.0 - modelPos.x);
+        ///	m = min(m, modelPos.y);
+        ///	m = min(m, modelPos.x);
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+        ///}.
+        /// </summary>
+        internal static string BonusTile {
+            get {
+                return ResourceManager.GetString("BonusTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
         ///uniform float fade;
         ///
         ///varying vec3 modelPos;

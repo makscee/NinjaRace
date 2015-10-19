@@ -10,6 +10,5 @@ void main()
 	m = min(m, 1.0 - modelPos.x);
 	m = min(m, modelPos.y);
 	m = min(m, modelPos.x);
-	m = min(m, sqrt(distance(modelPos.xy, vec2(0.5)) / 48));
-	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (9 + size));
+	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
 }

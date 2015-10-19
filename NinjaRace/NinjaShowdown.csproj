@@ -469,6 +469,7 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\BonusTile.txt" />
     <None Include="Resources\FinishTile.txt" />
     <None Include="Resources\CrackedTile.txt" />
     <None Include="Resources\Saw.txt" />

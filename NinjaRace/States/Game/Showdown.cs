@@ -58,13 +58,13 @@ class Showdown : UI.State
     }
     protected virtual void Finish()
     {
+        TimerContainer.Clear();
         Player p = (World.Player1.Lives < 1 ? World.Player2 : World.Player1);
 
         Texture tex = new Texture(RenderState.Width, RenderState.Height);
         RenderState.BeginTexture(tex);
         Render();
         RenderState.EndTexture();
-        TimerContainer.Clear();
         Program.Manager.NextState = new GameOver(p);
     }
     public override void KeyDown(Key key)

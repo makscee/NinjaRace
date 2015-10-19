@@ -8,6 +8,10 @@ class BonusTile : Tile
     public BonusTile()
     {
         Mark = true;
+        Shader = new Shader(NinjaRace.Shaders.BonusTile);
+        r = Program.Random.NextDouble();
+        g = Program.Random.NextDouble();
+        b = Program.Random.NextDouble();
     }
 
     List<Bonus> GameBonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(),
@@ -28,8 +32,16 @@ class BonusTile : Tile
         b.Get(player);
     }
 
-    protected override void LoadTexture()
+    double r, g, b;
+    public override void Update(double dt)
     {
-        tex = new AnimatedTexture(new Texture("./Data/img/tiles/bonus.png"));
+        base.Update(dt);
+        r = r > 1.7 ? 0.3 : r + dt;
+        g = g > 1.7 ? 0.3 : g + dt * 2.3;
+        b = b > 1.7 ? 0.3 : b + dt * 3.7;
+    }
+    protected override void SetAdditionalParameters()
+    {
+        RenderState.Set("color", new Color(r > 1 ? 2 - r : r, g > 1 ? 2 - g : g, b > 1 ? 2 - b : b));
     }
 }

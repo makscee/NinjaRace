@@ -28,9 +28,9 @@ class Game : State
     }
     public virtual void Finish(Player player)
     {
-        new Showdown(World.Level.Name.Trim() + "_S", World.Player1 == player ? true : false);
         TimerContainer.Clear();
         Close();
+        new Showdown(World.Level.Name.Trim() + "_S", World.Player1 == player ? true : false);
     }
     public override void KeyDown(Key key)
     {
