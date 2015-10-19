@@ -15,6 +15,8 @@ abstract class Tile : IRenderable, IUpdateable
     protected bool Moving = false;
     public bool Colorable = false;
     public int Link = -1;
+    public Color Color;
+    protected Shader Shader;
 
     public Vec2 Position 
     {
@@ -47,18 +49,31 @@ abstract class Tile : IRenderable, IUpdateable
 
     protected virtual void LoadTexture() { }
 
+    double t = 0;
+    protected double rotation = 0;
+
     public virtual void Render()
     {
-        if(tex == null)
-            LoadTexture();
-        Draw.Texture(tex.GetCurrent(), Position - Size, Position + Size);
+        if (Shader == null)
+            return;
+        RenderState.Push();
+        RenderState.Translate(Position);
+        RenderState.Scale(Tile.Size * 2);
+        RenderState.Rotate(rotation);
+        RenderState.Origin(0.5, 0.5);
+        RenderState.Set("color", Color);
+        RenderState.Set("size", Math.Sin(t) + 1);
+        SetAdditionalParameters();
+        Shader.RenderQuad();
+        RenderState.Pop();
     }
 
     public virtual void Effect(Player player, Side side) { }
 
     public virtual void Update(double dt) 
     {
-        if(tex != null)
-            tex.Update(dt);
+        t += dt;
     }
+
+    protected virtual void SetAdditionalParameters() { }
 }

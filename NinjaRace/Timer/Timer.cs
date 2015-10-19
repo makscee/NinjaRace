@@ -33,12 +33,12 @@ class Timer : IUpdateable
 
     public void Stop()
     {
-        Alive = true;
+        Alive = false;
     }
 
     public void Start()
     {
-        Alive = false;
+        Alive = true;
     }
 
     public bool IsDone

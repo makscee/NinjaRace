@@ -61,6 +61,52 @@ namespace NinjaRace {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///uniform float fade;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1;
+        ///	m = min(m, 1.0 - modelPos.y);
+        ///	m = min(m, modelPos.y &gt;= fade ? 1.0 - modelPos.x : distance(modelPos.xy, vec2(1, fade)));
+        ///	if(fade == 0)
+        ///		m = min(m, modelPos.y);
+        ///	m = min(m, modelPos.y &gt;= fade ? modelPos.x : distance(modelPos.xy, vec2(0, fade)));
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+        ///}.
+        /// </summary>
+        internal static string CrackedTile {
+            get {
+                return ResourceManager.GetString("CrackedTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1;
+        ///	m = min(m, 1.0 - modelPos.y);
+        ///	m = min(m, 1.0 - modelPos.x);
+        ///	m = min(m, modelPos.y);
+        ///	m = min(m, modelPos.x);
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+        ///}.
+        /// </summary>
+        internal static string FinishTile {
+            get {
+                return ResourceManager.GetString("FinishTile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to uniform sampler2D texture;
         ///uniform vec2 size;
         ///uniform float doX;
@@ -125,7 +171,7 @@ namespace NinjaRace {
         ///	m = min(m, modelPos.y);
         ///	m = min(m, 1.0 - modelPos.x);
         ///	m = min(m, modelPos.x);
-        ///	m = min(m, abs(modelPos.y - pulse));
+        ///	m = min(m, abs((modelPos.x &gt; 0.5 ? (1 - modelPos.x) : modelPos.x) * 2 - modelPos.y + pulse));
         ///
         ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
         ///}.
@@ -137,7 +183,43 @@ namespace NinjaRace {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///uniform float pulse;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1.0;
+        ///	float r = distance(modelPos.xy, vec2(cos(pulse) / 2.3 + 0.5, sin(pulse) / 2.3 + 0.5)) * 3;
+        ///	r = min(r, distance(modelPos.xy, vec2(cos(pulse + 3.14) / 2.3 + 0.5, sin(pulse + 3.14) / 2.3 + 0.5)) * 3);
+        ///	r = r &gt; 0.5 ? 0.5 : r;
+        ///	float x = modelPos.x, y = modelPos.y;
+        ///	m = min(m, abs(pow(x - 0.5, 2) + pow(y - 0.5, 2) - 0.15));
+        ///
+        ///	gl_FragColor = vec4(color.x + 0.5 - r, color.y, color.z, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Saw {
+            get {
+                return ResourceManager.GetString("Saw", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uniform vec4 color;
+        ///uniform float size;
+        ///
+        ///varying vec3 modelPos;
+        ///
+        ///void main()
+        ///{
+        ///	float m = 1.0;
+        ///	m = min(m, modelPos.y);
+        ///	m = min(m, abs((modelPos.x &gt; 0.5 ? (1 - modelPos.x) : modelPos.x) * 2 - modelPos.y));
+        ///
+        ///	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
+        ///}.
         /// </summary>
         internal static string Spikes {
             get {

@@ -18,6 +18,8 @@ class Saw : Tile
     public Saw() 
     {
         Moving = true;
+        Color = new Color(0.3, 0.3, 0.3);
+        Shader = new Shader(NinjaRace.Shaders.Saw);
     }
 
     public Saw SetSpeed(double s)
@@ -28,11 +30,18 @@ class Saw : Tile
 
     public override void Effect(Player player, Side side)
     {
+        if (player.States.IsDead)
+            return;
         player.States.current.Die(Position);
+        colorBlend = 0.7;
     }
 
     public override void Update(double dt)
     {
+        base.Update(dt);
+        pulse = pulse > Math.PI * 2 ? 0 : pulse + dt * 9;
+        rotation += dt * 4;
+        colorBlend = colorBlend < 0 ? 0 : colorBlend - dt;
         base.Update(dt);
         if (Link == -1)
             return;
@@ -50,5 +59,11 @@ class Saw : Tile
             forward = true;
             return;
         }
+    }
+    double colorBlend = 0, pulse = 0;
+    protected override void SetAdditionalParameters()
+    {
+        RenderState.Set("color", new Color(Color.R + colorBlend, Color.G, Color.B, Color.A));
+        RenderState.Set("pulse", pulse);
     }
 }

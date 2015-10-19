@@ -5,13 +5,11 @@ using VitPro.Engine;
 [Serializable]
 class Ground : Tile
 {
-    Shader Shader = new Shader(NinjaRace.Shaders.TileBorder);
-    double t = 0;
     int Sides = 15;
-    Color Color = new Color(0.6, 0.8, 0.3);
     public Ground()
     {
-        Colorable = true;
+        Color = new Color(0.6, 0.8, 0.3);
+        Shader = new Shader(NinjaRace.Shaders.TileBorder);
     }
     protected override void LoadTexture()
     {
@@ -19,7 +17,7 @@ class Ground : Tile
     }
     public override void Update(double dt)
     {
-        t += dt;
+        base.Update(dt);
         Sides = 15;
         Vec2i pos = Tiles.GetCoords(ID);
         Tiles tiles = Program.World.Level.Tiles;
@@ -32,17 +30,9 @@ class Ground : Tile
         if (pos.X > 1 && tiles.GetTile(pos.X - 1, pos.Y) is Ground)
             Sides -= 8;
     }
-    public override void Render()
+    protected override void SetAdditionalParameters()
     {
-        RenderState.Push();
-        RenderState.Translate(Position);
-        RenderState.Scale(Tile.Size * 2);
-        RenderState.Origin(0.5, 0.5);
-        RenderState.Set("color", Color);
-        RenderState.Set("size", Math.Sin(t) + 1);
         RenderState.Set("sides", Sides);
-        Shader.RenderQuad();
-        RenderState.Pop();
     }
     public override void Effect(Player player, Side side)
     {

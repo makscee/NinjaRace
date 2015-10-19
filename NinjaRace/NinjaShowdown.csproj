@@ -147,6 +147,11 @@
     <Compile Include="Effects\PixelParticle.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Shaders1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shaders.resx</DependentUpon>
+    </Compile>
     <Compile Include="States\Game\CopyChose.cs" />
     <Compile Include="States\Game\PreShowdown.cs" />
     <Compile Include="States\Game\TournamentGame.cs" />
@@ -186,11 +191,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Shaders.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Shaders.resx</DependentUpon>
     </Compile>
     <Compile Include="Menu\Button.cs" />
     <Compile Include="Player\States\impl\Dead.cs" />
@@ -469,6 +469,9 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\FinishTile.txt" />
+    <None Include="Resources\CrackedTile.txt" />
+    <None Include="Resources\Saw.txt" />
     <None Include="Resources\Spikes.txt" />
     <None Include="Resources\JumpTile.txt" />
     <None Include="Resources\TileBorder.txt" />

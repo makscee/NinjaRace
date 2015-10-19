@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CrackedTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\CrackedTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="FinishTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\FinishTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="Glow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Test.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
@@ -126,6 +132,9 @@
   </data>
   <data name="JumpTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\JumpTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="Saw" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Saw.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
   <data name="Spikes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Spikes.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>

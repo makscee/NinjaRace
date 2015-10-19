@@ -15,19 +15,18 @@ class FreezeBonus : Bonus
         Effect e = new BonusOnScreen(Tex.Copy(), player);
         RemoveBonusOnScreen(player);
         Program.World.EffectsScreen.Add(e);
-        player.Bonus = () => 
+        player.Bonus = () =>
         {
+            e.Dispose();
             Player op = player.GetOpponent();
             if (op.States.IsDead)
             {
-                e.Dispose();
                 return;
             }
             op.States.Set(new Frozen(op));
             Timer t = new Timer(2, () => { if(!op.States.IsDead) op.States.SetFalling(); });
             player.Bonus = () => { };
             op.NextDeath += t.Drop;
-            e.Dispose();
         };
     }
 }

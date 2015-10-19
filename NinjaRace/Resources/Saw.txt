@@ -1,0 +1,17 @@
+uniform vec4 color;
+uniform float size;
+uniform float pulse;
+
+varying vec3 modelPos;
+
+void main()
+{
+	float m = 1.0;
+	float r = distance(modelPos.xy, vec2(cos(pulse) / 2.3 + 0.5, sin(pulse) / 2.3 + 0.5)) * 3;
+	r = min(r, distance(modelPos.xy, vec2(cos(pulse + 3.14) / 2.3 + 0.5, sin(pulse + 3.14) / 2.3 + 0.5)) * 3);
+	r = r > 0.5 ? 0.5 : r;
+	float x = modelPos.x, y = modelPos.y;
+	m = min(m, abs(pow(x - 0.5, 2) + pow(y - 0.5, 2) - 0.15));
+
+	gl_FragColor = vec4(color.x + 0.5 - r, color.y, color.z, 1.0 - m * (10 + size));
+}

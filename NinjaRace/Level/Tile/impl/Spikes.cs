@@ -5,8 +5,11 @@ using System;
 [Serializable]
 class Spikes : Tile
 {
-    Color Color = new Color(0.3, 0.3, 0.3);
-    Shader Shader = new Shader(NinjaRace.Shaders.Spikes);
+    public Spikes()
+    {
+        Shader = new Shader(NinjaRace.Shaders.Spikes); 
+        Color = new Color(0.3, 0.3, 0.3);
+    }
 
     public override void Effect(Player player, Side side)
     {
@@ -25,15 +28,18 @@ class Spikes : Tile
         }
         colorBlend = 0.7;
     }
-    double t = 0, colorBlend = 0, rotation = 0;
+    double colorBlend = 0;
     public override void Update(double dt)
     {
-        t += dt;
+        base.Update(dt);
         colorBlend = colorBlend < 0 ? 0 : colorBlend - dt;
         Vec2i pos = Tiles.GetCoords(ID);
         Tiles tiles = Program.World.Level.Tiles;
         if (pos.Y == 1 || tiles.GetTile(pos.X, pos.Y - 1) != null)
+        {
+            rotation = 0;
             return;
+        }
         if (pos.Y == tiles.GetLength(0) || tiles.GetTile(pos.X, pos.Y + 1) != null)
         {
             rotation = Math.PI;
@@ -51,16 +57,8 @@ class Spikes : Tile
         }
     }
 
-    public override void Render()
+    protected override void SetAdditionalParameters()
     {
-        RenderState.Push();
-        RenderState.Translate(Position);
-        RenderState.Scale(Tile.Size * 2);
-        RenderState.Rotate(rotation);
-        RenderState.Origin(0.5, 0.5);
         RenderState.Set("color", new Color(Color.R + colorBlend, Color.G, Color.B, Color.A));
-        RenderState.Set("size", Math.Sin(t) + 1);
-        Shader.RenderQuad();
-        RenderState.Pop();
     }
 }
