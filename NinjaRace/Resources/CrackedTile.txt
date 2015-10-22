@@ -6,11 +6,15 @@ varying vec3 modelPos;
 
 void main()
 {
+	if(modelPos.y < fade)
+	{
+		gl_FragColor = vec4(color.x, color.y, color.z, 0);
+		return;
+	}
 	float m = 1;
 	m = min(m, 1.0 - modelPos.y);
 	m = min(m, modelPos.y >= fade ? 1.0 - modelPos.x : distance(modelPos.xy, vec2(1, fade)));
-	if(fade == 0)
-		m = min(m, modelPos.y);
+	m = min(m, abs(modelPos.y - fade));
 	m = min(m, modelPos.y >= fade ? modelPos.x : distance(modelPos.xy, vec2(0, fade)));
 	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
 }

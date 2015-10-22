@@ -11,6 +11,7 @@ class Tiles : IRenderable, IUpdateable
     private Group<Tile> movingTiles;
     public static Vec2i MaxSize = new Vec2i(500, 150);
     private Color Color { get; set; }
+    public bool Dirty = true;
 
     public Tiles(int sizex, int sizey)
     {
@@ -39,6 +40,7 @@ class Tiles : IRenderable, IUpdateable
 
     public void AddTile(int x, int y, Tile tile)
     {
+        Dirty = true;
         if (x <= 0 || y <= 0)
             return;
         if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1))
@@ -151,6 +153,7 @@ class Tiles : IRenderable, IUpdateable
         foreach (var a in tiles)
             if (a != null)
                 a.Update(dt);
+        Dirty = false;
     }
 
     public void Clear()
@@ -195,6 +198,7 @@ class Tiles : IRenderable, IUpdateable
 
     public void DeleteTile(int id)
     {
+        Dirty = true;
         Vec2i coords = GetCoords(id);
         if (coords.X <= 0 || coords.Y <= 0)
             return;

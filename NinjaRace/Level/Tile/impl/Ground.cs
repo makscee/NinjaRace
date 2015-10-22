@@ -18,9 +18,11 @@ class Ground : Tile
     public override void Update(double dt)
     {
         base.Update(dt);
-        Sides = 15;
-        Vec2i pos = Tiles.GetCoords(ID);
         Tiles tiles = Program.World.Level.Tiles;
+        if (!tiles.Dirty)
+            return;
+        Vec2i pos = Tiles.GetCoords(ID);
+        Sides = 15;
         if (pos.Y < tiles.GetLength(0) - 1 && tiles.GetTile(pos.X, pos.Y + 1) is Ground)
             Sides -= 1;
         if (pos.X < tiles.GetLength(1) - 1 && tiles.GetTile(pos.X + 1, pos.Y) is Ground)
