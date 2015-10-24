@@ -47,7 +47,7 @@ class Showdown : UI.State
             }
             dt /= 7;
         }
-        dt = Math.Min(dt, 1.0 / 60);
+        dt = Math.Min(dt, 1.0 / 20);
         base.Update(dt);
         World.Update(dt);
         if ((World.Player1.Lives < 1 || World.Player2.Lives < 1) && !finished)

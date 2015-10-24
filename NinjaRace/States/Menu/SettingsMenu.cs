@@ -38,9 +38,14 @@ class SettingsMenu : Menu
 
         Button controls = new Button("EDIT CONTROLS", 
             () => { Program.Manager.NextState = new EditControls(); }, 40, 300);
-        controls.Anchor = new Vec2(0.5, 0.2);
+        controls.Anchor = new Vec2(0.5, 0.3);
         AddElement(controls);
 
-        
+        Button done = new Button("DONE",
+            () => { 
+                Close();
+            }, 40, 300);
+        done.Anchor = new Vec2(0.5, 0.1);
+        AddElement(done);
     }
 }

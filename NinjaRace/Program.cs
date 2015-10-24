@@ -20,12 +20,12 @@ class Program
         try
         {
             Settings = GUtil.Load<Settings>("./Data/Settings");
+            Settings.Apply();
         }
         catch (Exception)
         {
             Settings = new Settings();
         }
-        Settings.Apply();
         font.Smooth = false;
         Manager = new MyManager(new MainMenu());
         DBUtils.Init();

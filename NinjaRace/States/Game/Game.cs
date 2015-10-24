@@ -23,7 +23,7 @@ class Game : State
     }
     public override void Update(double dt)
     {
-        dt = Math.Min(dt, 1.0 / 60);
+        dt = Math.Min(dt, 1.0 / 20);
         World.Update(dt);
     }
     public virtual void Finish(Player player)

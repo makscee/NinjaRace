@@ -5,8 +5,10 @@ using System;
 [Serializable]
 class Settings
 {
+    [Serialize]
     public bool Fullscreen = false,
         VSync = false;
+    [Serialize]
     public Key P1Left = Key.A,
         P1Right = Key.D,
         P1Down = Key.S,
