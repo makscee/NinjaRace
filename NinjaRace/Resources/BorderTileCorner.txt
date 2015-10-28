@@ -1,0 +1,19 @@
+uniform vec4 color;
+uniform float size;
+uniform int side;
+
+varying vec3 modelPos;
+
+void main()
+{
+	float m = 1;
+	if(side == 0)
+		m = distance(modelPos.xy, vec2(1, 1));
+	if(side == 1)
+		m = distance(modelPos.xy, vec2(1, 0));
+	if(side == 2)
+		m = distance(modelPos.xy, vec2(0, 0));
+	if(side == 3)
+		m = distance(modelPos.xy, vec2(0, 1));
+	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (2 + size));
+}

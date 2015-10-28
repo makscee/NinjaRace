@@ -121,6 +121,12 @@
   <data name="BonusTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\BonusTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="BorderTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\BorderTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="BorderTileCorner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\BorderTileCorner.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="CrackedTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\CrackedTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
@@ -133,6 +139,9 @@
   <data name="GlowingParticle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\GlowingParticle.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="GroundTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\TileBorder.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
   <data name="JumpTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\JumpTile.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
@@ -141,8 +150,5 @@
   </data>
   <data name="Spikes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Spikes.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
-  </data>
-  <data name="TileBorder" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\TileBorder.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
 </root>

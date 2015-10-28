@@ -9,11 +9,7 @@ class Ground : Tile
     public Ground()
     {
         Color = new Color(0.6, 0.8, 0.3);
-        Shader = new Shader(NinjaRace.Shaders.TileBorder);
-    }
-    protected override void LoadTexture()
-    {
-        tex = new AnimatedTexture(new Texture("./Data/img/tiles/ground.png"));
+        Shader = new Shader(NinjaRace.Shaders.GroundTile);
     }
     public override void Update(double dt)
     {

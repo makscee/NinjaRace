@@ -145,6 +145,7 @@
     <Compile Include="Effects\ParticleEngine.cs" />
     <Compile Include="Effects\ParticleExplosion.cs" />
     <Compile Include="Effects\PixelParticle.cs" />
+    <Compile Include="Level\Tile\impl\BorderTile.cs" />
     <Compile Include="Level\Tile\impl\CrackedTile.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Shaders1.Designer.cs">
@@ -469,6 +470,8 @@
     <Content Include="Data\img\tiles\spikes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\BorderTileCorner.txt" />
+    <None Include="Resources\BorderTile.txt" />
     <None Include="Resources\BonusTile.txt" />
     <None Include="Resources\FinishTile.txt" />
     <None Include="Resources\CrackedTile.txt" />

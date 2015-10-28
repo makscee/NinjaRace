@@ -17,11 +17,22 @@ class Tiles : IRenderable, IUpdateable
     {
         if (sizex > MaxSize.X || sizey > MaxSize.Y)
             throw new Exception("Size of level is too big");
-        tiles = new Tile[sizey, sizex];
+        tiles = new Tile[sizey + 1, sizex + 1];
         PosTiles = new PosGroup<Tile>(0, 0, sizex * Tile.Size.X * 2, sizey * Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
 
         movingTiles = new Group<Tile>();
         Color = Color.White;
+        BorderTile t = new BorderTile();
+        for (int i = 1; i < sizex; i++)
+        {
+            AddTile(new Vec2i(i, 0), t);
+            AddTile(new Vec2i(i, sizey), t);
+        }
+        for (int i = 0; i <= sizey; i++)
+        {
+            AddTile(new Vec2i(0, i), t);
+            AddTile(new Vec2i(sizex, i), t);
+        }
     }
 
     public List<StartTile> GetStartTiles()
@@ -41,7 +52,7 @@ class Tiles : IRenderable, IUpdateable
     public void AddTile(int x, int y, Tile tile)
     {
         Dirty = true;
-        if (x <= 0 || y <= 0)
+        if (x < 0 || y < 0)
             return;
         if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1))
             return;
@@ -69,9 +80,9 @@ class Tiles : IRenderable, IUpdateable
 
     public Tile GetTile(int x, int y)
     {
-        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1) || x <= 0 || y <= 0)
+        if (y > tiles.GetLength(0) || x > tiles.GetLength(1) || x < 0 || y < 0)
         {
-            return new Ground().SetPosition(new Vec2(Tile.Size.X * x * 2, Tile.Size.Y * y * 2));
+            return null;
         }
         return tiles[y, x];
     }
@@ -83,17 +94,17 @@ class Tiles : IRenderable, IUpdateable
 
     public int GetLength(int d)
     {
-        return tiles.GetLength(d);
+        return tiles.GetLength(d) - 1;
     }
 
     public Vec2i GetSize()
     {
-        return new Vec2i((GetLength(1) - 1) * (int)Tile.Size.X * 2, (GetLength(0) - 1) * (int)Tile.Size.Y * 2);
+        return new Vec2i((GetLength(1) - 2) * (int)Tile.Size.X * 2, (GetLength(0) - 2) * (int)Tile.Size.Y * 2);
     }
 
     public void RenderBackground()
     {
-        Draw.Rect(Tile.Size, new Vec2(tiles.GetLength(1) * Tile.Size.X * 2, tiles.GetLength(0) * Tile.Size.Y * 2) - Tile.Size, new Color(0.1, 0.1, 0.1));
+        Draw.Rect(Tile.Size, new Vec2(GetLength(1) * Tile.Size.X * 2, GetLength(0) * Tile.Size.Y * 2) - Tile.Size, new Color(0.1, 0.1, 0.1));
     }
 
     public void Render()
@@ -172,12 +183,12 @@ class Tiles : IRenderable, IUpdateable
 
     public static int GetID(int x, int y)
     {
-        return (y - 1) * MaxSize.X + x;
+        return y * MaxSize.X + x;
     }
 
     public static Vec2i GetCoords(int id)
     {
-        return new Vec2i(id % MaxSize.X, id / MaxSize.X + 1);
+        return new Vec2i(id % MaxSize.X, id / MaxSize.X);
     }
 
     public Tile GetByID(int id)
