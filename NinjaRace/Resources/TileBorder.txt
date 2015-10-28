@@ -1,6 +1,7 @@
 uniform vec4 color;
 uniform float size;
 uniform int sides;
+uniform int corners;
 
 varying vec3 modelPos;
 
@@ -15,5 +16,14 @@ void main()
 		m = min(m, modelPos.y);
 	if(sides & 8)
 		m = min(m, modelPos.x);
+	if(corners & 1)
+		m = min(m, distance(modelPos.xy, vec2(1)));
+	if(corners & 2)
+		m = min(m, distance(modelPos.xy, vec2(1, 0)));
+	if(corners & 4)
+		m = min(m, distance(modelPos.xy, vec2(0)));
+	if(corners & 8)
+		m = min(m, distance(modelPos.xy, vec2(0, 1)));
+
 	gl_FragColor = vec4(color.x, color.y, color.z, 1.0 - m * (4 + size));
 }
