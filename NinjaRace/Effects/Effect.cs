@@ -20,9 +20,7 @@ class Effect : IRenderable, IUpdateable, IDisposable
     }
 
     public virtual void Render() { }
-    public virtual void Update(double dt) 
-    {
-    }
+    public virtual void Update(double dt) { }
 
     public virtual void Dispose()
     {
