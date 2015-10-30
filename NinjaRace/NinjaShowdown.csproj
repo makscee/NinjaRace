@@ -133,6 +133,7 @@
     <Compile Include="Effects\impl\BonusGet.cs" />
     <Compile Include="Effects\impl\BonusOnScreen.cs" />
     <Compile Include="Effects\impl\BonusGetExplosionEffect.cs" />
+    <Compile Include="Effects\impl\BonusTileEffect.cs" />
     <Compile Include="Effects\impl\GlowingParticle.cs" />
     <Compile Include="Effects\impl\Hearts.cs" />
     <Compile Include="Effects\impl\JumpBlockEffect.cs" />

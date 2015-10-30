@@ -5,6 +5,7 @@ using VitPro.Engine;
 
 class BonusTile : Tile
 {
+    public Effect TileEffect;
     public BonusTile()
     {
         Mark = true;
@@ -12,6 +13,8 @@ class BonusTile : Tile
         r = Program.Random.NextDouble();
         g = Program.Random.NextDouble();
         b = Program.Random.NextDouble();
+        TileEffect = new BonusTileEffect(this);
+        Program.World.EffectsMid.Add(TileEffect);
     }
 
     List<Bonus> GameBonuses = new List<Bonus>() { new SpeedUp(), new FreezeBonus(), new SlowDown(),
@@ -24,6 +27,7 @@ class BonusTile : Tile
             return;
         Program.Statistics.Bonuses[Program.WhichPlayer(player)]++;
         Program.World.Level.Tiles.DeleteTile(ID);
+        TileEffect.Dispose();
         new Timer(4, () => { Program.World.Level.Tiles.AddTile(Tiles.GetCoords(ID), new BonusTile()); });
         Bonus b = Program.Manager.CurrentState is Game ?
             GameBonuses[Program.Random.Next(GameBonuses.Count)] :
@@ -39,9 +43,10 @@ class BonusTile : Tile
         r = r > 1.7 ? 0.3 : r + dt;
         g = g > 1.7 ? 0.3 : g + dt * 2.3;
         b = b > 1.7 ? 0.3 : b + dt * 3.7;
+        Color = new Color(r > 1 ? 2 - r : r, g > 1 ? 2 - g : g, b > 1 ? 2 - b : b);
     }
     protected override void SetAdditionalParameters()
     {
-        RenderState.Set("color", new Color(r > 1 ? 2 - r : r, g > 1 ? 2 - g : g, b > 1 ? 2 - b : b));
+        RenderState.Set("color", Color);
     }
 }

@@ -7,7 +7,7 @@ class BorderTile : Tile
     int Side = -1;
     public BorderTile()
     {
-        Color = new Color(0.6, 0.8, 0.3);
+        Color = new Color(0.4, 0.4, 0.4);
         Shader = new Shader(NinjaRace.Shaders.BorderTile);
     }
     public override void Update(double dt)
@@ -48,6 +48,6 @@ class BorderTile : Tile
     }
     public override void Effect(Player player, Side side)
     {
-        Color = new Color(0.3, 0.5, 1);
+        Color = new Color(0.2, 0.2, 0.2);
     }
 }
