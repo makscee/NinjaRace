@@ -22,7 +22,7 @@ class LevelEditor : UI.State
     void init()
     {
         cam.Position = new Vec2(100, 100);
-        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreLevel(level); this.Close(); }, 20, 50);
+        done = new Button("DONE", () => { level.Name += showdown ? "_S" : ""; DBUtils.StoreLevel(level); Program.Manager.NextState = new MainMenu(); }, 20, 50);
         done.Anchor = new Vec2(0.95, 0.05);
         clear = new Button("CLEAR", () => 
         {

@@ -50,9 +50,9 @@ class CreateLevel : Menu
                 this.Close();
                 if (!showdown)
                     Program.Manager.PushState(new CreateLevel(true, Name.Value));
-                Program.Manager.PushState(
+                Program.Manager.NextState = 
                     new LevelEditor(int.Parse(xInput.Value), int.Parse(yInput.Value), 
-                        showdown ? name : Name.Value, showdown));
+                        showdown ? name : Name.Value, showdown);
             }, 50, 120);
         done.Anchor = new Vec2(0.5, 0.1);
         Frame.Add(done);

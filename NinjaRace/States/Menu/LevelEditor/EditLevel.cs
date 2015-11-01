@@ -31,7 +31,7 @@ class EditLevel : Menu
         Button Done = new Button("DONE", () =>
         {
             Close();
-            Program.Manager.PushState(new LevelEditor(Levels[LevelNum], Showdown.Checked));
+            Program.Manager.NextState = new LevelEditor(Levels[LevelNum], Showdown.Checked);
         }, 60, 150);
         Done.Anchor = new Vec2(0.5, 0.2);
 

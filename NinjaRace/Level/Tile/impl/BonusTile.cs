@@ -13,6 +13,8 @@ class BonusTile : Tile
         r = Program.Random.NextDouble();
         g = Program.Random.NextDouble();
         b = Program.Random.NextDouble();
+        if (Program.World == null)
+            return;
         TileEffect = new BonusTileEffect(this);
         Program.World.EffectsMid.Add(TileEffect);
     }
