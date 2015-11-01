@@ -22,7 +22,7 @@ class MyManager : State.Manager
         }
         if (t == 0)
             base.Update(dt);
-        t -= 3 * dt;
+        t -= 7 * dt;
         if (t < 0)
             t = 0;
     }

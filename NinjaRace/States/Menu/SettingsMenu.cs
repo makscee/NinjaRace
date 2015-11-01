@@ -43,7 +43,7 @@ class SettingsMenu : Menu
 
         Button done = new Button("DONE",
             () => { 
-                Close();
+                Program.Manager.NextState = new MainMenu();
             }, 40, 300);
         done.Anchor = new Vec2(0.5, 0.1);
         AddElement(done);

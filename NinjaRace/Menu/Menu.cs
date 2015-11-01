@@ -14,13 +14,22 @@ class Menu : UI.State
         Zoom = 1.0 * App.Height / 480;
         Draw.Clear(Color.Black);
         RenderBackground();
+        RenderState.Push();
+        RenderState.View2d(0, 0, Frame.Size.X, Frame.Size.Y);
+        EffectsBot.Render();
+        RenderState.Pop();
         base.Render();
+        RenderState.Push();
+        RenderState.View2d(0, 0, Frame.Size.X, Frame.Size.Y);
+        EffectsTop.Render();
+        RenderState.Pop();
     }
 
     private Group<Tuple<UI.Element, double>> ExpandEffect = new Group<Tuple<UI.Element, double>>();
 
     protected void AddExpandElement(UI.Element element)
     {
+        EffectsTop.Add(new ExpandEffect(element));
         ExpandEffect.Add(new Tuple<UI.Element, double>(element, (double)element.FixedWidth));
         ExpandEffect.Refresh();
         element.FixedWidth = 50;
@@ -38,7 +47,7 @@ class Menu : UI.State
         base.Update(dt);
         foreach (var a in ExpandEffect)
         {
-            a.Item1.FixedWidth = a.Item1.FixedWidth + dt * 1000;
+            a.Item1.FixedWidth = a.Item1.FixedWidth + dt * 700;
             if (a.Item1.FixedWidth > a.Item2)
             {
                 a.Item1.FixedWidth = a.Item2;
@@ -46,9 +55,16 @@ class Menu : UI.State
                 Color c = a.Item1.TextColor;
                 c.A = 1;
                 a.Item1.TextColor = c;
+                foreach (var e in EffectsTop)
+                    if (e is ExpandEffect && ((ExpandEffect)e).Element == a.Item1)
+                        EffectsTop.Remove(e);
             }
         }
         ExpandEffect.Refresh();
+        EffectsBot.Update(dt);
+        EffectsTop.Update(dt);
+        EffectsTop.Refresh();
+        EffectsBot.Refresh();
     }
 
     public virtual void RenderBackground()
@@ -60,7 +76,7 @@ class Menu : UI.State
     {
         base.KeyDown(key);
         if (key == Key.Escape)
-            Close();
+            Program.Manager.NextState = new MainMenu();
         if (key == Key.Down)
         {
             SelectNext(-Vec2.OrtY);
