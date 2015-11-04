@@ -20,6 +20,7 @@ class PreGame : VitPro.Engine.UI.State
 
     public override void Update(double dt)
     {
+        dt = Math.Min(1.0 / 30, dt);
         base.Update(dt);
         if (T - dt < 0)
         {

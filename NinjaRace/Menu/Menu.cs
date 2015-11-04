@@ -48,16 +48,19 @@ class Menu : UI.State
         foreach (var a in ExpandEffect)
         {
             a.Item1.FixedWidth = a.Item1.FixedWidth + dt * 700;
-            if (a.Item1.FixedWidth > a.Item2)
+            if (a.Item1.FixedWidth + 70 > a.Item2)
             {
-                a.Item1.FixedWidth = a.Item2;
-                ExpandEffect.Remove(a);
-                Color c = a.Item1.TextColor;
-                c.A = 1;
-                a.Item1.TextColor = c;
                 foreach (var e in EffectsTop)
                     if (e is ExpandEffect && ((ExpandEffect)e).Element == a.Item1)
-                        EffectsTop.Remove(e);
+                        ((ExpandEffect)e).Alive = false;
+                if (a.Item1.FixedWidth > a.Item2)
+                {
+                    a.Item1.FixedWidth = a.Item2;
+                    ExpandEffect.Remove(a);
+                    Color c = a.Item1.TextColor;
+                    c.A = 1;
+                    a.Item1.TextColor = c;
+                }
             }
         }
         ExpandEffect.Refresh();

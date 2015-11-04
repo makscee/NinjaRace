@@ -30,8 +30,6 @@ class Effect : IRenderable, IUpdateable, IDisposable
             Menu menu = (Menu)current;
             menu.EffectsTop.Remove(this);
             menu.EffectsBot.Remove(this);
-            menu.EffectsBot.Refresh();
-            menu.EffectsTop.Refresh();
         }
         if (current is Game || current is Showdown)
         {

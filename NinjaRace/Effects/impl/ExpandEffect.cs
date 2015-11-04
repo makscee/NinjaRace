@@ -6,7 +6,7 @@ class ExpandEffect : Effect
 {
     Group<PixelParticle> Particles;
     int Amount = 40;
-    double Width = 10;
+    double Width = 70;
     public VitPro.Engine.UI.Element Element;
     public ExpandEffect(VitPro.Engine.UI.Element element)
         : base(element.Position)
@@ -18,9 +18,17 @@ class ExpandEffect : Effect
     public override void Update(double dt)
     {
         base.Update(dt);
-        AddParticles();
+        if (Alive)
+            AddParticles();
+        else if (Particles.Count == 0)
+            Dispose();
         Particles.Refresh();
-        Particles.Update(dt);
+        foreach (var a in Particles)
+        {
+            double size = (Element.BottomLeft.X - a.Position.X) / Width, t = 4;
+            a.Size = new Vec2(t, t) * (1 - size);
+            a.Update(dt);
+        }
         Particles.RemoveAll(Predicate);
         Particles.Refresh();
     }
@@ -53,11 +61,13 @@ class ExpandEffect : Effect
             p.Position = Element.BottomLeft - new Vec2(Program.Random.NextDouble(0, Width),
                 Program.Random.NextDouble(0, - Element.Size.Y));
             p.NeedVel = Vec2.OrtX;
-            p.Speed = 100;
+            p.Speed = 350;
             p.Acc = 900;
             p.Size = new Vec2(2, 2);
             p.Color = Color.White;
             Particles.Add(p);
         }
     }
+
+    public bool Alive = true;
 }
