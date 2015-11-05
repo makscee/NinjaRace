@@ -23,8 +23,8 @@ class World : IUpdateable
         InitPlayers();
         Copies.Add(Player1, new Group<Player>());
         Copies.Add(Player2, new Group<Player>());
-        Player1.CalculateCollisions();
-        Player2.CalculateCollisions();
+        //Player1.CalculateCollisions();
+        //Player2.CalculateCollisions();
         Player2.Dir = -1;
         cam1.Position = Player1.Position;
         cam2.Position = Player2.Position;
@@ -36,7 +36,8 @@ class World : IUpdateable
     private void InitPlayers()
     {
         List<StartTile> starts = Level.Tiles.GetStartTiles();
-        Vec2 pos1 = starts[0].Position + Vec2.OrtY * 4, pos2 = starts[starts.Count - 1].Position + Vec2.OrtY * 4;
+        Vec2 pos1 = starts.Count > 0 ? starts[0].Position + Vec2.OrtY * 4 : Vec2.Zero, 
+            pos2 = starts.Count > 0 ? starts[starts.Count - 1].Position + Vec2.OrtY * 4 : Vec2.Zero;
         if (Player1 == null)
             Player1 = new Player(pos1.X < pos2.X ? pos1 : pos2,
             Color.White).SetControls(Program.Settings.GetPlayer1Controller());

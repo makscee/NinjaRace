@@ -44,6 +44,7 @@ class Menu : UI.State
 
     public override void Update(double dt)
     {
+        dt = Math.Min(dt, 1.0 / 35);
         base.Update(dt);
         foreach (var a in ExpandEffect)
         {

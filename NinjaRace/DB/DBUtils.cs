@@ -68,7 +68,7 @@ class DBUtils
             reader.Close();
         }
 
-        Level level = new Level(new Tiles(levelX, levelY), name);
+        Level level = new Level(new Tiles(levelX - 1, levelY - 1), name);
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
             SqlCommand command = new SqlCommand(
@@ -107,8 +107,8 @@ class DBUtils
             command.Parameters.AddWithValue("@width", level.Tiles.GetLength(1));
             command.Parameters.AddWithValue("@height", level.Tiles.GetLength(0));
             command.ExecuteNonQuery();
-            for (int y = 1; y < level.Tiles.GetLength(0); y++)
-                for (int x = 1; x < level.Tiles.GetLength(1); x++)
+            for (int y = 0; y < level.Tiles.GetLength(0); y++)
+                for (int x = 0; x < level.Tiles.GetLength(1); x++)
                 {
                     Tile t = level.Tiles.GetTile(x, y);
                     if(t == null)

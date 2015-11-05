@@ -15,23 +15,25 @@ class Tiles : IRenderable, IUpdateable
 
     public Tiles(int sizex, int sizey)
     {
+        sizex += 2;
+        sizey += 2;
         if (sizex > MaxSize.X || sizey > MaxSize.Y)
             throw new Exception("Size of level is too big");
-        tiles = new Tile[sizey + 1, sizex + 1];
+        tiles = new Tile[sizey, sizex];
         PosTiles = new PosGroup<Tile>(0, 0, sizex * Tile.Size.X * 2, sizey * Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
 
         movingTiles = new Group<Tile>();
         Color = Color.White;
         BorderTile t = new BorderTile();
-        for (int i = 1; i < sizex; i++)
+        for (int i = 1; i < sizex - 1; i++)
         {
-            AddTile(new Vec2i(i, 0), t);
-            AddTile(new Vec2i(i, sizey), t);
+            AddTileInternal(i, 0, t);
+            AddTileInternal(i, sizey - 1, t);
         }
-        for (int i = 0; i <= sizey; i++)
+        for (int i = 0; i < sizey; i++)
         {
-            AddTile(new Vec2i(0, i), t);
-            AddTile(new Vec2i(sizex, i), t);
+            AddTileInternal(0, i, t);
+            AddTileInternal(sizex - 1, i, t);
         }
     }
 
@@ -47,14 +49,34 @@ class Tiles : IRenderable, IUpdateable
             return l;
     }
 
+    void AddTileInternal(int x, int y, Tile tile)
+    {
+        Dirty = true;
+        int link = tile.Link;
+        tile = (Tile)tile.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
+        tile.Position = new Vec2(Tile.Size.X * x * 2, Tile.Size.Y * y * 2);
+        tile.ID = GetID(x, y);
+        tile.Link = link;
+        tiles[y, x] = tile;
+        if (tile.IsMoving)
+        {
+            movingTiles.Add(tile);
+            movingTiles.Refresh();
+        }
+        else
+        {
+            PosTiles.Add(tile, tile.Position);
+        }
+    }
+
     public void AddTile(Vec2i v, Tile t) { AddTile(v.X, v.Y, t); }
 
     public void AddTile(int x, int y, Tile tile)
     {
         Dirty = true;
-        if (x < 0 || y < 0)
+        if (x <= 0 || y <= 0)
             return;
-        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1))
+        if (y >= tiles.GetLength(0) - 1 || x >= tiles.GetLength(1) - 1)
             return;
         if (tile == null)
         {
@@ -80,7 +102,7 @@ class Tiles : IRenderable, IUpdateable
 
     public Tile GetTile(int x, int y)
     {
-        if (y > tiles.GetLength(0) || x > tiles.GetLength(1) || x < 0 || y < 0)
+        if (y >= tiles.GetLength(0) || x >= tiles.GetLength(1) || x < 0 || y < 0)
         {
             return null;
         }
@@ -99,7 +121,7 @@ class Tiles : IRenderable, IUpdateable
 
     public Vec2i GetSize()
     {
-        return new Vec2i((GetLength(1) - 2) * (int)Tile.Size.X * 2, (GetLength(0) - 2) * (int)Tile.Size.Y * 2);
+        return new Vec2i((GetLength(1)) * (int)Tile.Size.X * 2, (GetLength(0)) * (int)Tile.Size.Y * 2);
     }
 
     public void RenderBackground()
@@ -169,7 +191,18 @@ class Tiles : IRenderable, IUpdateable
 
     public void Clear()
     {
-        tiles = new Tile[GetLength(0), GetLength(1)];
+        tiles = new Tile[tiles.GetLength(0), tiles.GetLength(1)];
+        BorderTile t = new BorderTile();
+        for (int i = 1; i < tiles.GetLength(1) - 1; i++)
+        {
+            AddTileInternal(i, 0, t);
+            AddTileInternal(i, tiles.GetLength(0) - 1, t);
+        }
+        for (int i = 0; i < tiles.GetLength(0); i++)
+        {
+            AddTileInternal(0, i, t);
+            AddTileInternal(tiles.GetLength(1) - 1, i, t);
+        }
         PosTiles = new PosGroup<Tile>(0, 0, GetLength(1) * Tile.Size.X * 2, GetLength(0) * 
             Tile.Size.Y * 2, Tile.Size.X * 2, Tile.Size.Y * 2);
 
@@ -209,15 +242,15 @@ class Tiles : IRenderable, IUpdateable
 
     public void DeleteTile(int id)
     {
-        Dirty = true;
         Vec2i coords = GetCoords(id);
         if (coords.X <= 0 || coords.Y <= 0)
             return;
-        if (coords.Y >= tiles.GetLength(0) || coords.X >= tiles.GetLength(1))
+        if (coords.Y >= tiles.GetLength(0) - 1 || coords.X >= tiles.GetLength(1) - 1)
             return;
         Tile t = tiles[coords.Y, coords.X];
         if (t == null)
             return;
+        Dirty = true;
         PosTiles.Remove(t);
         tiles[coords.Y, coords.X] = null;
         movingTiles.Remove(t);
