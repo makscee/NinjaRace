@@ -17,10 +17,13 @@ class LevelEditor : UI.State
     List<string> TileTypes = new List<string> { "Ground", "Spikes", "JumpTile", "StartTile",
         "FinishTile", "Saw", "BonusTile", "CrackedTile" };
     int CurrentTile = -1;
+    double AppWidth, AppHeight;
 
     bool showdown;
     void init()
     {
+        AppWidth = App.Width;
+        AppHeight = App.Height;
         cam.Position = new Vec2(100, 100);
         done = new Button("DONE", () => 
         {
@@ -37,10 +40,13 @@ class LevelEditor : UI.State
             level.Tiles.Clear();
             RefreshTexture();
         }, 20, 60);
+        Label help = new Label("PRESS F1 FOR HELP", 20);
+        help.Anchor = new Vec2(0.5, 0.05);
         clear.Anchor = new Vec2(0.80, 0.05);
         mirror.Anchor = new Vec2(0.1, 0.95);
         mirror.Checked = true;
         Frame.Add(done);
+        Frame.Add(help);
         Frame.Add(mirror);
         Frame.Add(clear);
         RefreshTexture();
@@ -160,6 +166,12 @@ class LevelEditor : UI.State
 
     public override void Update(double dt)
     {
+        if (App.Height != AppHeight || App.Width != AppWidth)
+        {
+            RefreshTexture();
+            AppHeight = App.Height;
+            AppWidth = App.Width;
+        }
         base.Update(dt);
         MenuTiles.Update(dt);
         if (dragging)
@@ -248,9 +260,9 @@ class LevelEditor : UI.State
     {
         Vec2 v = new Vec2(-Tile.Size.X * 1.1, -Tile.Size.Y * 1.1);
         RenderState.Push();
-        new View(360).Apply();
-		RenderState.Translate(new Vec2(240, 180));
-        RenderState.Scale(0.5);
+        new View(App.Height * 0.75).Apply();
+		RenderState.Translate(new Vec2(App.Width / 3, App.Height / 3));
+        RenderState.Scale(0.5 * (1.0 * App.Height) / 480);
 
         if (CurrentTile == -1)
             Draw.Rect(v + Tile.Size * 1.1, v - Tile.Size * 1.1, Color.Orange);
