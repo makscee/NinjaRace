@@ -44,6 +44,7 @@ class MissleEffect : Effect
         {
             this.Dispose();
             Player.States.current.Die(MainParticle.Position);
+            Program.Statistics.Kills[Program.WhichPlayer(Player.GetOpponent())]++;
         }
         Engine.Update(dt);
     }

@@ -160,6 +160,7 @@
     <Compile Include="States\Game\PreShowdown.cs" />
     <Compile Include="States\Game\TournamentGame.cs" />
     <Compile Include="States\Game\TournamentShowdown.cs" />
+    <Compile Include="States\LevelEditorHelp.cs" />
     <Compile Include="States\Menu\EditControls.cs" />
     <Compile Include="States\Menu\KeyPress.cs" />
     <Compile Include="States\Menu\LevelEditor\CreateLevel.cs" />

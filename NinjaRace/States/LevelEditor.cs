@@ -33,13 +33,13 @@ class LevelEditor : UI.State
                 Program.Manager.NextState = new CreateLevel(true, level.Name.Substring(0, level.Name.Length - 2));
             else
                 Program.Manager.NextState = new MainMenu();
-        }, 20, 50);
+        }, 20, 60);
         done.Anchor = new Vec2(0.95, 0.05);
         clear = new Button("CLEAR", () => 
         {
             level.Tiles.Clear();
             RefreshTexture();
-        }, 20, 60);
+        }, 20, 70);
         Label help = new Label("PRESS F1 FOR HELP", 20);
         help.Anchor = new Vec2(0.5, 0.05);
         clear.Anchor = new Vec2(0.80, 0.05);
@@ -164,8 +164,13 @@ class LevelEditor : UI.State
         cam.FOV /= 1 + delta * 0.2;
     }
 
+    LevelEditorHelp leh = new LevelEditorHelp();
     public override void Update(double dt)
     {
+        if (Key.F1.Pressed())
+        {
+            return;
+        }
         if (App.Height != AppHeight || App.Width != AppWidth)
         {
             RefreshTexture();
@@ -241,6 +246,11 @@ class LevelEditor : UI.State
 
     public override void Render()
     {
+        if (Key.F1.Pressed())
+        {
+            leh.Render();
+            return;
+        }
         cam.Apply();
         Draw.Clear(Color.Black);
         //RenderTiles();
