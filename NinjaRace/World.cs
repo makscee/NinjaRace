@@ -206,6 +206,8 @@ class World : IUpdateable
         dt = SlowTime * dt;
         TimerContainer.Update(dt);
         Time += dt;
+        Copies[Player1].Refresh();
+        Copies[Player2].Refresh();
         UpdateForPlayer(dt, Player1);
         UpdateForPlayer(dt, Player2);
         foreach (var l in Copies)
@@ -220,8 +222,6 @@ class World : IUpdateable
         EffectsBot.Refresh();
         EffectsScreen.Update(dt);
         EffectsScreen.Refresh();
-        Copies[Player1].Refresh();
-        Copies[Player2].Refresh();
     }
     public void KeyDown(Key key)
     {
